@@ -9,10 +9,10 @@ class GenderDropdown extends StatefulWidget {
   });
 
   @override
-  _GenderDropdownState createState() => _GenderDropdownState();
+  GenderDropdownState createState() => GenderDropdownState();
 }
 
-class _GenderDropdownState extends State<GenderDropdown> {
+class GenderDropdownState extends State<GenderDropdown> {
   @override
   Widget build(BuildContext context) {
         double screenWidth = MediaQuery.of(context).size.width;

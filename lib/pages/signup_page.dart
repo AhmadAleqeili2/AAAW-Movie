@@ -1,8 +1,13 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/colors.dart';
 import 'package:just_movie/widgets/custom_button.dart';
 import 'package:just_movie/widgets/custom_text_fields.dart';
 import 'package:just_movie/widgets/gender_options.dart';
- TextEditingController genderController = TextEditingController();
+
+TextEditingController genderController = TextEditingController();
+bool isChecked = false;
+
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -13,8 +18,8 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
-        double screenWidth = MediaQuery.of(context).size.width;
-        bool isChecked = false;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -37,14 +42,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   CustomTextField(
                     hintText: 'First Name',
-                    width: screenWidth *0.4,
+                    width: screenWidth * 0.4,
                     height: 50,
                     fillColor: const Color(0xff222222),
                     hintTextColor: const Color(0XFFFFFFFF),
                   ),
                   CustomTextField(
                     hintText: 'Last Name',
-                    width: screenWidth *0.4,
+                    width: screenWidth * 0.4,
                     height: 50,
                     fillColor: const Color(0xff222222),
                     hintTextColor: const Color(0XFFFFFFFF),
@@ -54,19 +59,19 @@ class _SignUpPageState extends State<SignUpPage> {
               const SizedBox(height: 20),
 
               // Age and Gender Fields
-              
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   CustomTextField(
                     hintText: 'Age',
-                    width: screenWidth *0.4,
+                    width: screenWidth * 0.4,
                     height: 50,
                     fillColor: const Color(0xff222222),
                     hintTextColor: const Color(0XFFFFFFFF),
                   ),
-                  GenderDropdown(controller: genderController,
-
+                  GenderDropdown(
+                    controller: genderController,
                   ),
                 ],
               ),
@@ -77,7 +82,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 hintText: 'E-Mail',
                 fillColor: const Color(0xff222222),
                 hintTextColor: const Color(0XFFFFFFFF),
-                width: screenWidth *0.85,
+                width: screenWidth * 0.85,
               ),
               const SizedBox(height: 20),
               CustomTextField(
@@ -85,8 +90,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 obscureText: true,
                 fillColor: const Color(0xff222222),
                 hintTextColor: const Color(0XFFFFFFFF),
-                width: screenWidth *0.85,
-
+                width: screenWidth * 0.85,
               ),
               const SizedBox(height: 20),
               CustomTextField(
@@ -94,34 +98,80 @@ class _SignUpPageState extends State<SignUpPage> {
                 obscureText: true,
                 fillColor: const Color(0xff222222),
                 hintTextColor: const Color(0XFFFFFFFF),
-                width: screenWidth *0.85,
+                width: screenWidth * 0.85,
               ),
-              const SizedBox(height: 20),
 
-              // Terms and Conditions Text
+              Row(
+                children: [
+                  Checkbox(
+                    fillColor: WidgetStateProperty.resolveWith<Color>(
+                        (Set<WidgetState> states) {
+                      if (!isChecked) { 
+                        return primarycolor;
+                      } else {
+                        return const Color.fromARGB(
+                            255, 48, 47, 47); // اللون عند عدم التحديد
+                      }
+                    }),
+                    checkColor: Colors.red,
+                    value: isChecked,
+                    onChanged: (value) {
+                      isChecked = value ?? false;
+                      setState(() {});
+                    },
+                  ),
 
-              const SizedBox(height: 20),
-                      Checkbox(
-                          fillColor: WidgetStateProperty.resolveWith<Color>(
-    (Set<WidgetState> states) {
-      return const Color.fromARGB(255, 255, 255, 255); // اللون عند عدم التحديد
-    },
-  ),
-          value: isChecked,
-          onChanged: (bool? value) {
-            setState(() {
-              isChecked = value ?? false;
-            });
-          },
-        ),
+
+                  RichText(
+                    textAlign: TextAlign.center, // توسيط النص داخل RichText
+                    text: TextSpan(
+                      style: const TextStyle(
+                          color: Colors.white, fontSize: 10), // النص الافتراضي
+                      children: <TextSpan>[
+                        const TextSpan(
+                          text:
+                              'I have read and agree to the ', // جزء من النص العادي
+                        ),
+                        TextSpan(
+                          text: 'Privacy Policy', // جزء من النص الذي سيكون زر
+                          style: const TextStyle(
+                            color: Color(0XFFFF0000),
+                            fontWeight: FontWeight.bold, // تخصيص مظهر الزر
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              // يمكنك إضافة هنا حدث عند الضغط على الزر
+                            },
+                        ),
+                        const TextSpan(
+                          text: ' and ', // جزء من النص العادي
+                        ),
+                        TextSpan(
+                          text:
+                              'Terms & Conditions', // جزء من النص الذي سيكون زر
+                          style: const TextStyle(
+                            color: Color(0XFFFF0000),
+                            fontWeight: FontWeight.bold, // تخصيص مظهر الزر
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              // يمكنك إضافة هنا حدث عند الضغط على الزر
+                            },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 40),
               // Create Account Button
-              const CustomButton(
+              CustomButton(
                 buttonText: 'Create Account',
-                backgroundColor: Color(0XFFCC2A1B),
-               
+                backgroundColor: const Color(0XFFCC2A1B),
                 height: 50,
-                borderColor: Color(0XFFCC2A1B),
+                borderColor: const Color(0XFFCC2A1B),
                 borderWidth: 2,
+                onTap: () {},
               ),
               const SizedBox(height: 20),
             ],
