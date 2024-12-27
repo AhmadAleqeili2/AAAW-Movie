@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
+import 'package:just_movie/controller/auth_controller.dart';
+import 'package:just_movie/model/user.dart';
 import 'package:just_movie/widgets/custom_button.dart';
 import 'package:just_movie/widgets/custom_text_fields.dart';
 import 'package:just_movie/widgets/gender_options.dart';
@@ -16,10 +18,17 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+  final TextEditingController conPassController = TextEditingController();
+  final TextEditingController firstNAmeController = TextEditingController();
+  final TextEditingController lassNameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-
+    User user = User();
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -27,6 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 15,
             children: [
               const SizedBox(height: 80),
               // Logo (أو أي شيء تود إضافته أعلى الصفحة)
@@ -34,7 +44,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 'assets/image/Logo.png',
                 height: 200,
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
 
               // First Name and Last Name Fields
               Row(
@@ -46,6 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 50,
                     fillColor: const Color(0xff222222),
                     hintTextColor: const Color(0XFFFFFFFF),
+                    controller: firstNAmeController,
                   ),
                   CustomTextField(
                     hintText: 'Last Name',
@@ -53,10 +64,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 50,
                     fillColor: const Color(0xff222222),
                     hintTextColor: const Color(0XFFFFFFFF),
+                    controller: lassNameController,
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
 
               // Age and Gender Fields
 
@@ -69,13 +80,14 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 50,
                     fillColor: const Color(0xff222222),
                     hintTextColor: const Color(0XFFFFFFFF),
+                    keyboard: TextInputType.numberWithOptions(),
+                    controller: ageController,
                   ),
                   GenderDropdown(
                     controller: genderController,
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
 
               // E-mail and Password Fields
               CustomTextField(
@@ -83,22 +95,26 @@ class _SignUpPageState extends State<SignUpPage> {
                 fillColor: const Color(0xff222222),
                 hintTextColor: const Color(0XFFFFFFFF),
                 width: screenWidth * 0.85,
+                keyboard: TextInputType.emailAddress,
+                controller: emailController,
               ),
-              const SizedBox(height: 20),
               CustomTextField(
                 hintText: 'Password',
                 obscureText: true,
                 fillColor: const Color(0xff222222),
                 hintTextColor: const Color(0XFFFFFFFF),
+                isPass: true,
                 width: screenWidth * 0.85,
+                controller: passController,
               ),
-              const SizedBox(height: 20),
               CustomTextField(
                 hintText: 'Confirm Password',
                 obscureText: true,
                 fillColor: const Color(0xff222222),
                 hintTextColor: const Color(0XFFFFFFFF),
+                isPass: true,
                 width: screenWidth * 0.85,
+                controller: conPassController,
               ),
 
               Row(
@@ -106,7 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Checkbox(
                     fillColor: WidgetStateProperty.resolveWith<Color>(
                         (Set<WidgetState> states) {
-                      if (!isChecked) { 
+                      if (!isChecked) {
                         return primarycolor;
                       } else {
                         return const Color.fromARGB(
@@ -120,8 +136,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       setState(() {});
                     },
                   ),
-
-
                   RichText(
                     textAlign: TextAlign.center, // توسيط النص داخل RichText
                     text: TextSpan(
@@ -163,17 +177,70 @@ class _SignUpPageState extends State<SignUpPage> {
                   )
                 ],
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
               // Create Account Button
               CustomButton(
-                buttonText: 'Create Account',
-                backgroundColor: const Color(0XFFCC2A1B),
-                height: 50,
-                borderColor: const Color(0XFFCC2A1B),
-                borderWidth: 2,
-                onTap: () {},
-              ),
-              const SizedBox(height: 20),
+                  buttonText: 'Create Account',
+                  backgroundColor: const Color(0XFFCC2A1B),
+                  height: 50,
+                  borderColor: const Color(0XFFCC2A1B),
+                  borderWidth: 2,
+                  onTap: () {
+                    user.setAge(int.parse(ageController.value.text));
+                    user.setEmail(emailController.value.text);
+                    user.setFirstName(firstNAmeController.value.text);
+                    user.setLastName(lassNameController.value.text);
+                    user.setGender(genderController.value.text);
+                    user.setPass(passController.value.text);
+                    print(user.email());
+                    String passwordRegex =
+                        r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+
+                    bool isValidPassword(String password) {
+                      RegExp regex = RegExp(passwordRegex);
+                      return regex.hasMatch(password);
+                    }
+
+                    if ( user.age < 0) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("invalid age")),
+                      );
+                    } else if (!user.email().toString().contains('@') &&
+                        !user.email().toString().contains('.')) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("invalid email")),
+                      );
+                    } else if (user.firstName().toString().length < 2) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("invalid email")),
+                      );
+                    } else if (user.lastName().toString().length < 2) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("invalid email")),
+                      );
+                    } else if (user.gender().toString().length < 2) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("invalid email")),
+                      );
+                    } else if (!isValidPassword(user.password() ?? '')) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("invalid password")),
+                      );
+                    } else if (user.password() !=
+                        conPassController.value.text) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content:
+                                Text("confirm password not equal password")),
+                      );
+                    } else if (isChecked == false) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("forget checking")),
+                      );
+                    } else {
+                      AuthController().signUp(user, context);
+                    }
+                  }),
             ],
           ),
         ),

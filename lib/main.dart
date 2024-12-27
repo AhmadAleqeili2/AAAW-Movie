@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
-import 'pages/splash_secreen.dart'; // استيراد صفحة البداية
- // استيراد صفحة البداية الحقيقية
+import 'package:hive_flutter/adapters.dart';
+import 'package:just_movie/utils/material_app.dart';
 
-void main() {
+import 'model/boxes.dart';
+import 'model/login_token.dart';
+import 'model/user.dart';
+// استيراد صفحة البداية الحقيقية
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserAdapter());
+  Hive.registerAdapter(LoginTokenAdapter());
+  Boxes.boxUser = await Hive.openBox<User>("myUsers");
+  Boxes.boxToken = await Hive.openBox<LoginToken>("myToken");
+
   runApp(const MyApp());
 }
 
@@ -11,10 +23,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Movie',
-      home: const SplashSecreen(title: 'Splash Screen'),
-      debugShowCheckedModeBanner: false,
-    );
+    return MaterialAppUtills();
   }
 }
