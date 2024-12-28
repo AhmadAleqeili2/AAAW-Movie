@@ -194,14 +194,14 @@ class _SignUpPageState extends State<SignUpPage> {
                     user.setPass(passController.value.text);
                     print(user.email());
                     String passwordRegex =
-                        r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+                        r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_-])[A-Za-z\d@$!%*?&]{8,}$";
 
                     bool isValidPassword(String password) {
                       RegExp regex = RegExp(passwordRegex);
                       return regex.hasMatch(password);
                     }
 
-                    if ( user.age < 0) {
+                    if (user.age < 0) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("invalid age")),
                       );
@@ -224,7 +224,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       );
                     } else if (!isValidPassword(user.password() ?? '')) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("invalid password")),
+                        const SnackBar(
+                            content: Text(
+                                "password must contain at least 8 character and captal letter at least and small letter and special character")),
                       );
                     } else if (user.password() !=
                         conPassController.value.text) {

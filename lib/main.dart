@@ -12,8 +12,10 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(LoginTokenAdapter());
+
+  Boxes.boxToken = await Hive.openBox<LoginToken>("myTokens");
+
   Boxes.boxUser = await Hive.openBox<User>("myUsers");
-  Boxes.boxToken = await Hive.openBox<LoginToken>("myToken");
 
   runApp(const MyApp());
 }
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialAppUtills();
   }
 }
