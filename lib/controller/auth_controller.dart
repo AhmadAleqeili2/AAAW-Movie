@@ -14,7 +14,7 @@ class AuthController {
     print(user.password());
     print(user.gender());
 
-    Boxes.boxUser.put("K_${user.email}", user);
+    Boxes.boxUser.put(user.email(), user);
     navigateTo(context, LoginPage());
   }
 
@@ -22,11 +22,17 @@ class AuthController {
       String email, String password, BuildContext context) async {
     print(email);
     print(password);
-    print('adadas');
-    if (Boxes.boxUser.keys.contains('K_$email')) {
-      User user = Boxes.boxUser.get('K_$email');
-      if (user.password == password) {
-        Boxes.boxUser.put(
+    bool isExist=Boxes.boxUser.containsKey(email);
+    print(isExist);
+    Iterable p1 = Boxes.boxUser.keys;
+   for (var item in p1){
+    print(item);
+   }
+    // print(p1?.email());
+    if (isExist) {
+      User user = Boxes.boxUser.get(email);
+      if (user.password() == password) {
+        Boxes.boxToken.put(
             "K_$email",
             LoginToken(
                 token: Random.secure().toString(),
