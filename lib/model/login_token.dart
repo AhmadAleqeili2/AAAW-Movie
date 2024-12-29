@@ -7,7 +7,7 @@ class LoginToken {
   final String? _token;
   @HiveField(1)
   final DateTime expiryDate;
-
+ DateTime getExpiry()=>expiryDate;
   LoginToken({
     required String? token,
     required this.expiryDate,

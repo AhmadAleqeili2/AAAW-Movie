@@ -16,17 +16,19 @@ class User {
   @HiveField(5)
   String? _gender;
 
-   String  ?email() {return _email;}
+  String? email() {
+    return _email;
+  }
 
-  String  ? firstName() => _firstName;
+  String? firstName() => _firstName;
 
-  String  ? lastName() => _lastName;
+  String? lastName() => _lastName;
 
-  String  ? password() => _password;
+  String? password() => _password;
 
-  get   age => _age;
+  get age => _age;
 
-  String  ? gender ()=> _gender;
+  String? gender() => _gender;
   void setPass(String pass) => _password = pass;
   void setEmail(String email) => _email = email;
   void setFirstName(String name) => _firstName = name;
