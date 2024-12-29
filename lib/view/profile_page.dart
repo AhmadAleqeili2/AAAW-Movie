@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:just_movie/widgets/custom_list_tile.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    int count = 4;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -77,6 +79,8 @@ class ProfilePage extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
+                
+               
                 ],
               ),
             ),
@@ -118,45 +122,61 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
+            
             ListView.builder(
+              
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: 4,
+              itemCount: count,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Container(
-                    height: 70,
-                    decoration: BoxDecoration(
-                      color: Color(0XFF252525),
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 20,
-                        backgroundImage:
-                            AssetImage('assets/image/movie_logo.png'),
-                      ),
-                      title: Text(
-                        'Film name',
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                      subtitle: Text(
-                        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                        style: TextStyle(color: Colors.grey, fontSize: 12),
-                      ),
-                      trailing: IconButton(
-                        icon: Icon(Icons.edit, color: Colors.white),
-                        onPressed: () {},
-                      ),
-                    ),
+                  child: CustomTile(
+                    image: "assets/image/movie_logo.png",
+                    title:"Film name'",
+                    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                    pagenum: index,numOfPage: count,
                   ),
                 );
               },
+              
             ),
+            SizedBox(height: 20,),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                
+                width: MediaQuery.of(context).size.width * 0.3,
+                height: MediaQuery.of(context).size.height * 0.04,
+                decoration: BoxDecoration(
+                  color:Color(0xFF252525),
+                  borderRadius: BorderRadius.all(Radius.circular(50))
+                ),
+                
+              ),
+              Positioned(
+                
+                bottom: -4,
+                child:TextButton(onPressed: (){}, 
+                child: Text(".....",style: TextStyle(fontSize: 30,color: Colors.white),)))
+            
+            
+            ],
+          ),
+          SizedBox(height:200 ,)
+          
           ],
         ),
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
