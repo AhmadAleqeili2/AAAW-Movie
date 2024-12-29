@@ -9,14 +9,14 @@ class InitialPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-var dynamicToken = Boxes.boxToken.getAt(0);
-LoginToken? token;
+    var dynamicToken = Boxes.boxToken.getAt(0);
+    LoginToken? token;
 
-if (dynamicToken is LoginToken) {
-  token = dynamicToken;
-} else {
-  print('Stored value is not a LoginToken.');
-}
+    if (dynamicToken is LoginToken) {
+      token = dynamicToken;
+    } else {
+      print('Stored value is not a LoginToken.');
+    }
     final currentDate = DateTime.now();
 
     if (Boxes.boxToken.isEmpty)
