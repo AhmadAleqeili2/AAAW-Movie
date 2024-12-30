@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
-import 'package:just_movie/view/initial_page.dart';
 
 import '../utils/test-network.dart';
 

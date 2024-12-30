@@ -32,12 +32,13 @@ class _SearchWidgetState extends State<SearchWidget> {
   @override
   void initState() {
     super.initState();
-        _speech = stt.SpeechToText();
+    _speech = stt.SpeechToText();
 
     _focusNode.addListener(() {
       setState(() {});
     });
   }
+
   void _startListening() async {
     bool available = await _speech.initialize(
       onStatus: (val) => print('onStatus: $val'),
@@ -79,7 +80,8 @@ class _SearchWidgetState extends State<SearchWidget> {
               IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
-                  Navigator.pop(context);  // العودة إلى الصفحة السابقة عند الضغط على السهم
+                  Navigator.pop(
+                      context); // العودة إلى الصفحة السابقة عند الضغط على السهم
                 },
               ),
               Container(
@@ -110,7 +112,11 @@ class _SearchWidgetState extends State<SearchWidget> {
               IconButton(
                 icon: Icon(Icons.mic, color: Colors.white),
                 onPressed: () {
-                  _startListening();
+                  if (isListening) {
+                    _stopListening();
+                  } else {
+                    _startListening();
+                  }
                   print("تم الضغط على أيقونة البحث الصوتي");
                 },
               ),

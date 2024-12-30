@@ -42,13 +42,10 @@ dependencies:
   google_sign_in: ^6.2.2
   sign_in_with_apple: ^6.1.4
   http: ^1.2.2
-<<<<<<< Updated upstream
   cached_network_image: ^3.4.1
   connectivity_plus: ^6.1.1
   speech_to_text: ^7.0.0
-=======
   syncfusion_flutter_sliders: ^28.1.36
->>>>>>> Stashed changes
 
 dev_dependencies:
   flutter_test:
