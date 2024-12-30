@@ -40,7 +40,6 @@ dependencies:
   build_runner: ^2.4.14
   flutter_launcher_icons: ^0.14.2
   google_sign_in: ^6.2.2
-  sign_in_with_apple: ^6.1.4
   http: ^1.2.2
   cached_network_image: ^3.4.1
   connectivity_plus: ^6.1.1
@@ -48,6 +47,7 @@ dependencies:
   syncfusion_flutter_sliders: ^28.1.36
   flutter_staggered_animations: ^1.1.1
   skeletonizer: ^1.4.2
+  sign_in_with_apple: ^6.1.4
 
 dev_dependencies:
   flutter_test:
