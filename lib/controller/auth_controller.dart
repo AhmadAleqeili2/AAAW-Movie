@@ -5,6 +5,7 @@ import 'package:just_movie/function/navigate.dart';
 import 'package:just_movie/model/boxes.dart';
 import 'package:just_movie/model/login_token.dart';
 import 'package:just_movie/view/login_page.dart';
+import 'package:just_movie/view/move_between.dart';
 
 import '../model/user.dart';
 
@@ -41,9 +42,11 @@ class AuthController {
             LoginToken(
                 token: Random.secure().toString(),
                 expiryDate: DateTime.now().add(const Duration(days: 3))));
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Successful")),
-        );
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Wrong password")),

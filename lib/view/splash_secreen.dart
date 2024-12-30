@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/view/initial_page.dart';
 
+import '../utils/test-network.dart';
+
 class SplashSecreen extends StatefulWidget {
   const SplashSecreen({super.key, required this.title});
 
@@ -19,7 +21,7 @@ class _SplashSecreenState extends State<SplashSecreen> {
       if (mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) =>  InitialPage()),
+          MaterialPageRoute(builder: (context) =>  UtilsTestNetwok()),
         );
         
       }

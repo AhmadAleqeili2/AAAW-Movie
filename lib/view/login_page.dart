@@ -79,9 +79,7 @@ class LoginPage extends StatelessWidget {
               ordevider(),
               // Social Media Buttons (Custom Widget)
               const SocialMediaButtons(),
-              Image.network(
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAkmjw3L1Nr--OgZeBK5-SRzmoNNe2JQ250M7uhyy4aw&s=10"),
-              // Note
+             
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Center(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class SearchPage extends StatelessWidget {
   @override
@@ -20,6 +21,8 @@ class SearchWidget extends StatefulWidget {
 class _SearchWidgetState extends State<SearchWidget> {
   TextEditingController _controller = TextEditingController();
   FocusNode _focusNode = FocusNode();
+  late stt.SpeechToText _speech;
+  bool isListening = false;
 
   void _search() {
     String query = _controller.text;
@@ -29,9 +32,31 @@ class _SearchWidgetState extends State<SearchWidget> {
   @override
   void initState() {
     super.initState();
+        _speech = stt.SpeechToText();
+
     _focusNode.addListener(() {
       setState(() {});
     });
+  }
+  void _startListening() async {
+    bool available = await _speech.initialize(
+      onStatus: (val) => print('onStatus: $val'),
+      onError: (val) => print('onError: $val'),
+    );
+    if (available) {
+      setState(() => isListening = true);
+      _speech.listen(
+        onResult: (val) => setState(() {
+          _controller.text = val.recognizedWords;
+          // searchText = val.recognizedWords; // Update the search text
+        }),
+      );
+    }
+  }
+
+  void _stopListening() {
+    _speech.stop();
+    setState(() => isListening = false);
   }
 
   @override
@@ -66,9 +91,9 @@ class _SearchWidgetState extends State<SearchWidget> {
                   onSubmitted: (value) => _search(),
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    labelText: 'بحث...',
+                    labelText: 'search...',
                     labelStyle: TextStyle(color: Colors.white),
-                    hintText: 'ادخل نص البحث',
+                    hintText: 'enter text search',
                     hintStyle: TextStyle(color: Colors.white70),
                     prefixIcon: Icon(Icons.search, color: Colors.white),
                     focusedBorder: OutlineInputBorder(
@@ -85,6 +110,7 @@ class _SearchWidgetState extends State<SearchWidget> {
               IconButton(
                 icon: Icon(Icons.mic, color: Colors.white),
                 onPressed: () {
+                  _startListening();
                   print("تم الضغط على أيقونة البحث الصوتي");
                 },
               ),

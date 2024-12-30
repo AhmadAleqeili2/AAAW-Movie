@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
+import 'package:just_movie/constant/media_data.dart';
 import 'package:just_movie/widgets/scrolled_list_widget.dart';
 
 class HomePageBody extends StatefulWidget {
@@ -10,14 +14,39 @@ class HomePageBody extends StatefulWidget {
 class _HomePageBodyState extends State<HomePageBody> {
   int selectedButtonButtom = 0; // متابعة حالة الزر النشط
   int selectedButtonTop = 0;
+  int _currentIndex = 0;
+  Timer? _timer;
+
+  void _startAutoSlide() {
+    _timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+      setState(() {
+        _currentIndex = (_currentIndex + 1) % mediaData.length;
+        _startAutoSlide();
+      });
+    });
+  }
+
+  @override
+   initState() {
+    super.initState();
+    _startAutoSlide();
+  }
+
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, String>> items = [
-      {"image": "assets/image/movie_logo.png", "title": "Alp Arslan"},
-      {"image": "assets/image/movie_logo.png", "title": "Payitaht"},
-      {"image": "assets/image/movie_logo.png", "title": "Kudüs Fatihi"},
-      {"image": "assets/image/movie_logo.png", "title": "Selahaddin"},
-    ];
+    // final List<Map<String, String>> items = [
+    //   {"image": "assets/image/movie_logo.png", "title": "Alp Arslan"},
+    //   {"image": "assets/image/movie_logo.png", "title": "Payitaht"},
+    //   {"image": "assets/image/movie_logo.png", "title": "Kudüs Fatihi"},
+    //   {"image": "assets/image/movie_logo.png", "title": "Selahaddin"},
+    // ];
 
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
@@ -43,8 +72,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                         Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image:
-                                  AssetImage(items[selectedButtonButtom]["image"]!),
+                              image:CachedNetworkImageProvider( mediaData[_currentIndex]['image']),
                               fit: BoxFit.cover,
                               alignment: Alignment.topCenter,
                             ),
@@ -83,7 +111,8 @@ class _HomePageBodyState extends State<HomePageBody> {
                                 return GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      selectedButtonButtom = index; // تغيير حالة الزر
+                                      selectedButtonButtom =
+                                          index; // تغيير حالة الزر
                                     });
                                   },
                                   child: AnimatedContainer(
@@ -118,23 +147,27 @@ class _HomePageBodyState extends State<HomePageBody> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   // شعار
-                           Transform(
-                            alignment: Alignment.center,
-                            transform:
-                                Matrix4.rotationY(3.14159), // قلب الصورة أفقيًا
-                            child: Image.asset(
-                              'assets/image/Logo.png', // استبدل بمسار الشعار الخاص بك
-                              width: 50,
-                              height: 50,
-                            ),
-                          ),
+                                  Transform(
+                                    alignment: Alignment.center,
+                                    transform: Matrix4.rotationY(
+                                        3.14159), // قلب الصورة أفقيًا
+                                    child: Image.asset(
+                                      'assets/image/Logo.png', // استبدل بمسار الشعار الخاص بك
+                                      width: 50,
+                                      height: 50,
+                                    ),
+                                  ),
                                   // خيارات
                                   Row(
                                     children: [
-                                      _buildOption("All", selectedButtonTop == 0,0),
-                                      _buildOption("Movies", selectedButtonTop == 1,1),
-                                      _buildOption("Tv Show", selectedButtonTop == 2,2),
-                                      _buildOption("Series", selectedButtonTop == 3,3),
+                                      _buildOption(
+                                          "All", selectedButtonTop == 0, 0),
+                                      _buildOption(
+                                          "Movies", selectedButtonTop == 1, 1),
+                                      _buildOption(
+                                          "Tv Show", selectedButtonTop == 2, 2),
+                                      _buildOption(
+                                          "Series", selectedButtonTop == 3, 3),
                                     ],
                                   ),
                                 ],
@@ -146,8 +179,8 @@ class _HomePageBodyState extends State<HomePageBody> {
                     ),
                   ),
                 ),
-                ScrolledListWidget(items, "Recommended to you"),
-                ScrolledListWidget(items, "The Most Viewed"),
+                ScrolledListWidget(mediaData, "Recommended to you"),
+                ScrolledListWidget(mediaDataReversed, "The Most Viewed"),
               ],
             ),
           ),
@@ -156,37 +189,33 @@ class _HomePageBodyState extends State<HomePageBody> {
     );
   }
 
-  Widget _buildOption(String text, bool isSelected,int index) {
+  Widget _buildOption(String text, bool isSelected, int index) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child:Container(
-        width: 70,
-        child:  TextButton(
-        
-        onPressed: () {
-          setState(() {
-            print(selectedButtonTop);
-            // تغيير حالة الزر عند الضغط
-            selectedButtonTop = index ;
-          });
-        },
-        style: TextButton.styleFrom(
-          
-          backgroundColor: isSelected ? Colors.white : Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          
-          ),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: isSelected ? Colors.black : Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize:11
-          ),
-        ),
-      )),
+      child: Container(
+          width: 70,
+          child: TextButton(
+            onPressed: () {
+              setState(() {
+                print(selectedButtonTop);
+                // تغيير حالة الزر عند الضغط
+                selectedButtonTop = index;
+              });
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: isSelected ? Colors.white : Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            child: Text(
+              text,
+              style: TextStyle(
+                  color: isSelected ? Colors.black : Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 11),
+            ),
+          )),
     );
   }
 }
