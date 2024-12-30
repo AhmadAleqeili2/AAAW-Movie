@@ -13,7 +13,7 @@ class UserAdapter extends TypeAdapter<User> {
   @override
   User read(BinaryReader reader) {
     final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
+    <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return User();

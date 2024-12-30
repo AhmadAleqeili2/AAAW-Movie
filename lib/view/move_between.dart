@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/view/home_page1.dart';
-import 'package:just_movie/view/my_list_page.dart';
+import 'package:just_movie/view/movie_detail_page.dart';
 import 'package:just_movie/view/profile_page.dart';
 import 'package:just_movie/view/search_page.dart';
-import 'package:just_movie/widgets/bottom_navigation_bar.dart';
+import 'package:just_movie/widgets/Buttons/bottom_navigation_bar.dart';
 
 
 
@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomePage> {
   List<Widget> _pages = [
     HomePageBody(), 
     SearchPage(),  
-    MyListPage(),   
+    MovieDetile(),   
     ProfilePage(),    
   ];
 

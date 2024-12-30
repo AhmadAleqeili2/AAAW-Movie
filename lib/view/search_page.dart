@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:just_movie/colors.dart';
+import 'package:just_movie/widgets/Search/search_result_page.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
+List<String> pastsearchs = [
+  "هل اكتشف العلم الحديث طريقه لفهم غباء ايمن؟",
+  "كيف نخلي ايمن يسكت باربع خطوات",
+  "One Piece","Need For Speed","The Godfather",
+  "Star Wars: Episode V - The E....",
+  "Saving Private Ryan","Naruto Shippuden",
+];
 class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,10 +33,21 @@ class _SearchWidgetState extends State<SearchWidget> {
   late stt.SpeechToText _speech;
   bool isListening = false;
 
-  void _search() {
+void _search() {
+  setState(() {
     String query = _controller.text;
-    print("تم البحث عن: $query");
-  }
+    pastsearchs.insert(0, query);
+  });
+
+  // الانتقال إلى صفحة نتائج البحث مع إرسال الاستعلام
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => SearchResultsPage(query: _controller.text),
+    ),
+  );
+}
+
 
   @override
   void initState() {
@@ -71,59 +91,130 @@ class _SearchWidgetState extends State<SearchWidget> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
-          child: Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () {
-                  Navigator.pop(
-                      context); // العودة إلى الصفحة السابقة عند الضغط على السهم
-                },
-              ),
-              Container(
-                width: screenWidth * 0.674,
-                height: screenHeight * 0.04,
-                child: TextField(
-                  controller: _controller,
-                  focusNode: _focusNode,
-                  onSubmitted: (value) => _search(),
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    labelText: 'search...',
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: 'enter text search',
-                    hintStyle: TextStyle(color: Colors.white70),
-                    prefixIcon: Icon(Icons.search, color: Colors.white),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(35)),
-                      borderSide: BorderSide(color: Colors.red, width: 2),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(35)),
-                      borderSide: BorderSide(color: Colors.white, width: 2),
+    return SingleChildScrollView(
+      
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () {
+                    Navigator.pop(
+                        context); // العودة إلى الصفحة السابقة عند الضغط على السهم
+                  },
+                ),
+                Container(
+                  width: screenWidth * 0.674,
+                  height: screenHeight * 0.04,
+                  child: TextField(
+                    controller: _controller,
+                    focusNode: _focusNode,
+                    onSubmitted: (value) => _search(),
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      labelText: 'search...',
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintText: 'enter text search',
+                      hintStyle: TextStyle(color: Colors.white70),
+                      prefixIcon: Icon(Icons.search, color: Colors.white),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35)),
+                        borderSide: BorderSide(color: Colors.red, width: 2),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35)),
+                        borderSide: BorderSide(color: Colors.white, width: 2),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              IconButton(
-                icon: Icon(Icons.mic, color: Colors.white),
-                onPressed: () {
-                  if (isListening) {
-                    _stopListening();
-                  } else {
-                    _startListening();
-                  }
-                  print("تم الضغط على أيقونة البحث الصوتي");
-                },
-              ),
-            ],
+                IconButton(
+                  icon: Icon(Icons.mic, color: Colors.white),
+                  onPressed: () {
+                    if (isListening) {
+                      _stopListening();
+                    } else {
+                      _startListening();
+                    }
+                    print("تم الضغط على أيقونة البحث الصوتي");
+                  },
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+          ListView.builder(
+  shrinkWrap: true, // إذا كنت تستخدمه داخل ScrollView آخر
+  physics: ClampingScrollPhysics(), // لضبط حركة التمرير
+  itemCount: pastsearchs.length,
+  itemBuilder: (context, index) {
+    return pastSeache(pastsearchs[index]);
+    
+  },
+)
+
+      
+        
+        
+        ],
+      ),
     );
   }
+  Widget pastSeache(title){
+   double screenHeight =MediaQuery.of(context).size.height;
+  double screenWidth =MediaQuery.of(context).size.width;
+
+  return Row(
+        
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          
+          
+          
+ElevatedButton(
+  onPressed: () { 
+    // وضع وظيفتك هنا
+  },
+  style: ElevatedButton.styleFrom(
+    foregroundColor: Colors.white, backgroundColor: primarycolor, // لون النص
+  ),
+  child: Row(
+    spacing: 7,
+    children: [
+      Icon(Icons.search,size: screenHeight * 0.03, color: Colors.white,),
+      Container(
+        alignment: Alignment.centerLeft,
+        width: screenWidth * 0.63,
+        child: Text(title),
+      ),
+    
+    ],
+  ),
+)
+
+          
+          
+         ,
+          
+          
+        
+        IconButton(alignment: Alignment.bottomLeft
+        , icon: Image.asset("assets/image/arrow_icon_leftUp.png",height: screenHeight*0.02,), 
+        onPressed: () {  },),
+        
+        
+        ],
+        
+        
+        );
 }
+}
+
+
+
+
+
+
+

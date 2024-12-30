@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/constant/media_data.dart';
+import 'package:just_movie/view/movie_detail_page.dart';
+import 'package:just_movie/view/movie_list.dart';
 import 'package:just_movie/widgets/main_image.dart';
 import 'package:just_movie/widgets/scrolled_list_widget.dart';
 
@@ -74,8 +76,8 @@ class _HomePageBodyState extends State<HomePageBody> {
                  ),
           
                ),
-               ScrolledListWidget(mediaData, "Recommended to you"),//قائمة الجانبية
-               ScrolledListWidget(mediaDataReversed, "The Most Viewed"),
+               ScrolledListWidget(items:mediaData,title :"Recommended to you",arrowPage:MovieListView(mediaData: mediaData),WithArrow: true,),//قائمة الجانبية
+               ScrolledListWidget(items:mediaDataReversed,title :"The Most Viewed",arrowPage:(mediaData: mediaData),WithArrow: true,),
              ],
            ),
          ),

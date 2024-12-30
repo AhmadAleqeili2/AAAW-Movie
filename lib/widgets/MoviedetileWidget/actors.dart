@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget actors (){
+Widget actors (List<Map<String,String>> ActorsData,int NumOfActors){
   return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -14,7 +14,7 @@ Widget actors (){
           SingleChildScrollView(
             scrollDirection: Axis.horizontal, // تفعيل التمرير الأفقي
             child: Row(
-              children: List.generate(10, (index) {
+              children: List.generate(NumOfActors, (index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Stack(
@@ -30,8 +30,8 @@ Widget actors (){
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text("Burak Özçivit", style: TextStyle(color: Colors.white, fontSize: 11)),
-                            Text(" Age : 39", style: TextStyle(color: Colors.white, fontSize: 11)),
+                            Text(ActorsData[index]["name"]!, style: TextStyle(color: Colors.white, fontSize: 11)),
+                            Text(ActorsData[index]["age"]!, style: TextStyle(color: Colors.white, fontSize: 11)),
                             SizedBox(height: 4),
                           ],
                         ),
@@ -43,7 +43,7 @@ Widget actors (){
                           width: 80,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: NetworkImage("https://www.dmeprolink.com/wp-content/uploads/2020/03/FDH-576C.png"),
+                              image: NetworkImage(ActorsData[index]["image"]!),
                               fit: BoxFit.fill,
                             ),
                             borderRadius: BorderRadius.only(

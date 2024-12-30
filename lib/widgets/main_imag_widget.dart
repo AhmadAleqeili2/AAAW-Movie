@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:just_movie/widgets/scrolled_button_list.dart';
+import 'package:just_movie/widgets/Buttons/scrolled_button_list.dart';
 
 class MainImagWidget extends StatefulWidget {
   final List<Map<String, String>> items;

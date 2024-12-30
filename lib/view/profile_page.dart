@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:just_movie/function/navigate.dart';
+import 'package:just_movie/view/setting_page.dart';
 import 'package:just_movie/view/your_reviews_page.dart';
 import 'package:just_movie/widgets/custom_list_tile.dart';
+import 'package:just_movie/widgets/Buttons/more_button.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -29,8 +31,8 @@ class ProfilePage extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.settings, color: Colors.white, size: 28),
                   onPressed: () {
-                    // منطق الإعدادات هنا
-                  },
+navigateTo(context, SettingPage());             
+     },
                 ),
               ],
             ),
@@ -144,32 +146,7 @@ class ProfilePage extends StatelessWidget {
               
             ),
             SizedBox(height: 20,),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                
-                width: MediaQuery.of(context).size.width * 0.3,
-                height: MediaQuery.of(context).size.height * 0.04,
-                decoration: BoxDecoration(
-                  color:Color(0xFF252525),
-                  borderRadius: BorderRadius.all(Radius.circular(50))
-                ),
-                
-              ),
-              Positioned(
-                
-                bottom: -4,
-                child:TextButton(onPressed: (){
-                  navigateTo(context, YourReviewsPage());
-
-
-                }, 
-                child: Text(".....",style: TextStyle(fontSize: 30,color: Colors.white),)))
-            
-            
-            ],
-          ),
+          moreButton(context,YourReviewsPage()),
           SizedBox(height:200 ,)
           
           ],

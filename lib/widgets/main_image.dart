@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/constant/media_data.dart';
-import 'package:just_movie/widgets/scrolled_button_list.dart';
+import 'package:just_movie/widgets/Buttons/scrolled_button_list.dart';
 
 // ignore: must_be_immutable
 class imageandbutton extends StatefulWidget {
