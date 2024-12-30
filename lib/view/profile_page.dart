@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:just_movie/function/navigate.dart';
+import 'package:just_movie/view/your_reviews_page.dart';
 import 'package:just_movie/widgets/custom_list_tile.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -135,7 +137,7 @@ class ProfilePage extends StatelessWidget {
                     image: "assets/image/movie_logo.png",
                     title:"Film name'",
                     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                    pagenum: index,numOfPage: count,
+                    pagenum: index+1,numOfPage: count,
                   ),
                 );
               },
@@ -158,7 +160,11 @@ class ProfilePage extends StatelessWidget {
               Positioned(
                 
                 bottom: -4,
-                child:TextButton(onPressed: (){}, 
+                child:TextButton(onPressed: (){
+                  navigateTo(context, YourReviewsPage());
+
+
+                }, 
                 child: Text(".....",style: TextStyle(fontSize: 30,color: Colors.white),)))
             
             

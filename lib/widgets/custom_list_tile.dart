@@ -6,13 +6,17 @@ class CustomTile extends StatelessWidget {
   final String description;
   final int pagenum;
   final int numOfPage;
+  final double radius;
+  final double imgRadius;
   CustomTile({
     super.key,
     required this.image,
-    required this.title,
-    required this.description,
-    required this.pagenum,
-    required this.numOfPage
+    this.title = "",
+    this.description = "",
+     this.pagenum = 0,
+     this.numOfPage = 0,
+    this.radius = 30,
+    this.imgRadius =40
 });
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,7 @@ class CustomTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0XFF252525),
         border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(radius),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -33,7 +37,7 @@ class CustomTile extends StatelessWidget {
             children: [
               // صورة مصغرة للفيلم
               ClipRRect(
-                borderRadius: BorderRadius.circular(40),
+                borderRadius: BorderRadius.circular(imgRadius),
                 child: Image.asset(
                   image, // استبدل بالرابط الخاص بالصورة
                   width: 60,
@@ -47,7 +51,7 @@ class CustomTile extends StatelessWidget {
           SizedBox(width: 10), // مسافة صغيرة بين العمودين
           // الجزء الأيمن: اسم الفيلم والوصف
           
-             Column(
+            if(pagenum !=0)...[ Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
@@ -59,10 +63,33 @@ class CustomTile extends StatelessWidget {
                 ),
                 
               ],
-                         ),
+                         )]else...[
+                          Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  '$title',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,color: Colors.grey[700],
+                  ),
+                ),
+                
+              ],
+                         )
+
+
+
+                         ]
+                         
+                         
+                         
+                         
+                         
+                         ,
             SizedBox(width: 10,),
            Expanded(child:Text(
-               'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+               description,
                style: TextStyle(
                  fontSize: 10,
                  
