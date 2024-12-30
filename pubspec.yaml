@@ -46,6 +46,8 @@ dependencies:
   connectivity_plus: ^6.1.1
   speech_to_text: ^7.0.0
   syncfusion_flutter_sliders: ^28.1.36
+  flutter_staggered_animations: ^1.1.1
+  skeletonizer: ^1.4.2
 
 dev_dependencies:
   flutter_test:
