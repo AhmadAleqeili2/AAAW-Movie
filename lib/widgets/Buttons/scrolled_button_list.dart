@@ -55,33 +55,17 @@ class _ScrolledButtonListState extends State<ScrolledButtonList> {
                 ),
               // خيارات
               Row(
-                children: [
-                  _buildOption(
-                    widget.Bnames[0],
-                    widget.selectedButtonTop == 0,
-                    0,
-                    widget.BPress[0],
-                  ),
-                  _buildOption(
-                    widget.Bnames[1],
-                    widget.selectedButtonTop == 1,
-                    1,
-                    widget.BPress[1],
-                  ),
-                  _buildOption(
-                    widget.Bnames[2],
-                    widget.selectedButtonTop == 2,
-                    2,
-                    widget.BPress[2],
-                  ),
-                  _buildOption(
-                    widget.Bnames[3],
-                    widget.selectedButtonTop == 3,
-                    3,
-                    widget.BPress[3],
-                  ),
-                ],
-              ),
+  children: List.generate(
+    widget.BPress.length,
+    (index) => _buildOption(
+      widget.Bnames[index],
+      widget.selectedButtonTop == index,
+      index,
+      widget.BPress[index],
+    ),
+  ),
+),
+
             ],
           ),
         ),
@@ -106,7 +90,7 @@ class _ScrolledButtonListState extends State<ScrolledButtonList> {
             ),
           ),
           child: Text(
-            text,
+            text,softWrap: false,
             style: TextStyle(
               color: isSelected ? Colors.black : Colors.white,
               fontWeight: FontWeight.bold,

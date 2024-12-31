@@ -20,7 +20,7 @@ List<Map<String, dynamic>> mediaData = [
     "description": "A high school chemistry teacher turned methamphetamine producer faces challenges in his dangerous new career.",
     "rating": 9.5,
     "releaseDate": "2008-01-20",
-    "image": "https://i.ytimg.com/vi/O1gFxMoBAVw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLA0wrPQK0a1Q2zFWWz_N2woRjT6Tg",
+    "image":"https://m.media-amazon.com/images/M/MV5BMzU5ZGYzNmQtMTdhYy00OGRiLTg0NmQtYjVjNzliZTg1ZGE4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
     "video": "https://www.youtube.com/watch?v=HhesaQXLuRY",
     "genre": ["Crime", "Drama", "Thriller"],
     "cast": ["Bryan Cranston", "Aaron Paul", "Anna Gunn"],
