@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/function/navigate.dart';
 
+import '../model/movie.dart';
+
 class ScrolledListWidget extends StatelessWidget {
-  final List<Map<String, dynamic>> items;
+  final List<Media> items;
   final String title;
   final bool WithArrow;
   final arrowPage;
@@ -56,41 +58,31 @@ class ScrolledListWidget extends StatelessWidget {
               child: Row(
                 children: items.map((item) {
                   return Padding(
-                    padding: const EdgeInsets.only(
-                      right: 12.0,
-                    ),
-                    child: Container(
-                      child: Card(
-                        color: primarycolor,
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 120,
-                              height: 180,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.white, width: 0.7), // White border
-                                image: DecorationImage(
-                                  image: CachedNetworkImageProvider(item["image"]!),
-                                  fit: BoxFit.cover,
-                                ),
+                    padding: const EdgeInsets.only(right: 18.0),
+                    child: Card(
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 120,
+                            height: 180,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white, width: 0.7), // White border
+                              image: DecorationImage(
+                                image: CachedNetworkImageProvider(item.image),
+                                fit: BoxFit.cover,
                               ),
                             ),
-                            SizedBox(height: 8),
-                            SizedBox(
-                              width: 90,
-                              height: 70,
-                              child: Text(
-                                item["title"]!,
-                                style: TextStyle(
-                                    color: Color(0XFFFFFFFF), fontSize: 12),
-                                textAlign: TextAlign.center,
-                              ),
+                          ),
+                          SizedBox(height: 8),
+                          SizedBox(
+                            width: 90,
+                            height: 70,
+                            child: Text(
+                              item.title,
+                              style: TextStyle(color: Color(0XFFFFFFFF)),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
+                      )],
+                        ),                    ),
                   );
                 }).toList(),
               ),

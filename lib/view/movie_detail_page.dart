@@ -9,6 +9,8 @@ import 'package:just_movie/widgets/MoviedetileWidget/mainImage_section.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/actors.dart';
 import 'package:just_movie/widgets/Buttons/scrolled_button_list.dart';
 import 'package:just_movie/widgets/scrolled_list_widget.dart';
+
+import '../controller/movie_controller.dart';
 final List<Map<String,String>> Actors = [
   {"image":"https://images.mubicdn.net/images/cast_member/2184/cache-2992-1547409411/image-w856.jpg","name":"Tom Cruise","age":"62"}
   ,{"image":"https://images.squarespace-cdn.com/content/v1/5f58b0094108a94a07e7dbd2/1632133685347-ZUAF7GIW5G6Z3JCRSKDE/LDC+Image+for+web.jpg","name":"Leonardo DiCaprio","age":"50"}
@@ -82,12 +84,12 @@ class _MovieDetileState extends State<MovieDetile> {
                 },
                 () {
                   setState(() {
-                    isSelected = 2;conWidget = ScrolledListWidget(items:mediaData,title :"Seasons");
+                    isSelected = 2;conWidget = ScrolledListWidget(items:MovieController.media,title :"Seasons");
                   });
                 },
                 () {
                   setState(() {
-                    isSelected = 3;conWidget = ScrolledListWidget(items:mediaData,title :"Explore");
+                    isSelected = 3;conWidget = ScrolledListWidget(items:MovieController.media,title :"Explore");
                   });
                 },
               ],

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:just_movie/utils/material_app.dart';
 
 import 'model/boxes.dart';
 import 'model/login_token.dart';
 import 'model/user.dart';
+import 'utils/provider.dart';
 // استيراد صفحة البداية الحقيقية
 
 void main() async {
@@ -26,6 +26,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialAppUtills();
+    return ProviderUtils();
   }
 }

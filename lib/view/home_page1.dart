@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/constant/media_data.dart';
+import 'package:just_movie/controller/movie_controller.dart';
 import 'package:just_movie/view/movie_detail_page.dart';
 import 'package:just_movie/view/movie_list.dart';
 import 'package:just_movie/widgets/main_image.dart';
@@ -28,11 +29,10 @@ class _HomePageBodyState extends State<HomePageBody> {
   }*/
 
   @override
- /*  initState() {
+  /*  initState() {
     super.initState();
     _startAutoSlide();
   }*/
-
 
   @override
   void dispose() {
@@ -53,43 +53,50 @@ class _HomePageBodyState extends State<HomePageBody> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Stack(
-     children: [
-       Container(
-         color: primarycolor,
-         height: screenHeight,
-         width: screenWidth,
-         child: SingleChildScrollView(
-           child: Column(
-             children: [
-               InkWell(
-                 onTap: () {/*اذا بدك الصورة الرئيسية تعمل اشي لما تضغطها*/ },
-                 splashColor: Colors.blue,
-                 highlightColor: Colors.blue,
-                 child: Container(
-                   height: screenHeight * 0.40,
-                   width: screenWidth,
-                   child: imageandbutton(
-                     currentIndex: _currentIndex, // للصور 
-                    selectedButtonTop: selectedButtonTop,
-                    UperrButton: [(){},(){},(){},(){}],//تعديل الازرار الي فوق الصورة
-                    ),//ملاحظه الازرار الي تحت الصورة اكتبهم بالكلاسس نفسه
-                 ),
-          
-               ),
-               ScrolledListWidget(items:mediaData,title :"Recommended to you",arrowPage:MovieListView(mediaData: mediaData),WithArrow: true,),//قائمة الجانبية
-               ScrolledListWidget(items:mediaDataReversed,title :"The Most Viewed",arrowPage:(mediaData: mediaData),WithArrow: true,),
-             ],
-           ),
-         ),
-       ),
-     ],
-          );
+      children: [
+        Container(
+          color: primarycolor,
+          height: screenHeight,
+          width: screenWidth,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                InkWell(
+                  onTap: () {/*اذا بدك الصورة الرئيسية تعمل اشي لما تضغطها*/},
+                  splashColor: Colors.blue,
+                  highlightColor: Colors.blue,
+                  child: Container(
+                    height: screenHeight * 0.40,
+                    width: screenWidth,
+                    child: imageandbutton(
+                      currentIndex: _currentIndex, // للصور
+                      selectedButtonTop: selectedButtonTop,
+                      UperrButton: [
+                        () {},
+                        () {},
+                        () {},
+                        () {}
+                      ], //تعديل الازرار الي فوق الصورة
+                    ), //ملاحظه الازرار الي تحت الصورة اكتبهم بالكلاسس نفسه
+                  ),
+                ),
+                ScrolledListWidget(
+                  items: MovieController.media,
+                  title: "Recommended to you",
+                  arrowPage: MovieListView(mediaData: MovieController.media,),
+                  WithArrow: true,
+                ), //قائمة الجانبية
+                ScrolledListWidget(
+                  items: MovieController.media.reversed.toList(),
+                  title: "The Most Viewed",
+                  arrowPage: (mediaData: mediaData),
+                  WithArrow: true,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
-
-
-
 }
-
-
-
-

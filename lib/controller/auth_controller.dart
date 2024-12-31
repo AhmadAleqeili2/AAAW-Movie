@@ -58,4 +58,21 @@ class AuthController {
       );
     }
   }
+  User getUser(String key){
+    String keys=key.substring(2);
+    print(keys);
+    print(Boxes.boxUser.get(keys));
+    return Boxes.boxUser.get(keys);
+  }
+  bool checkAccountValidation(String email){
+    print(email);
+    bool isExist = Boxes.boxUser.containsKey(email);
+    print(isExist);
+    Iterable p1 = Boxes.boxUser.keys;
+    for (var item in p1) {
+      print(item);
+    }
+    return isExist;
+    // print(p1?.email());
+}
 }

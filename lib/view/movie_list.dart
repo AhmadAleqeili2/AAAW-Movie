@@ -3,9 +3,11 @@ import 'package:just_movie/widgets/movie..dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../model/movie.dart';
+
 class MovieListView extends StatefulWidget {
   const MovieListView({super.key, required this.mediaData});
-  final List<Map<String, dynamic>> mediaData;
+  final List<Media>? mediaData;
 
   @override
   State<MovieListView> createState() => _MovieListViewState();
@@ -43,11 +45,11 @@ class _MovieListViewState extends State<MovieListView> {
               physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics()),
               children: List.generate(
-                widget.mediaData.length,
+                widget.mediaData?.length??0,
                 (index) => MoviewWidget(
                   index: index,
-                  url: widget.mediaData[index]["image"],
-                  data: widget.mediaData[index]["title"],
+                  url: widget.mediaData![index].image,
+                  data: widget.mediaData![index].title,
                 ),
               ),
             ),

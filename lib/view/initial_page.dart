@@ -46,7 +46,7 @@ class InitialPage extends StatelessWidget {
       });
       return Container(); // Return an empty container while the dialog is shown
     } else {
-      return HomePage();
+      return LoginPage();
     }
   }
 }

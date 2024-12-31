@@ -11,7 +11,7 @@ class MaterialAppUtills extends StatelessWidget {
 
     return MaterialApp(
       title: 'Movie',
-      home: const SplashSecreen(title: 'Splash Screen'),
+      home:  MyCustomSplashScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),

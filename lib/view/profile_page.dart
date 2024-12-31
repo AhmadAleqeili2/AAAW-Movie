@@ -1,11 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/function/navigate.dart';
 import 'package:just_movie/view/setting_page.dart';
 import 'package:just_movie/view/your_reviews_page.dart';
 import 'package:just_movie/widgets/custom_list_tile.dart';
 import 'package:just_movie/widgets/Buttons/more_button.dart';
 
-class ProfilePage extends StatelessWidget {
+import '../model/boxes.dart';
+import '../model/user.dart';
+
+class ProfilePage extends StatefulWidget {
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  User user = User();
+  @override
+  void initState() {
+    final fetchedUser = AuthController().getUser(Boxes.boxToken.keys.first);
+
+    if (fetchedUser == "") {
+      // Handle the null case, either set a default user or show an error
+      // You can initialize an empty user or show a placeholder.
+      user = User(); // Or handle it as needed
+    } else {
+      user = fetchedUser;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     int count = 4;
@@ -31,8 +55,8 @@ class ProfilePage extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.settings, color: Colors.white, size: 28),
                   onPressed: () {
-navigateTo(context, SettingPage());             
-     },
+                    navigateTo(context, SettingPage());
+                  },
                 ),
               ],
             ),
@@ -48,7 +72,7 @@ navigateTo(context, SettingPage());
             ),
             SizedBox(height: 10),
             Text(
-              'User Name',
+              "${user.firstName()} ${user.lastName() ?? ""}",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -56,7 +80,7 @@ navigateTo(context, SettingPage());
               ),
             ),
             Text(
-              '~ Any text like status ~',
+              user.gender() ?? "",
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
@@ -83,8 +107,6 @@ navigateTo(context, SettingPage());
                       fontSize: 14,
                     ),
                   ),
-                
-               
                 ],
               ),
             ),
@@ -126,9 +148,7 @@ navigateTo(context, SettingPage());
               ),
             ),
             SizedBox(height: 10),
-            
             ListView.builder(
-              
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemCount: count,
@@ -137,29 +157,25 @@ navigateTo(context, SettingPage());
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: CustomTile(
                     image: "assets/image/movie_logo.png",
-                    title:"Film name'",
-                    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                    pagenum: index+1,numOfPage: count,
+                    title: "Film name'",
+                    description:
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                    pagenum: index + 1,
+                    numOfPage: count,
                   ),
                 );
               },
-              
             ),
-            SizedBox(height: 20,),
-          moreButton(context,YourReviewsPage()),
-          SizedBox(height:200 ,)
-          
+            SizedBox(
+              height: 20,
+            ),
+            moreButton(context, YourReviewsPage()),
+            SizedBox(
+              height: 200,
+            )
           ],
         ),
       ),
     );
   }
 }
-
-
-
-
-
-
-
-

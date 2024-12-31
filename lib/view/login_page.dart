@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart'; // تأكد من إضافة هذه المكتبة لاستخدام TapGestureRecognizer
 import 'package:just_movie/controller/auth_controller.dart';
+import 'package:just_movie/view/forget_password.dart';
 import 'package:just_movie/view/signup_page.dart';
 import 'package:just_movie/widgets/Buttons/custom_text_button.dart';
 import 'package:just_movie/widgets/Buttons/custom_button.dart';
@@ -8,6 +9,8 @@ import 'package:just_movie/widgets/custom_text_fields.dart';
 import 'package:just_movie/function/navigate.dart';
 import 'package:just_movie/widgets/or_devider.dart';
 import 'package:just_movie/widgets/social_media_buttons.dart';
+
+import 'slide_transition.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -50,7 +53,9 @@ class LoginPage extends StatelessWidget {
               ),
               CustomTextButton(
                 buttonText: 'Forget Your password ?',
-                onPressed: () {},
+                onPressed: () {
+                      Navigator.push(context, ScaleTransition1(ForgotPassword()));
+                },
               ),
 
               Row(
@@ -71,7 +76,7 @@ class LoginPage extends StatelessWidget {
                     backgroundColor: const Color(0XFF000000),
                     borderColor: const Color(0XFFCC2A1B),
                     onTap: () {
-                      navigateTo(context, SignUpPage());
+                      Navigator.push(context, ScaleTransition1(SignUpPage()));
                     },
                   ),
                 ],
@@ -79,7 +84,7 @@ class LoginPage extends StatelessWidget {
               ordevider(),
               // Social Media Buttons (Custom Widget)
               const SocialMediaButtons(),
-             
+
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Center(
