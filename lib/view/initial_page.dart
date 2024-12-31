@@ -34,7 +34,7 @@ class InitialPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop(); // Close the dialog
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(builder: (context) => HomePage()),
                     );
                   },
                   child: Text('OK'),

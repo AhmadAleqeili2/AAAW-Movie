@@ -19,88 +19,85 @@ class _HomePageBodyState extends State<HomePageBody> {
   Timer? _timer;
 
   void _startAutoSlide() {
-    _timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+  _timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+    if (mounted) {
       setState(() {
         _currentIndex = (_currentIndex + 1) % mediaData.length;
-        _startAutoSlide();
       });
-    });
-  }
+    } else {
+      timer.cancel();
+    }
+  });
+}
 
-  @override
-  initState() {
-    super.initState();
-    _startAutoSlide();
-  }
+@override
+initState() {
+  super.initState();
+  _startAutoSlide();
+}
 
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
+@override
+void dispose() {
+  _timer?.cancel();
+  super.dispose();
+}
 
-  @override
-  Widget build(BuildContext context) {
-    // final List<Map<String, String>> items = [
-    //   {"image": "assets/image/movie_logo.png", "title": "Alp Arslan"},
-    //   {"image": "assets/image/movie_logo.png", "title": "Payitaht"},
-    //   {"image": "assets/image/movie_logo.png", "title": "Kudüs Fatihi"},
-    //   {"image": "assets/image/movie_logo.png", "title": "Selahaddin"},
-    // ];
+@override
+Widget build(BuildContext context) {
+  double screenHeight = MediaQuery.of(context).size.height;
+  double screenWidth = MediaQuery.of(context).size.width;
 
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-    _startAutoSlide();
-
-    return Stack(
-      children: [
-        Container(
-          color: primarycolor,
-          height: screenHeight,
-          width: screenWidth,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                InkWell(
-                  onTap: () {/*اذا بدك الصورة الرئيسية تعمل اشي لما تضغطها*/},
-                  splashColor: Colors.blue,
-                  highlightColor: Colors.blue,
-                  child: Container(
-                    height: screenHeight * 0.40,
-                    width: screenWidth,
-                    child: imageandbutton(
-                      currentIndex: _currentIndex, // للصور
-                      selectedButtonTop: selectedButtonTop,
-                      UperrButton: [
-                        () {},
-                        () {},
-                        () {},
-                        () {}
-                      ], //تعديل الازرار الي فوق الصورة
-                    ), //ملاحظه الازرار الي تحت الصورة اكتبهم بالكلاسس نفسه
+  return Stack(
+    children: [
+      Container(
+        color: primarycolor,
+        height: screenHeight,
+        width: screenWidth,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              InkWell(
+                onTap: () {},
+                splashColor: Colors.blue,
+                highlightColor: Colors.blue,
+                child: Container(
+                  height: screenHeight * 0.40,
+                  width: screenWidth,
+                  child: imageandbutton(
+                    currentIndex: _currentIndex,
+                    selectedButtonTop: selectedButtonTop,
+                    UperrButton: [
+                      () {},
+                      () {},
+                      () {},
+                      () {}
+                    ],
                   ),
                 ),
-                ScrolledListWidget(
-                  items: MovieController.media,
-                  title: "Recommended to you",
-                  arrowPage: MovieListView(
-                    mediaData: MovieController.media,
-                  ),
-                  WithArrow: true,
-                ), //قائمة الجانبية
-                ScrolledListWidget(
-                  items: MovieController.media.reversed.toList(),
-                  title: "The Most Viewed",
-                  arrowPage:MovieListView(
-                    mediaData: MovieController.media.reversed.toList(),
-                  ),
-                  WithArrow: true,
+              ),
+              ScrolledListWidget(
+                items: MovieController.media,
+                title: "Recommended to you",
+                arrowPage: MovieListView(
+                  mediaData: MovieController.media,
                 ),
-              ],
-            ),
+                WithArrow: true,
+              ),
+              ScrolledListWidget(
+                items: MovieController.media.reversed.toList(),
+                title: "The Most Viewed",
+                arrowPage: MovieListView(
+                  mediaData: MovieController.media.reversed.toList(),
+                ),
+                WithArrow: true,
+              ),
+            ],
           ),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
 }
+
+  }
+

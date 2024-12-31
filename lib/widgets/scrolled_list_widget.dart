@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/colors.dart';
 import 'package:just_movie/function/navigate.dart';
 
 import '../model/movie.dart';
@@ -20,6 +21,7 @@ class ScrolledListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: primarycolor,
       // color: primarycolor,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -58,6 +60,7 @@ class ScrolledListWidget extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(right: 18.0),
                     child: Card(
+                      color: primarycolor,
                       child: Column(
                         children: [
                           Container(
@@ -78,8 +81,8 @@ class ScrolledListWidget extends StatelessWidget {
                             width: 90,
                             height: 70,
                             child: Text(
-                              item.title,
-                              style: TextStyle(color: Color(0XFFFFFFFF)),
+                              item.title,textAlign: TextAlign.center,
+                              style: TextStyle(color: Color(0XFFFFFFFF),fontSize: 12),
                             ),
                           )
                         ],
