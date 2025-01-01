@@ -4,7 +4,7 @@ import 'package:just_movie/colors.dart';
 import 'package:just_movie/constant/media_data.dart';
 import 'package:just_movie/controller/movie_controller.dart';
 import 'package:just_movie/view/movie_list.dart';
-import 'package:just_movie/widgets/main_image.dart';
+import 'package:just_movie/widgets/HomePageWidgets/main_image.dart';
 import 'package:just_movie/widgets/scrolled_list_widget.dart';
 
 class HomePageBody extends StatefulWidget {

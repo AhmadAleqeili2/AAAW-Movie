@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/function/navigate.dart';
+import 'package:just_movie/view/movie_detail_page.dart';
 
 import '../model/movie.dart';
 
@@ -57,35 +58,45 @@ class ScrolledListWidget extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: items.map((item) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 18.0),
-                    child: Card(
-                      color: primarycolor,
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 120,
-                            height: 180,
-                            decoration: BoxDecoration(
-                              border: Border.all(
+                  return GestureDetector(
+                    onTap: () {
+                     navigateTo(context, MovieDetile(MovieData: item,)) ;
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 18.0),
+                      child: Card(
+                        color: primarycolor,
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 120,
+                              height: 180,
+                              decoration: BoxDecoration(
+                                border: Border.all(
                                   color: Colors.white,
-                                  width: 0.7), // White border
-                              image: DecorationImage(
-                                image: CachedNetworkImageProvider(item.image),
-                                fit: BoxFit.cover,
+                                  width: 0.7, // White border
+                                ),
+                                image: DecorationImage(
+                                  image: CachedNetworkImageProvider(item.image),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(height: 8),
-                          SizedBox(
-                            width: 90,
-                            height: 70,
-                            child: Text(
-                              item.title,textAlign: TextAlign.center,
-                              style: TextStyle(color: Color(0XFFFFFFFF),fontSize: 12),
+                            SizedBox(height: 8),
+                            SizedBox(
+                              width: 90,
+                              height: 70,
+                              child: Text(
+                                item.title,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0XFFFFFFFF),
+                                  fontSize: 12,
+                                ),
+                              ),
                             ),
-                          )
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );

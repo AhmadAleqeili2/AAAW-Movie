@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
-import 'package:just_movie/constant/media_data.dart';
+import 'package:just_movie/model/movie.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/Epsoid.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/PeopleReviews.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/ReviewSection.dart';
@@ -35,7 +35,14 @@ final List<Map<String, String>> items = [
 ];
 
 class MovieDetile extends StatefulWidget {
-  const MovieDetile({Key? key}) : super(key: key);
+
+  final Media MovieData;
+  const MovieDetile( {
+    
+    Key? key,
+    required this.MovieData
+  
+  }) : super(key: key);
 
   @override
   _MovieDetileState createState() => _MovieDetileState();
@@ -60,9 +67,9 @@ class _MovieDetileState extends State<MovieDetile> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            MainImageSection(),
+            MainImageSection(Image: widget.MovieData.image,youtubeVideoId:widget.MovieData.video,isClicked: false,),
             SizedBox(height: 20),
-            EpisodeDetails(),
+            EpisodeDetails(Data: widget.MovieData,),
             SizedBox(height: 20),
             ScrolledButtonList(
               notSelectedColor: Color.fromARGB(100, 217, 217, 217),

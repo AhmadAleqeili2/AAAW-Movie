@@ -1,36 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:just_movie/model/movie.dart';
 
 class EpisodeDetails extends StatelessWidget {
-
-  final Map<String, String> item = {
-    "image": "assets/image/movie_logo.png",
-    "title": "Alp Arslan",
-    "day": "thursday",
-    "season": "5",
-    "star": "4.7/5",
-    "desc":
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  };
-
+  final Media Data;
+  EpisodeDetails(
+    {
+      super.key,
+      required this.Data
+    }
+  );
   @override
   Widget build(BuildContext context) {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(item["title"]!, style: TextStyle(fontSize: 27)),
-        Text("Season " + item["season"]!),
+        Text(Data.title, style: TextStyle(fontSize: 27)),
+        Text("Season " + "1"),
         SizedBox(height: 20),
         Row(
           spacing: 15,
           children: [
             MyListButton(),
-            RatingColumn(star: item["star"]!),
-            CalendarColumn(day: item["day"]!),
+            RatingColumn(star:  Data.rating.toString()),
+            CalendarColumn(day: Data.releaseDate),
           ],
         ),
         SizedBox(height: 20),
-        Text(item["desc"]!),
+        Text(Data.description),
       ],
     );
   }
