@@ -58,8 +58,6 @@ Widget build(BuildContext context) {
             children: [
               InkWell(
                 onTap: () {},
-                splashColor: Colors.blue,
-                highlightColor: Colors.blue,
                 child: Container(
                   height: screenHeight * 0.40,
                   width: screenWidth,

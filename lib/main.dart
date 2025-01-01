@@ -24,11 +24,11 @@ void main() async {
 
   runApp(EasyLocalization(
       supportedLocales: [
-        Locale('en', 'US'),
-        Locale('ar', 'Ar'),
+        Locale('en'),
+        Locale('ar'),
       ],
-      fallbackLocale: Locale('en', 'US'),
-      path: 'resources/langs',
+      fallbackLocale: Locale('en'),
+      path: 'assets/lang',
       child: const MyApp()));
 }
 

@@ -34,7 +34,7 @@ class InitialPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop(); // Close the dialog
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(builder: (context) => LoginPage()),
                     );
                   },
                   child: Text('OK'),
@@ -46,7 +46,7 @@ class InitialPage extends StatelessWidget {
       });
       return Container(); // Return an empty container while the dialog is shown
     } else {
-      return HomePage();
+      return LoginPage();
     }
   }
 }

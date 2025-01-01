@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_movie/colors.dart';
 import 'package:just_movie/widgets/movie..dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -31,7 +32,8 @@ class _MovieListViewState extends State<MovieListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: primarycolor,
+      appBar: AppBar(backgroundColor: primarycolor,),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: AnimationLimiter(

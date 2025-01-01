@@ -26,8 +26,7 @@ class _HomeScreenState extends State<HomePage> {
   ];
   @override
   void initState() {
-    MovieController movieController =
-        Provider.of<MovieController>(context, listen: false);
+    MovieController movieController =MovieController();
     movieController.getAllMedia();
     super.initState();
   }

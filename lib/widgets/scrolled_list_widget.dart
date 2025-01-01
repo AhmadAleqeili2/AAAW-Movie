@@ -55,8 +55,10 @@ class ScrolledListWidget extends StatelessWidget {
             SizedBox(height: 10),
             // Horizontal List
             SingleChildScrollView(
+              
               scrollDirection: Axis.horizontal,
               child: Row(
+              
                 children: items.map((item) {
                   return GestureDetector(
                     onTap: () {

@@ -12,38 +12,36 @@ class MoviewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,
-      child: Card(
-        child: AnimationConfiguration.staggeredGrid(
-            position: index,
-            duration: Duration(milliseconds: 1000),
-            columnCount: columnCount,
-            child: ScaleAnimation(
-                duration: Duration(milliseconds: 1900),
-                curve: Curves.fastLinearToSlowEaseIn,
-                child: FadeInAnimation(
-                    child: SafeArea(
-                  child: Column(
-                    spacing: 8,
-                    children: [
-                      CachedNetworkImage(
-                        imageUrl: url,
-                        height: 150,
-                        width: 150,
-                        fit: BoxFit.cover,
-                      ),
-                      Center(
-                        child: SizedBox(
-                            height: 17,
-                            child: Text(
-                              data,
-                              style: TextStyle(fontSize: 13),
-                            )),
-                      )
-                    ],
-                  ),
-                )))),
-      ),
+      height: 33300,
+      child: AnimationConfiguration.staggeredGrid(
+          position: index,
+          duration: Duration(milliseconds: 1000),
+          columnCount: columnCount,
+          child: ScaleAnimation(
+              duration: Duration(milliseconds: 1900),
+              curve: Curves.fastLinearToSlowEaseIn,
+              child: FadeInAnimation(
+                  child: SafeArea(
+                child: Column(
+                  spacing: 8,
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: url,
+                      height: 150,
+                      width: 100,
+                      fit: BoxFit.cover,
+                    ),
+                    Center(
+                      child: SizedBox(
+                          height: 17,
+                          child: Text(
+                            data,
+                            style: TextStyle(fontSize: 13),
+                          )),
+                    )
+                  ],
+                ),
+              )))),
     );
   }
 }
