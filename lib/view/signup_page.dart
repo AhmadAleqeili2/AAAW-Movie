@@ -201,7 +201,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       return regex.hasMatch(password);
                     }
 
-                    if (user.age < 0) {
+                    if ((user.age()??0) < 0) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("invalid age")),
                       );

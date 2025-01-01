@@ -8,8 +8,11 @@ import 'model/boxes.dart';
 import 'model/login_token.dart';
 import 'model/user.dart';
 // استيراد صفحة البداية الحقيقية
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
+    await dotenv.load(); // Load the .env file
+
   //new for Walid and asem
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
