@@ -19,7 +19,6 @@ class _MyListPageState extends State<MyListPage> {
         title: Text('My List'),
         centerTitle: true,
         backgroundColor: Colors.black,
-        leading: Icon(Icons.edit),
       ),
       body: Column(
         children: [

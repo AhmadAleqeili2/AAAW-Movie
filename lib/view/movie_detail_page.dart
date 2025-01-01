@@ -11,13 +11,33 @@ import 'package:just_movie/widgets/Buttons/scrolled_button_list.dart';
 import 'package:just_movie/widgets/scrolled_list_widget.dart';
 
 import '../controller/movie_controller.dart';
-final List<Map<String,String>> Actors = [
-  {"image":"https://images.mubicdn.net/images/cast_member/2184/cache-2992-1547409411/image-w856.jpg","name":"Tom Cruise","age":"62"}
-  ,{"image":"https://images.squarespace-cdn.com/content/v1/5f58b0094108a94a07e7dbd2/1632133685347-ZUAF7GIW5G6Z3JCRSKDE/LDC+Image+for+web.jpg","name":"Leonardo DiCaprio","age":"50"}
-  ,{"image":"https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/1366_v9_bc.jpg","name":"Brad Pitt","age":"61"}
-  ,{"image":"https://parade.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MjEwOTc3Mjc4ODI0Mjk0MjI1/morgan-freeman.jpg","name":"Morgan Freeman","age":"87"}
-];
 
+final List<Map<String, String>> Actors = [
+  {
+    "image":
+        "https://images.mubicdn.net/images/cast_member/2184/cache-2992-1547409411/image-w856.jpg",
+    "name": "Tom Cruise",
+    "age": "62"
+  },
+  {
+    "image":
+        "https://images.squarespace-cdn.com/content/v1/5f58b0094108a94a07e7dbd2/1632133685347-ZUAF7GIW5G6Z3JCRSKDE/LDC+Image+for+web.jpg",
+    "name": "Leonardo DiCaprio",
+    "age": "50"
+  },
+  {
+    "image":
+        "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/1366_v9_bc.jpg",
+    "name": "Brad Pitt",
+    "age": "61"
+  },
+  {
+    "image":
+        "https://parade.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MjEwOTc3Mjc4ODI0Mjk0MjI1/morgan-freeman.jpg",
+    "name": "Morgan Freeman",
+    "age": "87"
+  }
+];
 
 final List<Map<String, String>> items = [
   {
@@ -35,25 +55,21 @@ final List<Map<String, String>> items = [
 ];
 
 class MovieDetile extends StatefulWidget {
-
-  final Media MovieData;
-  const MovieDetile( {
-    
-    Key? key,
-    required this.MovieData
-  
-  }) : super(key: key);
+  const MovieDetile({Key? key, required this.movie}) : super(key: key);
+  final Media movie;
 
   @override
   _MovieDetileState createState() => _MovieDetileState();
 }
 
 class _MovieDetileState extends State<MovieDetile> {
-  Widget conWidget = Epsoid(Number_Of_Eps: 4, 
-  Eps_data: items,
+  Widget conWidget = Epsoid(
+    Number_Of_Eps: 4,
+    Eps_data: items,
   );
-  Widget EpsWidget = Epsoid(Number_Of_Eps: 4, 
-  Eps_data: items,
+  Widget EpsWidget = Epsoid(
+    Number_Of_Eps: 4,
+    Eps_data: items,
   );
   int isSelected = 0;
   int count = 5;
@@ -67,9 +83,13 @@ class _MovieDetileState extends State<MovieDetile> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            MainImageSection(Image: widget.MovieData.image,youtubeVideoId:widget.MovieData.video,isClicked: false,),
+            MainImageSection(
+              Image: widget.movie.image,
+              youtubeVideoId: widget.movie.video,
+              isClicked: false,
+            ),
             SizedBox(height: 20),
-            EpisodeDetails(Data: widget.MovieData,),
+            EpisodeDetails(Data: widget.movie,),
             SizedBox(height: 20),
             ScrolledButtonList(
               notSelectedColor: Color.fromARGB(100, 217, 217, 217),
@@ -86,25 +106,28 @@ class _MovieDetileState extends State<MovieDetile> {
                 },
                 () {
                   setState(() {
-                    isSelected = 1;conWidget = actors(Actors,Actors.length);
+                    isSelected = 1;
+                    conWidget = actors(Actors, Actors.length);
                   });
                 },
                 () {
                   setState(() {
-                    isSelected = 2;conWidget = ScrolledListWidget(items:MovieController.media,title :"Seasons");
+                    isSelected = 2;
+                    conWidget = ScrolledListWidget(
+                        items: MovieController.media, title: "Seasons");
                   });
                 },
                 () {
                   setState(() {
-                    isSelected = 3;conWidget = ScrolledListWidget(items:MovieController.media,title :"Explore");
+                    isSelected = 3;
+                    conWidget = ScrolledListWidget(
+                        items: MovieController.media, title: "Explore");
                   });
                 },
               ],
             ),
             SizedBox(height: 20),
             conWidget,
-
-            
             ReviewSection(
               reviewController: _reviewController,
               ratingValue: value,

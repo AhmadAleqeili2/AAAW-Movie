@@ -8,8 +8,6 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../widgets/movie..dart';
 
 List<String> pastsearchs = [
-  "هل اكتشف العلم الحديث طريقه لفهم غباء ايمن؟",
-  "كيف نخلي ايمن يسكت باربع خطوات",
   "One Piece",
   "Need For Speed",
   "The Godfather",
@@ -40,24 +38,59 @@ class _SearchWidgetState extends State<SearchWidget> {
   FocusNode _focusNode = FocusNode();
   late stt.SpeechToText _speech;
   bool isListening = false;
-void _search() {
-  if (_controller.text.trim().isEmpty) {
-    // Show an error message or simply return
-    return;
+  String selectedFilter = 'Genre';
+  String selectedFilter2 = 'Age';
+
+  List<String> filterOptions = ['Genre', 'Action', 'Drama', 'Comedy', 'Horror'];
+  List<String> filterOptions2 = [
+    "Age",
+    "PG-13",
+    "TV-MA",
+    "R",
+    "TV-14",
+    "TV-PG"
+  ];
+
+  List<Media> filteredMedia = [];
+  bool isFilter = false;
+  void _search() {
+    if (_controller.text.trim().isEmpty) {
+      // Show an error message or simply return
+      return;
+    }
+    setState(() {
+      String query = _controller.text.trim();
+      pastsearchs.insert(0, query);
+    });
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SearchResultsPage(query: _controller.text),
+      ),
+    );
   }
-  setState(() {
-    String query = _controller.text.trim();
-    pastsearchs.insert(0, query);
-  });
 
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => SearchResultsPage(query: _controller.text),
-    ),
-  );
-}
+  void applyFilter() {
+    setState(() {
+      filteredMedia = MovieController.media.where((item) {
+        // Check title
+        bool matchesTitle =
+            item.title.toLowerCase().contains(_controller.text.toLowerCase());
 
+        // Check genre filter (ignore if 'Genre' is selected)
+        bool matchesGenre =
+            selectedFilter == 'Genre' || item.genre.contains(selectedFilter);
+
+        // Check age rating filter (ignore if 'Age' is selected)
+        bool matchesAgeRating =
+            selectedFilter2 == 'Age' || item.ageRating == selectedFilter2;
+
+        // Return true only if all conditions are met
+        return matchesTitle && matchesGenre && matchesAgeRating;
+      }).toList();
+    });
+  }
 
   @override
   void initState() {
@@ -68,47 +101,43 @@ void _search() {
       setState(() {});
     });
   }
-void _startListening() async {
-  bool available = await _speech.initialize(
-    onStatus: (val) => print('onStatus: $val'),
-    onError: (val) => print('onError: $val'),
-  );
-  if (available) {
-    setState(() => isListening = true);
-    _speech.listen(
-      onResult: (val) {
-        setState(() {
-          _controller.text = val.recognizedWords;
-          if (!val.hasConfidenceRating && val.recognizedWords.isNotEmpty) {
-            _search();
-          }
-        });
-      },
+
+  void _startListening() async {
+    bool available = await _speech.initialize(
+      onStatus: (val) => print('onStatus: $val'),
+      onError: (val) => print('onError: $val'),
     );
+    if (available) {
+      setState(() => isListening = true);
+      _speech.listen(
+        onResult: (val) {
+          setState(() {
+            _controller.text = val.recognizedWords;
+            if (!val.hasConfidenceRating && val.recognizedWords.isNotEmpty) {
+              _search();
+            }
+          });
+        },
+      );
+    }
   }
-}
+
   void _stopListening() {
     _speech.stop();
     setState(() => isListening = false);
   }
 
-
-@override
-void dispose() {
-  _speech.stop(); // Stop listening on dispose
-  _focusNode.dispose();
-  super.dispose();
-}
+  @override
+  void dispose() {
+    _speech.stop(); // Stop listening on dispose
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-List<Media> filteredMedia = MovieController.media
-      .where((item) =>
-          item.title.toLowerCase().contains(_controller.text.toLowerCase()))
-      .toList();
-
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -124,6 +153,9 @@ List<Media> filteredMedia = MovieController.media
                       //!  Navigator.pop(
                       //!   context); // العودة إلى الصفحة السابقة عند الضغط على السهم
                       //! wrong navigator this will make crash for the app
+                      applyFilter();
+                      isFilter = !isFilter;
+                      setState(() {});
                     },
                   ),
                   Container(
@@ -150,10 +182,7 @@ List<Media> filteredMedia = MovieController.media
                         ),
                       ),
                       onChanged: (value) {
-                        
-                        setState(() {
-                          
-                        });
+                        applyFilter();
                       },
                     ),
                   ),
@@ -176,6 +205,10 @@ List<Media> filteredMedia = MovieController.media
                   ),
                 ],
               ),
+            ),
+            Visibility(
+              visible: isFilter,
+              child: filter(context),
             ),
             SizedBox(
               height: 50,
@@ -200,7 +233,10 @@ List<Media> filteredMedia = MovieController.media
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   children: List.generate(filteredMedia.length, (index) {
-                  return MoviewWidget(url: filteredMedia[index].image, data: filteredMedia[index].title, index: index);
+                    return MoviewWidget(
+                        url: filteredMedia[index].image,
+                        data: filteredMedia[index].title,
+                        index: index);
                   }),
                 ),
               ),
@@ -252,5 +288,86 @@ List<Media> filteredMedia = MovieController.media
         ),
       ],
     );
+  }
+
+  Widget filter(BuildContext context) {
+    return SafeArea(
+      child: Column(
+        children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                DropdownButton<String>(
+                  hint: Text("Genre"),
+                  value: filterOptions.contains(selectedFilter)
+                      ? selectedFilter
+                      : filterOptions.first, // Ensure valid default
+                  items: filterOptions.map((String filter) {
+                    return DropdownMenuItem<String>(
+                      value: filter,
+                      child: Text(
+                        filter,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedFilter = value!;
+                      _debouncedApplyFilter();
+                    });
+                  },
+                  dropdownColor: primarycolor,
+                  style: TextStyle(color: Colors.white),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(width: 10), // Add spacing for better UI
+                DropdownButton<String>(
+                  hint: Text("Age"),
+
+                  value: filterOptions2.contains(selectedFilter2)
+                      ? selectedFilter2
+                      : filterOptions2.first, // Ensure valid default
+                  items: filterOptions2.map((String filter) {
+                    return DropdownMenuItem<String>(
+                      value: filter,
+                      child: Text(
+                        filter,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedFilter2 = value!;
+                      _debouncedApplyFilter();
+                    });
+                  },
+                  dropdownColor: primarycolor,
+                  style: TextStyle(color: Colors.white),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+// Debounce method to reduce frequent `applyFilter` calls
+  void _debouncedApplyFilter() {
+    if (mounted) {
+      applyFilter();
+      setState(() {});
+    }
   }
 }

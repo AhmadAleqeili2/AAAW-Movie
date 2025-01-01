@@ -60,7 +60,11 @@ class ScrolledListWidget extends StatelessWidget {
                 children: items.map((item) {
                   return GestureDetector(
                     onTap: () {
-                     navigateTo(context, MovieDetile(MovieData: item,)) ;
+                      navigateTo(
+                          context,
+                          MovieDetile(
+                            movie: item,
+                          ));
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 18.0),

@@ -38,7 +38,7 @@ class AuthController {
       User user = Boxes.boxUser.get(email);
       if (user.password() == password) {
         Boxes.boxToken.put(
-            "K_$email",
+            "$email",
             LoginToken(
                 token: Random.secure().toString(),
                 expiryDate: DateTime.now().add(const Duration(days: 3))));
@@ -58,13 +58,13 @@ class AuthController {
       );
     }
   }
-  User getUser(String key){
-    String keys=key.substring(2);
-    print(keys);
-    print(Boxes.boxUser.get(keys));
-    return Boxes.boxUser.get(keys);
+
+  User getUser(String key) {
+    print(Boxes.boxUser.get(key));
+    return Boxes.boxUser.get(key);
   }
-  bool checkAccountValidation(String email){
+
+  bool checkAccountValidation(String email) {
     print(email);
     bool isExist = Boxes.boxUser.containsKey(email);
     print(isExist);
@@ -74,5 +74,20 @@ class AuthController {
     }
     return isExist;
     // print(p1?.email());
-}
+  }
+
+  void deleteAccount(BuildContext context) {
+    Boxes.boxUser.delete(Boxes.boxToken.keys.first);
+    Boxes.boxToken.clear();
+    navigateTo(context, LoginPage());
+  }
+
+  void logout(BuildContext context) {
+    Boxes.boxToken.clear();
+    navigateTo(context, LoginPage());
+  }
+  void changeUserInfo(User user){
+    Boxes.boxUser.put(user.email(), user);
+
+  }
 }

@@ -8,31 +8,40 @@ import 'package:just_movie/widgets/Buttons/more_button.dart';
 
 import '../model/boxes.dart';
 import '../model/user.dart';
-
 class ProfilePage extends StatefulWidget {
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  User user = User();
+  late User? user;
+  bool isUserFetched = false;
+
   @override
   void initState() {
-    final fetchedUser = AuthController().getUser(Boxes.boxToken.keys.first);
-
-    if (fetchedUser == "") {
-      // Handle the null case, either set a default user or show an error
-      // You can initialize an empty user or show a placeholder.
-      user = User(); // Or handle it as needed
-    } else {
-      user = fetchedUser;
-    }
     super.initState();
+    fetchUser();
   }
 
+  void fetchUser() {
+    final fetchedUser = AuthController().getUser(Boxes.boxToken.keys.first);
+
+    setState(() {
+      if (fetchedUser == "" || fetchedUser == null) {
+        user = User(); // Default user object
+      } else {
+        user = fetchedUser;
+      }
+      isUserFetched = true;
+    });
+  }
+int count=0;
   @override
   Widget build(BuildContext context) {
-    int count = 4;
+    if (!isUserFetched) {
+      return Center(child: CircularProgressIndicator());
+    }
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -45,9 +54,9 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Transform(
                   alignment: Alignment.center,
-                  transform: Matrix4.rotationY(3.14159), // قلب الصورة أفقيًا
+                  transform: Matrix4.rotationY(3.14159), // Flip horizontally
                   child: Image.asset(
-                    'assets/image/Logo.png', // استبدل بمسار الشعار الخاص بك
+                    'assets/image/Logo.png',
                     width: 50,
                     height: 50,
                   ),
@@ -63,16 +72,25 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(height: 20),
             CircleAvatar(
               radius: 80,
-              backgroundColor: Color(0XFFD9D9D9),
-              child: Icon(
-                Icons.person,
-                size: 130,
-                color: const Color(0xFF6F6F6F),
-              ),
+              backgroundColor: const Color(0XFFD9D9D9),
+              child: user?.image() != null
+                  ? ClipOval(
+                      child: Image.asset(
+                        user!.image()!,
+                        fit: BoxFit.cover,
+                        width: 160,
+                        height: 160,
+                      ),
+                    )
+                  : Icon(
+                      Icons.person,
+                      size: 130,
+                      color: const Color(0xFF6F6F6F),
+                    ),
             ),
             SizedBox(height: 10),
             Text(
-              "${user.firstName()} ${user.lastName() ?? ""}",
+              "${user?.firstName() ?? 'Guest'} ${user?.lastName() ?? ''}",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -80,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Text(
-              user.gender() ?? "",
+              user?.gender() ?? "Not specified",
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
@@ -120,19 +138,15 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               height: 175,
-              child: Stack(
-                children: [
-                  Center(
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.play_arrow_rounded,
-                        size: 70,
-                        color: Colors.red,
-                      ),
-                      onPressed: () {},
-                    ),
+              child: Center(
+                child: IconButton(
+                  icon: Icon(
+                    Icons.play_arrow_rounded,
+                    size: 70,
+                    color: Colors.red,
                   ),
-                ],
+                  onPressed: () {},
+                ),
               ),
             ),
             SizedBox(height: 20),
@@ -157,7 +171,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: CustomTile(
                     image: "assets/image/movie_logo.png",
-                    title: "Film name'",
+                    title: "Film name",
                     description:
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                     pagenum: index + 1,
@@ -166,13 +180,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 );
               },
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             moreButton(context, YourReviewsPage()),
-            SizedBox(
-              height: 200,
-            )
+            SizedBox(height: 50),
           ],
         ),
       ),

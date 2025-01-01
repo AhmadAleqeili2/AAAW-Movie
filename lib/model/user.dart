@@ -15,11 +15,15 @@ class User {
   int? _age;
   @HiveField(5)
   String? _gender;
+ @HiveField(6)
+  String? _image;
 
   String? email() {
     return _email;
   }
-
+  String? image() {
+    return _image;
+  }
   String? firstName() => _firstName;
 
   String? lastName() => _lastName;
@@ -35,6 +39,7 @@ class User {
   void setLastName(String name) => _lastName = name;
   void setAge(int age) => _age = age;
   void setGender(String gender) => _gender = gender;
+  void setImage(String image) => _image = image;
 
   User();
 }
