@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:just_movie/utils/material_app.dart';
 
@@ -29,7 +30,7 @@ void main() async {
       ],
       fallbackLocale: Locale('en'),
       path: 'assets/lang',
-      child: const MyApp()));
+      child: KeyboardVisibilityProvider(child: const MyApp())));
 }
 
 class MyApp extends StatelessWidget {

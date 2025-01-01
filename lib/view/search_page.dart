@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/controller/movie_controller.dart';
 import 'package:just_movie/model/media.dart';
@@ -138,111 +139,113 @@ class _SearchWidgetState extends State<SearchWidget> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.filter_list, color: Colors.white),
-                    onPressed: () {
-                      //!  Navigator.pop(
-                      //!   context); // العودة إلى الصفحة السابقة عند الضغط على السهم
-                      //! wrong navigator this will make crash for the app
-                      applyFilter();
-                      isFilter = !isFilter;
-                      setState(() {});
-                    },
-                  ),
-                  Container(
-                    width: screenWidth * 0.674,
-                    height: screenHeight * 0.04,
-                    child: TextField(
-                      controller: _controller,
-                      focusNode: _focusNode,
-                      onSubmitted: (value) => _search(),
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        labelText: 'search...',
-                        labelStyle: TextStyle(color: Colors.white),
-                        hintText: 'enter text search',
-                        hintStyle: TextStyle(color: Colors.white70),
-                        prefixIcon: Icon(Icons.search, color: Colors.white),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(35)),
-                          borderSide: BorderSide(color: Colors.red, width: 2),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(35)),
-                          borderSide: BorderSide(color: Colors.white, width: 2),
-                        ),
+    final bool isKeyboardVisible =
+        KeyboardVisibilityProvider.isKeyboardVisible(context);
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.filter_list, color: Colors.white),
+                  onPressed: () {
+                    //!  Navigator.pop(
+                    //!   context); // العودة إلى الصفحة السابقة عند الضغط على السهم
+                    //! wrong navigator this will make crash for the app
+                    applyFilter();
+                    isFilter = !isFilter;
+                    setState(() {});
+                  },
+                ),
+                Container(
+                  width: screenWidth * 0.674,
+                  height: screenHeight * 0.04,
+                  child: TextField(
+                    controller: _controller,
+                    focusNode: _focusNode,
+                    onSubmitted: (value) => _search(),
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      labelText: 'search...',
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintText: 'enter text search',
+                      hintStyle: TextStyle(color: Colors.white70),
+                      prefixIcon: Icon(Icons.search, color: Colors.white),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35)),
+                        borderSide: BorderSide(color: Colors.red, width: 2),
                       ),
-                      onChanged: (value) {
-                        applyFilter();
-                      },
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35)),
+                        borderSide: BorderSide(color: Colors.white, width: 2),
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      isListening ? Icons.mic : Icons.mic_none,
-                      color: isListening
-                          ? const Color.fromARGB(255, 255, 17, 0)
-                          : Colors.white,
-                      weight: isListening ? 20 : 10,
-                    ),
-                    onPressed: () {
-                      if (isListening) {
-                        _stopListening();
-                      } else {
-                        _startListening();
-                      }
-                      print("تم الضغط على أيقونة البحث الصوتي");
+                    
+                    onChanged: (value) {
+                      
+                      applyFilter();
                     },
                   ),
-                ],
-              ),
+                ),
+                IconButton(
+                  icon: Icon(
+                    isListening ? Icons.mic : Icons.mic_none,
+                    color: isListening
+                        ? const Color.fromARGB(255, 255, 17, 0)
+                        : Colors.white,
+                    weight: isListening ? 20 : 10,
+                  ),
+                  onPressed: () {
+                    if (isListening) {
+                      _stopListening();
+                    } else {
+                      _startListening();
+                    }
+                    print("تم الضغط على أيقونة البحث الصوتي");
+                  },
+                ),
+              ],
             ),
-            Visibility(
-              visible: isFilter,
-              child: filter(context),
-            ),
-            SizedBox(
-              height: 50,
+          ),
+          Visibility(
+            visible: isFilter,
+            child: filter(context),
+          ),
+          Visibility(
+            visible: isKeyboardVisible,
+            child: Container(
+              height: screenHeight * 0.2,
               child: ListView.builder(
                 shrinkWrap: true, // إذا كنت تستخدمه داخل ScrollView آخر
-                physics: ClampingScrollPhysics(), // لضبط حركة التمرير
-                itemCount: pastsearchs.length,
+                itemCount: 3,
+                
+                padding: EdgeInsets.symmetric(vertical: 10),
                 itemBuilder: (context, index) {
-                  return pastSeache(pastsearchs[index]);
+                  return pastSeache(pastsearchs[index]) ;
                 },
               ),
             ),
-            SizedBox(
-              height: 40,
+          ),
+          
+          SizedBox(
+            height: screenHeight ,
+            child: GridView.count(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              
+              physics: NeverScrollableScrollPhysics(),
+              children: List.generate(filteredMedia.length, (index) {
+                return MoviewWidget(
+                    url: filteredMedia[index].image,
+                    data: filteredMedia[index].title,
+                    index: index);
+              }),
             ),
-            SizedBox(
-              height: 200,
-              child: Padding(
-                padding: EdgeInsets.all(10),
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  children: List.generate(filteredMedia.length, (index) {
-                    return MoviewWidget(
-                        url: filteredMedia[index].image,
-                        data: filteredMedia[index].title,
-                        index: index);
-                  }),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

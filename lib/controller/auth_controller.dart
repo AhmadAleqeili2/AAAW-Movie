@@ -55,7 +55,7 @@ class AuthController {
     }
   }
 
-  User getUser(String key) {
+  User? getUser(String key) {
     return Boxes.boxUser.get(key);
   }
 

@@ -12,7 +12,7 @@ class MoviewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 33300,
+      height: 100,
       child: AnimationConfiguration.staggeredGrid(
           position: index,
           duration: Duration(milliseconds: 1000),
