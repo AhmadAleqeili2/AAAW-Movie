@@ -6,7 +6,7 @@ class ScaleTransition1 extends PageRouteBuilder {
   ScaleTransition1(this.page)
       : super(
     pageBuilder: (context, animation, anotherAnimation) => page,
-    transitionDuration: Duration(milliseconds: 12500),
+    transitionDuration: Duration(milliseconds: 10000),
     reverseTransitionDuration: Duration(milliseconds: 2000),
     transitionsBuilder: (context, animation, anotherAnimation, child) {
       animation = CurvedAnimation(

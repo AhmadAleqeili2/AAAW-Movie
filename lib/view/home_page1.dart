@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/constant/media_data.dart';
 import 'package:just_movie/controller/movie_controller.dart';
-import 'package:just_movie/view/movie_detail_page.dart';
 import 'package:just_movie/view/movie_list.dart';
 import 'package:just_movie/widgets/main_image.dart';
 import 'package:just_movie/widgets/scrolled_list_widget.dart';
@@ -19,20 +18,20 @@ class _HomePageBodyState extends State<HomePageBody> {
   int _currentIndex = 0;
   Timer? _timer;
 
-  /*void _startAutoSlide() {
+  void _startAutoSlide() {
     _timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
       setState(() {
         _currentIndex = (_currentIndex + 1) % mediaData.length;
         _startAutoSlide();
       });
     });
-  }*/
+  }
 
   @override
-  /*  initState() {
+  initState() {
     super.initState();
     _startAutoSlide();
-  }*/
+  }
 
   @override
   void dispose() {
@@ -51,6 +50,7 @@ class _HomePageBodyState extends State<HomePageBody> {
 
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    _startAutoSlide();
 
     return Stack(
       children: [
@@ -83,13 +83,17 @@ class _HomePageBodyState extends State<HomePageBody> {
                 ScrolledListWidget(
                   items: MovieController.media,
                   title: "Recommended to you",
-                  arrowPage: MovieListView(mediaData: MovieController.media,),
+                  arrowPage: MovieListView(
+                    mediaData: MovieController.media,
+                  ),
                   WithArrow: true,
                 ), //قائمة الجانبية
                 ScrolledListWidget(
                   items: MovieController.media.reversed.toList(),
                   title: "The Most Viewed",
-                  arrowPage: (mediaData: mediaData),
+                  arrowPage:MovieListView(
+                    mediaData: MovieController.media.reversed.toList(),
+                  ),
                   WithArrow: true,
                 ),
               ],

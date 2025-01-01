@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:just_movie/colors.dart';
 import 'package:just_movie/function/navigate.dart';
 
 import '../model/movie.dart';
@@ -11,9 +10,8 @@ class ScrolledListWidget extends StatelessWidget {
   final bool WithArrow;
   final arrowPage;
 
-  ScrolledListWidget(
-
-     {required this.title,
+  ScrolledListWidget({
+    required this.title,
     this.WithArrow = false, // Default value set to false
     this.arrowPage,
     required this.items,
@@ -21,10 +19,10 @@ class ScrolledListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        color: primarycolor,
+    return Card(
+      // color: primarycolor,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -66,7 +64,9 @@ class ScrolledListWidget extends StatelessWidget {
                             width: 120,
                             height: 180,
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.white, width: 0.7), // White border
+                              border: Border.all(
+                                  color: Colors.white,
+                                  width: 0.7), // White border
                               image: DecorationImage(
                                 image: CachedNetworkImageProvider(item.image),
                                 fit: BoxFit.cover,
@@ -81,8 +81,10 @@ class ScrolledListWidget extends StatelessWidget {
                               item.title,
                               style: TextStyle(color: Color(0XFFFFFFFF)),
                             ),
-                      )],
-                        ),                    ),
+                          )
+                        ],
+                      ),
+                    ),
                   );
                 }).toList(),
               ),
@@ -93,4 +95,3 @@ class ScrolledListWidget extends StatelessWidget {
     );
   }
 }
-

@@ -38,7 +38,6 @@ dependencies:
   hive: ^2.2.3
   hive_generator: ^2.0.1
   build_runner: ^2.4.14
-  flutter_launcher_icons: ^0.14.2
   google_sign_in: ^6.2.2
   http: ^1.2.2
   cached_network_image: ^3.4.1
@@ -50,15 +49,12 @@ dependencies:
   sign_in_with_apple: ^6.1.4
   provider: ^6.1.2
   animations: ^2.0.11
+  sqflite: ^2.4.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-flutter_launcher_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/icon/icon.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
+
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
