@@ -80,66 +80,70 @@ class _MovieDetileState extends State<MovieDetile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primarycolor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            MainImageSection(
-              Image: widget.movie.image,
-              youtubeVideoId: widget.movie.video,
-              isClicked: false,
-            ),
-            SizedBox(height: 20),
-            EpisodeDetails(Data: widget.movie,),
-            SizedBox(height: 20),
-            ScrolledButtonList(
-              notSelectedColor: Color.fromARGB(100, 217, 217, 217),
-              isSelectedColor: Color.fromARGB(200, 255, 255, 255),
-              selectedButtonTop: isSelected,
-              width: 75,
-              Bnames: ["Episodes", "Actors", "Seasons", "Explore"],
-              BPress: [
-                () {
+      appBar: AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              MainImageSection(
+                Image: widget.movie.image,
+                youtubeVideoId: widget.movie.video,
+                isClicked: false,
+              ),
+              SizedBox(height: 20),
+              EpisodeDetails(Data: widget.movie,),
+              SizedBox(height: 20),
+              ScrolledButtonList(
+                notSelectedColor: Color.fromARGB(100, 217, 217, 217),
+                isSelectedColor: Color.fromARGB(200, 255, 255, 255),
+                selectedButtonTop: isSelected,
+                width: 75,
+                Bnames: ["Episodes", "Actors", "Seasons", "Explore"],
+                BPress: [
+                  () {
+                    setState(() {
+                      isSelected = 0;
+                      conWidget = EpsWidget;
+                    });
+                  },
+                  () {
+                    setState(() {
+                      isSelected = 1;
+                      conWidget = actors(widget.movie.cast, Actors.length);
+                    });
+                  },
+                  () {
+                    setState(() {
+                      isSelected = 2;
+                      conWidget = ScrolledListWidget(
+                          items: MovieController.media, title: "Seasons");
+                    });
+                  },
+                  () {
+                    setState(() {
+                      isSelected = 3;
+                      conWidget = ScrolledListWidget(
+                          items: MovieController.media, title: "Explore");
+                    });
+                  },
+                ],
+              ),
+              SizedBox(height: 20),
+              conWidget,
+              ReviewSection(
+                reviewController: _reviewController,
+                ratingValue: value,
+                onRatingChanged: (newValue) {
                   setState(() {
-                    isSelected = 0;
-                    conWidget = EpsWidget;
+                    value = newValue;
                   });
                 },
-                () {
-                  setState(() {
-                    isSelected = 1;
-                    conWidget = actors(widget.movie.cast, Actors.length);
-                  });
-                },
-                () {
-                  setState(() {
-                    isSelected = 2;
-                    conWidget = ScrolledListWidget(
-                        items: MovieController.media, title: "Seasons");
-                  });
-                },
-                () {
-                  setState(() {
-                    isSelected = 3;
-                    conWidget = ScrolledListWidget(
-                        items: MovieController.media, title: "Explore");
-                  });
-                },
-              ],
-            ),
-            SizedBox(height: 20),
-            conWidget,
-            ReviewSection(
-              reviewController: _reviewController,
-              ratingValue: value,
-              onRatingChanged: (newValue) {
-                setState(() {
-                  value = newValue;
-                });
-              },
-            ),
-            PeopleReviews(count: count),
-            SizedBox(height: 100),
-          ],
+              ),
+              PeopleReviews(count: count),
+              SizedBox(height: 100),
+            ],
+          ),
         ),
       ),
     );

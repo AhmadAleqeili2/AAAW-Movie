@@ -6,19 +6,18 @@ class MainImageWidget extends StatefulWidget {
   final String imagePath;
   final String youtubeVideoId;
   final bool isClicked;
-  const MainImageWidget({
-    Key? key,
-    required this.imagePath,
-    required this.youtubeVideoId,
-    required this.isClicked
-  }) : super(key: key);
+  const MainImageWidget(
+      {Key? key,
+      required this.imagePath,
+      required this.youtubeVideoId,
+      required this.isClicked})
+      : super(key: key);
 
   @override
   State<MainImageWidget> createState() => _MainImageWidgetState();
 }
 
 class _MainImageWidgetState extends State<MainImageWidget> {
-
   late YoutubePlayerController _youtubeController;
 
   @override
@@ -48,17 +47,7 @@ class _MainImageWidgetState extends State<MainImageWidget> {
     return Stack(
       children: [
         Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(90),
-              bottomRight: Radius.circular(90),
-            ),
-          ),
           child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(90),
-              bottomRight: Radius.circular(90),
-            ),
             child: widget.isClicked
                 ? YoutubePlayer(
                     controller: _youtubeController,
@@ -81,12 +70,6 @@ class _MainImageWidgetState extends State<MainImageWidget> {
             colorFilter: ColorFilter.mode(
               const Color.fromARGB(40, 0, 0, 0),
               BlendMode.darken,
-            ),
-            child: Image.asset(
-              "assets/image/Shadow.png",
-              fit: BoxFit.cover,
-              height: screenHeight * 0.40,
-              width: screenWidth,
             ),
           ),
       ],

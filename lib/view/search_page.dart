@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/controller/movie_controller.dart';
@@ -146,67 +147,70 @@ class _SearchWidgetState extends State<SearchWidget> {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-            child: Row(
-              children: [
-                IconButton(
-                  icon: Icon(Icons.filter_list, color: Colors.white),
-                  onPressed: () {
-                    //!  Navigator.pop(
-                    //!   context); // العودة إلى الصفحة السابقة عند الضغط على السهم
-                    //! wrong navigator this will make crash for the app
-                    applyFilter();
-                    isFilter = !isFilter;
-                    setState(() {});
-                  },
-                ),
-                Container(
-                  width: screenWidth * 0.674,
-                  height: screenHeight * 0.04,
-                  child: TextField(
-                    controller: _controller,
-                    focusNode: _focusNode,
-                    onSubmitted: (value) => _search(),
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      labelText: 'search...',
-                      labelStyle: TextStyle(color: Colors.white),
-                      hintText: 'enter text search',
-                      hintStyle: TextStyle(color: Colors.white70),
-                      prefixIcon: Icon(Icons.search, color: Colors.white),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(35)),
-                        borderSide: BorderSide(color: Colors.red, width: 2),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(35)),
-                        borderSide: BorderSide(color: Colors.white, width: 2),
-                      ),
-                    ),
-                    
-                    onChanged: (value) {
-                      
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.filter_list, color: Colors.white),
+                    onPressed: () {
+                      //!  Navigator.pop(
+                      //!   context); // العودة إلى الصفحة السابقة عند الضغط على السهم
+                      //! wrong navigator this will make crash for the app
                       applyFilter();
+                      isFilter = !isFilter;
+                      setState(() {});
                     },
                   ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    isListening ? Icons.mic : Icons.mic_none,
-                    color: isListening
-                        ? const Color.fromARGB(255, 255, 17, 0)
-                        : Colors.white,
-                    weight: isListening ? 20 : 10,
+                  Container(
+                    width: screenWidth * 0.674,
+                    height: screenHeight * 0.04,
+                    child: TextField(
+                      controller: _controller,
+                      focusNode: _focusNode,
+                      onSubmitted: (value) => _search(),
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        labelText: 'search...',
+                        labelStyle: TextStyle(color: Colors.white),
+                        hintText: 'enter text search',
+                        hintStyle: TextStyle(color: Colors.white70),
+                        prefixIcon: Icon(Icons.search, color: Colors.white),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(35)),
+                          borderSide: BorderSide(color: Colors.red, width: 2),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(35)),
+                          borderSide: BorderSide(color: Colors.white, width: 2),
+                        ),
+                      ),
+                      
+                      onChanged: (value) {
+                        
+                        applyFilter();
+                      },
+                    ),
                   ),
-                  onPressed: () {
-                    if (isListening) {
-                      _stopListening();
-                    } else {
-                      _startListening();
-                    }
-                    print("تم الضغط على أيقونة البحث الصوتي");
-                  },
-                ),
-              ],
+                  IconButton(
+                    icon: Icon(
+                      isListening ? Icons.mic : Icons.mic_none,
+                      color: isListening
+                          ? const Color.fromARGB(255, 255, 17, 0)
+                          : Colors.white,
+                      weight: isListening ? 20 : 10,
+                    ),
+                    onPressed: () {
+                      if (isListening) {
+                        _stopListening();
+                      } else {
+                        _startListening();
+                      }
+                      print("تم الضغط على أيقونة البحث الصوتي");
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
           Visibility(
@@ -229,20 +233,23 @@ class _SearchWidgetState extends State<SearchWidget> {
             ),
           ),
           
-          SizedBox(
-            height: screenHeight ,
-            child: GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              
-              physics: NeverScrollableScrollPhysics(),
-              children: List.generate(filteredMedia.length, (index) {
-                return MoviewWidget(
-                    url: filteredMedia[index].image,
-                    data: filteredMedia[index].title,
-                    index: index);
-              }),
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: SizedBox(
+              height: screenHeight ,
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                
+                physics: NeverScrollableScrollPhysics(),
+                children: List.generate(filteredMedia.length, (index) {
+                  return MoviewWidget(
+                      url: filteredMedia[index].image,
+                      data: filteredMedia[index].title,
+                      index: index);
+                }),
+              ),
             ),
           ),
         ],
