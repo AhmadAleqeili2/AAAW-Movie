@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:just_movie/model/movie.dart';
+import 'package:just_movie/model/media.dart';
 
 class EpisodeDetails extends StatelessWidget {
   final Media Data;

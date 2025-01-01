@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/controller/movie_controller.dart';
-import 'package:just_movie/model/movie.dart';
+import 'package:just_movie/model/media.dart';
 import 'package:just_movie/widgets/Search/search_result_page.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 

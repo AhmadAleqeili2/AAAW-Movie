@@ -3,7 +3,7 @@ import 'package:just_movie/widgets/movie..dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../model/movie.dart';
+import '../model/media.dart';
 
 class MovieListView extends StatefulWidget {
   const MovieListView({super.key, required this.mediaData});

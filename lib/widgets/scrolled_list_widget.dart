@@ -4,7 +4,7 @@ import 'package:just_movie/colors.dart';
 import 'package:just_movie/function/navigate.dart';
 import 'package:just_movie/view/movie_detail_page.dart';
 
-import '../model/movie.dart';
+import '../model/media.dart';
 
 class ScrolledListWidget extends StatelessWidget {
   final List<Media> items;

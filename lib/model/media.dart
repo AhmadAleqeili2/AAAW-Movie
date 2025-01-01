@@ -43,21 +43,4 @@ class Media {
       ageRating: json['ageRating'],
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'title': title,
-      'type': type,
-      'description': description,
-      'rating': rating,
-      'releaseDate': releaseDate,
-      'image': image,
-      'video': video,
-      'genre': genre,
-      'cast': cast,
-      'director': director,
-      'duration': duration,
-      'ageRating': ageRating,
-    };
-  }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
-import 'package:just_movie/model/movie.dart';
+import 'package:just_movie/model/media.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/Epsoid.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/PeopleReviews.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/ReviewSection.dart';

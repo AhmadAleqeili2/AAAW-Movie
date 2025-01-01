@@ -12,10 +12,7 @@ import '../model/user.dart';
 class AuthController {
   /// [signUp] giving a user data and put it in user box and generate objective id then navigate to login page
   void signUp(User user, BuildContext context) {
-    print(user.email());
-    print(user.password());
-    print(user.gender());
-
+  
     Boxes.boxUser.put(user.email(), user);
     navigateTo(context, LoginPage());
   }
@@ -25,8 +22,7 @@ class AuthController {
   ///if not exist will return snack bar
   Future<void> login(
       String email, String password, BuildContext context) async {
-    print(email);
-    print(password);
+ 
     bool isExist = Boxes.boxUser.containsKey(email);
     print(isExist);
     Iterable p1 = Boxes.boxUser.keys;
@@ -60,7 +56,6 @@ class AuthController {
   }
 
   User getUser(String key) {
-    print(Boxes.boxUser.get(key));
     return Boxes.boxUser.get(key);
   }
 
