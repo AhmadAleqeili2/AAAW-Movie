@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/controller/movie_controller.dart';
 import 'package:just_movie/view/home_page1.dart';
@@ -42,12 +43,19 @@ class _HomeScreenState extends State<HomePage> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      child: Scaffold(
-        backgroundColor: primarycolor,
-        body: _pages[_selectedIndex], // عرض الصفحة حسب الـ selectedIndex
-        bottomNavigationBar: BottomNavigationBarWidget(
-          selectedIndex: _selectedIndex,
-          onItemTapped: _onItemTapped,
+      child: KeyboardDismissOnTap(
+        child: Scaffold(
+            resizeToAvoidBottomInset: true,
+        
+          backgroundColor: primarycolor,
+          body: _pages[_selectedIndex], // عرض الصفحة حسب الـ selectedIndex
+          bottomNavigationBar: SafeArea(
+            
+            child: BottomNavigationBarWidget(
+              selectedIndex: _selectedIndex,
+              onItemTapped: _onItemTapped,
+            ),
+          ),
         ),
       ),
     );
