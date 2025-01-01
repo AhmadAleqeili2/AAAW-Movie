@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class MoviewWidget extends StatelessWidget {
-  const MoviewWidget({super.key, required this.url, required this.data,required this.index});
+  const MoviewWidget(
+      {super.key, required this.url, required this.data, required this.index});
   final String url;
   final String data;
   final int columnCount = 2;
-final int index;
+  final int index;
   @override
   Widget build(BuildContext context) {
     return SizedBox(

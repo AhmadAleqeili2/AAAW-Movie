@@ -19,7 +19,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
   @override
   void initState() {
     super.initState();
-    _controller.text = widget.query;  // تعيين الاستعلام المُرسل في المربع
+    _controller.text = widget.query; // تعيين الاستعلام المُرسل في المربع
   }
 
   @override
@@ -30,7 +30,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(height: screenHeight * 0.05,),
+          SizedBox(
+            height: screenHeight * 0.05,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
             child: Row(
@@ -38,7 +40,8 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                 IconButton(
                   icon: Icon(Icons.arrow_back, color: Colors.white),
                   onPressed: () {
-                    Navigator.pop(context); // العودة إلى الصفحة السابقة عند الضغط على السهم
+                    Navigator.pop(
+                        context); // العودة إلى الصفحة السابقة عند الضغط على السهم
                   },
                 ),
                 Container(
@@ -50,7 +53,8 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                     onSubmitted: (value) {
                       // يمكنك تحديث النتائج بناءً على النص المدخل هنا
                       setState(() {
-                        searchResults = List.generate(20, (index) => 'نتيجة جديدة $index');
+                        searchResults =
+                            List.generate(20, (index) => 'نتيجة جديدة $index');
                       });
                     },
                     style: TextStyle(color: Colors.white),
@@ -80,27 +84,25 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
               ],
             ),
           ),
-          
-             GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // عدد الأعمدة
-                crossAxisSpacing: 10, // المسافة بين الأعمدة
-                mainAxisSpacing: 10, // المسافة بين الصفوف
-              ),
-              itemCount: searchResults.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  color: Colors.blueAccent,
-                  child: Center(
-                    child: Text(
-                      searchResults[index],
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                );
-              },
+          GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, // عدد الأعمدة
+              crossAxisSpacing: 10, // المسافة بين الأعمدة
+              mainAxisSpacing: 10, // المسافة بين الصفوف
             ),
-          
+            itemCount: searchResults.length,
+            itemBuilder: (context, index) {
+              return Card(
+                color: Colors.blueAccent,
+                child: Center(
+                  child: Text(
+                    searchResults[index],
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );

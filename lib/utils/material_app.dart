@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../view/splash_secreen.dart';
@@ -11,11 +12,14 @@ class MaterialAppUtills extends StatelessWidget {
 
     return MaterialApp(
       title: 'Movie',
-      home:  MyCustomSplashScreen(),
+      home: MyCustomSplashScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: themeMode,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
     );
   }
 }

@@ -3,7 +3,6 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/controller/movie_controller.dart';
 import 'package:just_movie/view/home_page1.dart';
-import 'package:just_movie/view/movie_detail_page.dart';
 import 'package:just_movie/view/my_list.dart';
 import 'package:just_movie/view/profile_page.dart';
 import 'package:just_movie/view/search_page.dart';

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -9,6 +10,8 @@ import 'utils/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(LoginTokenAdapter());
@@ -17,7 +20,14 @@ void main() async {
 
   Boxes.boxUser = await Hive.openBox<User>("myUsers");
 
-  runApp(const MyApp());
+  runApp(EasyLocalization(
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('ar', 'Ar'),
+      ],
+      fallbackLocale: Locale('en', 'US'),
+      path: 'resources/langs',
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -25,7 +35,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ProviderUtils();
   }
 }

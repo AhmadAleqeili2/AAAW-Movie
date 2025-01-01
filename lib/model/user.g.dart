@@ -35,9 +35,8 @@ class UserAdapter extends TypeAdapter<User> {
       ..write(obj._age)
       ..writeByte(5)
       ..write(obj._gender)
-            ..writeByte(6)
+      ..writeByte(6)
       ..write(obj._image);
-      
   }
 
   @override

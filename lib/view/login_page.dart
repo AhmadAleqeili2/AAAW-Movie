@@ -6,7 +6,6 @@ import 'package:just_movie/view/signup_page.dart';
 import 'package:just_movie/widgets/Buttons/custom_text_button.dart';
 import 'package:just_movie/widgets/Buttons/custom_button.dart';
 import 'package:just_movie/widgets/custom_text_fields.dart';
-import 'package:just_movie/function/navigate.dart';
 import 'package:just_movie/widgets/or_devider.dart';
 import 'package:just_movie/widgets/social_media_buttons.dart';
 
