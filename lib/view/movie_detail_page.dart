@@ -107,7 +107,7 @@ class _MovieDetileState extends State<MovieDetile> {
                 () {
                   setState(() {
                     isSelected = 1;
-                    conWidget = actors(Actors, Actors.length);
+                    conWidget = actors(widget.movie.cast, Actors.length);
                   });
                 },
                 () {

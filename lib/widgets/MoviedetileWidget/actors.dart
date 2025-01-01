@@ -1,6 +1,33 @@
 import 'package:flutter/material.dart';
+final List<Map<String, String>> ActorsImage = [
+  {
+    "image":
+        "https://images.mubicdn.net/images/cast_member/2184/cache-2992-1547409411/image-w856.jpg",
+    "name": "Tom Cruise",
+    "age": "62"
+  },
+  {
+    "image":
+        "https://images.squarespace-cdn.com/content/v1/5f58b0094108a94a07e7dbd2/1632133685347-ZUAF7GIW5G6Z3JCRSKDE/LDC+Image+for+web.jpg",
+    "name": "Leonardo DiCaprio",
+    "age": "50"
+  },
+  {
+    "image":
+        "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/1366_v9_bc.jpg",
+    "name": "Brad Pitt",
+    "age": "61"
+  },
+  {
+    "image":
+        "https://parade.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MjEwOTc3Mjc4ODI0Mjk0MjI1/morgan-freeman.jpg",
+    "name": "Morgan Freeman",
+    "age": "87"
+  }
+];
 
-Widget actors (List<Map<String,String>> ActorsData,int NumOfActors){
+Widget actors (List<String> ActorsData,int NumOfActors){
+  
   return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -30,8 +57,7 @@ Widget actors (List<Map<String,String>> ActorsData,int NumOfActors){
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(ActorsData[index]["name"]!, style: TextStyle(color: Colors.white, fontSize: 11)),
-                            Text(ActorsData[index]["age"]!, style: TextStyle(color: Colors.white, fontSize: 11)),
+                            Text(ActorsData[index], style: TextStyle(color: Colors.white, fontSize: 11)),
                             SizedBox(height: 4),
                           ],
                         ),
@@ -43,7 +69,7 @@ Widget actors (List<Map<String,String>> ActorsData,int NumOfActors){
                           width: 80,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: NetworkImage(ActorsData[index]["image"]!),
+                              image: NetworkImage(ActorsImage[index%4]["image"]!),
                               fit: BoxFit.fill,
                             ),
                             borderRadius: BorderRadius.only(
