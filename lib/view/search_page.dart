@@ -5,7 +5,7 @@ import 'package:just_movie/model/media.dart';
 import 'package:just_movie/widgets/Search/search_result_page.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
-import '../widgets/movie..dart';
+import '../widgets/movie.dart';
 
 List<String> pastsearchs = [
   "One Piece",
