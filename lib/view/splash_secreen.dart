@@ -80,7 +80,7 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
                 duration: Duration(milliseconds: 2000),
                 opacity: _textOpacity,
                 child: Text(
-                  'AAAW Movie',
+                  'Movie Hub',
                   style: TextStyle(
                     color: const Color.fromARGB(255, 250, 22, 6),
                     fontWeight: FontWeight.bold,

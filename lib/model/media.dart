@@ -11,7 +11,7 @@ class Media {
   String director;
   String duration;
   String ageRating;
-  String id;
+  String ?id;
 
   Media({
     required this.title,

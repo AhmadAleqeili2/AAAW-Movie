@@ -129,9 +129,7 @@ class _SettingPageState extends State<SettingPage> {
                   children: [
                     InkWell(
                         onTap: () => _showImagePickerOptions(context),
-                        child: user?.image != null
-                            ? Image.asset(user?.image() ?? "")
-                            : Icon(
+                        child:  Icon(
                                 Icons.person,
                                 size: secreenheight * 0.15,
                                 color: const Color(0xFF6F6F6F),
@@ -308,7 +306,7 @@ class _SettingPageState extends State<SettingPage> {
                 onTap: () {
                   setState(() {
                     selectedLanguage = 'English';
-                    context.setLocale(Locale('En'));
+                    context.setLocale(Locale('en'));
                     utilsREstart.reDraw(context);
                   });
                   Navigator.pop(context);
@@ -323,7 +321,7 @@ class _SettingPageState extends State<SettingPage> {
                 onTap: () {
                   setState(() {
                     selectedLanguage = 'العربية';
-                    context.setLocale(Locale('Ar'));
+                    context.setLocale(Locale('ar'));
                     utilsREstart.reDraw(context);
                   });
                   Navigator.pop(context);

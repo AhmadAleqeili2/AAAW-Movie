@@ -87,40 +87,93 @@ class UserController {
     Boxes.boxUser.put(user.email(), user);
   }
 }
-
 class AuthController extends ChangeNotifier {
-  /// Calls the API to register a new user.
-  void registerUser(User user, BuildContext context) async {
-    bool isAcept = await UserApi().createUser(user, context);
-    if (isAcept) navigateTo(context, LoginPage());
+  /// Registers a new user through the API and navigates to the login page if successful.
+  Future<void> registerUser(User user, BuildContext context) async {
+    try {
+      bool isAccepted = await UserApi().createUser(user, context);
+      if (isAccepted) {
+        navigateTo(context, LoginPage());
+      }
+    } catch (e) {
+      _showSnackBar(context, 'Registration failed: $e');
+    }
   }
 
-  /// Calls the API to log in a user and retrieves a token.
-  void loginUser(String email, String password, BuildContext context) async {
-    bool isAcept = await UserApi().Login(email, password, context);
-    if (isAcept) navigateTo(context, HomePage());
+  /// Logs in a user and navigates to the home page if successful.
+  Future<void> loginUser(String email, String password, BuildContext context) async {
+    try {
+      bool isAccepted = await UserApi().Login(email, password, context);
+      if (isAccepted) {
+        navigateTo(context, HomePage());
+      }
+    } catch (e) {
+      _showSnackBar(context, 'Login failed: $e');
+    }
   }
 
-  /// Retrieves user details from the API.
-  Future<User> getUser(BuildContext context) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    return await UserApi().getUser(prefs.getString("userId")??"", context);
+  /// Retrieves the details of the currently logged-in user.
+  Future<User?> getUser(BuildContext context) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String userId = prefs.getString("userId") ?? "";
+      if (userId.isEmpty) {
+        _showSnackBar(context, "User not found. Please log in.");
+        return null;
+      }
+      return await UserApi().getUser(userId, context);
+    } catch (e) {
+      _showSnackBar(context, 'Failed to fetch user: $e');
+      return null;
+    }
   }
 
-  /// Updates user information through the API.
+  /// Updates the user's information through the API.
   Future<void> updateUser(User user, BuildContext context) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    UserApi().updateUser(prefs.getString("userId")??'', user, context);
-    notifyListeners();
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String userId = prefs.getString("userId") ?? "";
+      if (userId.isEmpty) {
+        _showSnackBar(context, "User not found. Please log in.");
+        return;
+      }
+      await UserApi().updateUser(userId, user, context);
+      notifyListeners();
+    } catch (e) {
+      _showSnackBar(context, 'Failed to update user: $e');
+    }
   }
 
-  /// Deletes a user through the API.
+  /// Deletes the current user through the API and resets the app state.
   Future<void> deleteUser(BuildContext context) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String userId = prefs.getString("userId") ?? "";
+      if (userId.isEmpty) {
+        _showSnackBar(context, "User not found. Please log in.");
+        return;
+      }
+      await UserApi().deleteUser(userId, context);
+      prefs.remove("userId"); // Clear user ID from shared preferences
+      notifyListeners();
+      navigateTo(context, LoginPage()); // Navigate back to login after deletion
+    } catch (e) {
+      _showSnackBar(context, 'Failed to delete user: $e');
+    }
+  }
 
-    UserApi().deleteUser(prefs.getString("userId")??"", context);
-    notifyListeners();
+  /// Navigates to the specified page.
+  void navigateTo(BuildContext context, Widget page) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
+  }
+
+  /// Helper method to show a snack bar for displaying messages.
+  void _showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
   }
 }

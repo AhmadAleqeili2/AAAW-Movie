@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:just_movie/utils/restart.dart';
@@ -11,7 +10,7 @@ import 'model/user.dart';
 // استيراد صفحة البداية الحقيقية
 import 'utils/provider.dart';
 void main() async {
-    await dotenv.load(); // Load the .env file
+    // await dotenv.load(); // Load the .env file
 
   //new for Walid and asem
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,10 +27,10 @@ void main() async {
 
   runApp(EasyLocalization(
       supportedLocales: [
-        Locale('En'),
-        Locale('Ar'),
+        Locale('en'),
+        Locale('ar'),
       ],
-      fallbackLocale: Locale('En'),
+      fallbackLocale: Locale('en'),
       path: 'assets/lang',
       child: KeyboardVisibilityProvider(child: const MyApp())));
 }

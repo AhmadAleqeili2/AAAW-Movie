@@ -40,7 +40,7 @@ class MoviewWidget extends StatelessWidget {
                   children: [
                     CachedNetworkImage(
                       imageUrl: url,
-                      height: screenWidth * .25,
+                      height: screenWidth * .2,
                       width: screenWidth * .40,
                       fit: BoxFit.fitWidth,
                     ),

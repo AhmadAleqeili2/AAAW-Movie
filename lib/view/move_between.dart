@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomePage> {
             resizeToAvoidBottomInset: true,
         
           backgroundColor: primarycolor,
-          body: SingleChildScrollView(child: _pages[_selectedIndex]), // عرض الصفحة حسب الـ selectedIndex
+          body:_selectedIndex==1? SingleChildScrollView(child: _pages[_selectedIndex]): _pages[_selectedIndex], // عرض الصفحة حسب الـ selectedIndex
           bottomNavigationBar: SafeArea(
             
             child: BottomNavigationBarWidget(

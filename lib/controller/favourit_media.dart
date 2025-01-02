@@ -22,10 +22,21 @@ class FavouritMediaController extends ChangeNotifier {
     notifyListeners(); // Notify listeners after loading userId
   }
 
+  Future<bool> isFavourit(String mediaId, BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString("userId");
+    bool isFavourite =
+        await _favoritMediaApi.isFavourit(userId ?? '', mediaId, context);
+
+    notifyListeners(); // Notify listeners after loading userId
+    return isFavourite;
+  }
+
   // Fetch favorite media list from API
   Future<void> fetchFavoriteMedia(BuildContext context) async {
     if (userId == null) return; // Make sure userId is loaded
-    final fetchedMedia = await _favoritMediaApi.fetchFavouritMedia(userId!, context);
+    final fetchedMedia =
+        await _favoritMediaApi.fetchFavouritMedia(userId!, context);
     if (fetchedMedia.isNotEmpty) {
       favoriteMedia = fetchedMedia;
       notifyListeners(); // Update UI after fetching data
@@ -39,7 +50,8 @@ class FavouritMediaController extends ChangeNotifier {
   // Add a media item to the favorites list
   Future<void> addToFavorite(Media media, BuildContext context) async {
     if (userId == null) return;
-    final isAdded = await _favoritMediaApi.addToFavourit(userId!, media, context);
+    final isAdded =
+        await _favoritMediaApi.addToFavourit(userId!, media, context);
     if (isAdded) {
       fetchFavoriteMedia(context); // Refresh the favorite media list
     }

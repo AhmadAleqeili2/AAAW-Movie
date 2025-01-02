@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
+import 'package:just_movie/constant/media_data.dart';
+import 'package:just_movie/controller/favourit_media.dart';
 import 'package:just_movie/model/media.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/Epsoid.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/PeopleReviews.dart';
@@ -10,6 +12,7 @@ import 'package:just_movie/widgets/MoviedetileWidget/mainImage_section.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/actors.dart';
 import 'package:just_movie/widgets/Buttons/scrolled_button_list.dart';
 import 'package:just_movie/widgets/scrolled_list_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../controller/movie_controller.dart';
 
@@ -76,6 +79,12 @@ class _MovieDetileState extends State<MovieDetile> {
   int count = 5;
   double value = 0;
   TextEditingController _reviewController = TextEditingController();
+  bool isFavourit = false;
+  @override
+  void initState()  {
+    FavouritMediaController controller=Provider.of<FavouritMediaController>(context,listen: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,14 +102,19 @@ class _MovieDetileState extends State<MovieDetile> {
                 isClicked: false,
               ),
               SizedBox(height: 20),
-              EpisodeDetails(Data: widget.movie,),
+              EpisodeDetails(Data: widget.movie, isSelected: isFavourit),
               SizedBox(height: 20),
               ScrolledButtonList(
                 notSelectedColor: Color.fromARGB(100, 217, 217, 217),
                 isSelectedColor: Color.fromARGB(200, 255, 255, 255),
                 selectedButtonTop: isSelected,
                 width: 75,
-                Bnames: ["Episodes".tr(), "Actors".tr(), "Seasons".tr(), "Explore".tr()],
+                Bnames: [
+                  "Episodes".tr(),
+                  "Actors".tr(),
+                  "Seasons".tr(),
+                  "Explore".tr()
+                ],
                 BPress: [
                   () {
                     setState(() {

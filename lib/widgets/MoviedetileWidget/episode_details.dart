@@ -4,15 +4,10 @@ import 'package:just_movie/model/media.dart';
 
 class EpisodeDetails extends StatelessWidget {
   final Media Data;
-  EpisodeDetails(
-    {
-      super.key,
-      required this.Data
-    }
-  );
+  final bool isSelected;
+  EpisodeDetails({super.key, required this.Data, required this.isSelected});
   @override
   Widget build(BuildContext context) {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,8 +17,10 @@ class EpisodeDetails extends StatelessWidget {
         Row(
           spacing: 15,
           children: [
-            MyListButton(),
-            RatingColumn(star:  Data.rating.toString()),
+            MyListButton(
+              isSelected: isSelected,
+            ),
+            RatingColumn(star: Data.rating.toString()),
             CalendarColumn(day: Data.releaseDate),
           ],
         ),
@@ -35,13 +32,14 @@ class EpisodeDetails extends StatelessWidget {
 }
 
 class MyListButton extends StatelessWidget {
-  
+  const MyListButton({super.key, required this.isSelected});
+  final bool isSelected;
   @override
   Widget build(BuildContext context) {
-          double secreenWidth = MediaQuery.of(context).size.width;
-  double secreenHeight = MediaQuery.of(context).size.height;
+    double secreenWidth = MediaQuery.of(context).size.width;
+    double secreenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: secreenHeight *0.07,
+      height: secreenHeight * 0.07,
       width: secreenWidth * 0.15,
       decoration: BoxDecoration(
         color: Color(0XFF252525),
@@ -53,13 +51,20 @@ class MyListButton extends StatelessWidget {
           Positioned(
             bottom: 12,
             child: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.add_circle_outline,
-                size: 30,
-                color: Color(0XFFB3B3B3),
-              ),
-            ),
+                onPressed: () {},
+                icon: isSelected
+                    ? IconButton(
+                        icon: Icon(Icons.delete_rounded),
+                        iconSize: 30,
+                        color: Color(0XFFB3B3B3),
+                        onPressed: () {},
+                      )
+                    : IconButton(
+                        icon: Icon(Icons.add),
+                        iconSize: 30,
+                        color: Color(0XFFB3B3B3),
+                        onPressed: () {},
+                      )),
           ),
           Positioned(
             top: 40,
