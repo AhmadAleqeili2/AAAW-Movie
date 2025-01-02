@@ -9,7 +9,7 @@ import '../../model/media.dart';
 class MediaApi implements MediaRepo {
   @override
   Future<List<Map<String, dynamic>>> fetchMedia(BuildContext context) async {
-    final response = await ApiService.get('/users');
+    final response = await ApiService.get('/media');
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {

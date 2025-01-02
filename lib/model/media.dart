@@ -11,9 +11,11 @@ class Media {
   String director;
   String duration;
   String ageRating;
+  String id;
 
   Media({
     required this.title,
+    required this.id,
     required this.type,
     required this.description,
     required this.rating,
@@ -41,6 +43,25 @@ class Media {
       director: json['director'],
       duration: json['duration'],
       ageRating: json['ageRating'],
+      id: json['id']
     );
+  }
+
+  // Converts the Media instance to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'type': type,
+      'description': description,
+      'rating': rating,
+      'releaseDate': releaseDate,
+      'image': image,
+      'video': video,
+      'genre': genre,
+      'cast': cast,
+      'director': director,
+      'duration': duration,
+      'ageRating': ageRating,
+    };
   }
 }

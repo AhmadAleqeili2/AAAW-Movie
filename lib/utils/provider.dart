@@ -4,6 +4,8 @@ import 'package:just_movie/controller/movie_controller.dart';
 import 'package:just_movie/utils/material_app.dart';
 import 'package:provider/provider.dart';
 
+import '../controller/favourit_media.dart';
+
 class ProviderUtils extends StatelessWidget {
   const ProviderUtils({super.key});
 
@@ -12,7 +14,8 @@ class ProviderUtils extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthController()),
-        ChangeNotifierProvider(create: (context) => MediaController())
+        ChangeNotifierProvider(create: (context) => MediaController()),
+        ChangeNotifierProvider(create: (context) => FavouritMediaController())
       ],
       child: MaterialAppUtills(),
     );
