@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/model/boxes.dart';
 import 'package:just_movie/model/login_token.dart';
@@ -27,8 +28,8 @@ class InitialPage extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text("Session Expired"),
-              content: Text("Please log in again to continue."),
+              title: Text("Session Expired".tr()),
+              content: Text("Please log in again to continue.".tr()),
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
@@ -37,7 +38,7 @@ class InitialPage extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => LoginPage()),
                     );
                   },
-                  child: Text('OK'),
+                  child: Text('OK'.tr()),
                 ),
               ],
             );

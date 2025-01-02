@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/controller/auth_controller.dart';
@@ -29,17 +30,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   void _validateAndSubmit() {
     if (_validateAndSave()) {
-      if (AuthController()
-          .checkAccountValidation(emailController.value.text)) {
-            ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("We sent message to your email")),
-      );
-          }
-          else{
-            ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("This user does not exist")),
-      );
-          }
+      if (UserController().checkAccountValidation(emailController.value.text)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("We sent message to your email".tr())),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("This user does not exist".tr())),
+        );
+      }
     }
   }
 
@@ -48,7 +47,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Forgot Password'),
+        title:  Text('Forgot Password'.tr()),
       ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
@@ -81,12 +80,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: GestureDetector(
                   onTap: _navigateToSignIn,
                   child: RichText(
-                    text: const TextSpan(
-                      text: 'Have an account? ',
+                    text:  TextSpan(
+                      text: 'Have an account? '.tr(),
                       style: TextStyle(color: Colors.white),
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'Sign In',
+                          text: 'Sign In'.tr(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 255, 17, 0),

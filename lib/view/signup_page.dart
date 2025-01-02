@@ -240,7 +240,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         const SnackBar(content: Text("forget checking")),
                       );
                     } else {
-                      AuthController().signUp(user, context);
+                      UserController ().signUp(user, context);
                     }
                   }),
             ],

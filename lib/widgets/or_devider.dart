@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 Widget ordevider() {
@@ -16,7 +17,7 @@ Widget ordevider() {
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         child: Text(
-          'OR',
+          'OR'.tr(),
           style: TextStyle(color: a),
         ),
       ),

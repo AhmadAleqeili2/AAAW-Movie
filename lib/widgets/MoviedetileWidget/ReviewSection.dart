@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -28,7 +29,7 @@ class ReviewSection extends StatelessWidget {
             controller: reviewController,
             style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
-              hintText: 'Write your review',
+              hintText: 'Write your review'.tr(),
               hintStyle: TextStyle(color: Colors.white60),
               filled: true,
               fillColor: Colors.grey[800],

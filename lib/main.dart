@@ -1,15 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:just_movie/utils/material_app.dart';
+import 'package:just_movie/utils/restart.dart';
 
 import 'model/boxes.dart';
 import 'model/login_token.dart';
 import 'model/user.dart';
 // استيراد صفحة البداية الحقيقية
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
+import 'utils/provider.dart';
 void main() async {
     await dotenv.load(); // Load the .env file
 
@@ -28,10 +28,10 @@ void main() async {
 
   runApp(EasyLocalization(
       supportedLocales: [
-        Locale('en'),
-        Locale('ar'),
+        Locale('En'),
+        Locale('Ar'),
       ],
-      fallbackLocale: Locale('en'),
+      fallbackLocale: Locale('En'),
       path: 'assets/lang',
       child: KeyboardVisibilityProvider(child: const MyApp())));
 }
@@ -41,6 +41,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialAppUtills();
+    return utilsREstart(child: ProviderUtils());
   }
 }

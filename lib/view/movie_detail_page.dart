@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/model/media.dart';
@@ -99,7 +100,7 @@ class _MovieDetileState extends State<MovieDetile> {
                 isSelectedColor: Color.fromARGB(200, 255, 255, 255),
                 selectedButtonTop: isSelected,
                 width: 75,
-                Bnames: ["Episodes", "Actors", "Seasons", "Explore"],
+                Bnames: ["Episodes".tr(), "Actors".tr(), "Seasons".tr(), "Explore".tr()],
                 BPress: [
                   () {
                     setState(() {
@@ -117,14 +118,14 @@ class _MovieDetileState extends State<MovieDetile> {
                     setState(() {
                       isSelected = 2;
                       conWidget = ScrolledListWidget(
-                          items: MovieController.media, title: "Seasons");
+                          items: MovieController.media, title: "Seasons".tr());
                     });
                   },
                   () {
                     setState(() {
                       isSelected = 3;
                       conWidget = ScrolledListWidget(
-                          items: MovieController.media, title: "Explore");
+                          items: MovieController.media, title: "Explore".tr());
                     });
                   },
                 ],

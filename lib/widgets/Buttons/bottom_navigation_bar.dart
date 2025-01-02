@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
@@ -26,19 +27,19 @@ class BottomNavigationBarWidget extends StatelessWidget {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Home',
+              label: 'Home'.tr(),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.search),
-              label: 'Search',
+              label: 'Search'.tr(),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.star_border_outlined),
-              label: 'My List',
+              label: 'My List'.tr(),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_2_outlined),
-              label: 'Profile',
+              label: 'Profile'.tr(),
             ),
           ],
         ),

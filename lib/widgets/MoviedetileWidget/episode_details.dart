@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/model/media.dart';
 
@@ -16,7 +17,7 @@ class EpisodeDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(Data.title, style: TextStyle(fontSize: 27)),
-        Text("Season " + "1"),
+        Text("Season ".tr() + "1"),
         SizedBox(height: 20),
         Row(
           spacing: 15,
@@ -63,7 +64,7 @@ class MyListButton extends StatelessWidget {
           Positioned(
             top: 40,
             child: Text(
-              "My List",
+              "My List".tr(),
               style: TextStyle(fontSize: 10),
             ),
           ),

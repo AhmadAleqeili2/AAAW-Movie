@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/controller/auth_controller.dart';
+import 'package:just_movie/utils/restart.dart';
 import 'package:just_movie/widgets/Buttons/custom_button.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -21,7 +23,7 @@ class _SettingPageState extends State<SettingPage> {
   String selectedLanguage = "English";
   bool isNameEDiting = false;
   File? _imageFile;
-  User? user = AuthController().getUser(Boxes.boxToken.keys.first);
+  User? user = UserController().getUser(Boxes.boxToken.keys.first);
 
   // Method to handle image selection
   Future<void> _pickImage(ImageSource source) async {
@@ -61,7 +63,7 @@ class _SettingPageState extends State<SettingPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Choose an option",
+                "Choose an option".tr(),
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
@@ -74,7 +76,7 @@ class _SettingPageState extends State<SettingPage> {
                       _pickImage(ImageSource.camera);
                     },
                     icon: Icon(Icons.camera),
-                    label: Text("Camera"),
+                    label: Text("Camera".tr()),
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
@@ -82,7 +84,7 @@ class _SettingPageState extends State<SettingPage> {
                       _pickImage(ImageSource.gallery);
                     },
                     icon: Icon(Icons.photo),
-                    label: Text("Gallery"),
+                    label: Text("Gallery".tr()),
                   ),
                 ],
               ),
@@ -138,7 +140,8 @@ class _SettingPageState extends State<SettingPage> {
                       bottom: 0,
                       end: 5,
                       child: Icon(CupertinoIcons.pencil,
-                          size: 50, color: const Color.fromARGB(255, 245, 16, 0)),
+                          size: 50,
+                          color: const Color.fromARGB(255, 245, 16, 0)),
                     )
                   ],
                 ),
@@ -153,11 +156,11 @@ class _SettingPageState extends State<SettingPage> {
                     isNameEDiting
                         ? CustomTextField(
                             fillColor: const Color(0xff222222),
-                            hintText: 'username',
+                            hintText: 'username'.tr(),
                             width: secreenWidth * 0.85,
                             onSubmitted: (p0) {
                               user?.setFirstName(p0 ?? '');
-                              AuthController().changeUserInfo(user??User());
+                              UserController().changeUserInfo(user ?? User());
                               isNameEDiting = false;
                               setState(() {});
                             },
@@ -207,7 +210,8 @@ class _SettingPageState extends State<SettingPage> {
                         height: secreenWidth * 0.05,
                       ), // أيقونة اللغة
                       SizedBox(
-                          width: secreenWidth * 0.03), // مسافة بين الأيقونة والنص
+                          width:
+                              secreenWidth * 0.03), // مسافة بين الأيقونة والنص
                       Text(
                         selectedLanguage,
                         style: TextStyle(
@@ -228,7 +232,7 @@ class _SettingPageState extends State<SettingPage> {
               CustomButton(
                   backgroundColor: primarycolor,
                   borderColor: Colors.white,
-                  buttonText: "Reset Password",
+                  buttonText: "Reset Password".tr(),
                   onTap: () {
                     // Show a dialog when the button is pressed
                     showDialog(
@@ -250,17 +254,18 @@ class _SettingPageState extends State<SettingPage> {
                                     Navigator.of(context)
                                         .pop(); // Close the dialog
                                   },
-                                  child: Text('cancel'),
+                                  child: Text('cancel'.tr()),
                                 ),
                                 TextButton(
                                     onPressed: () {
-                                      User? user = AuthController()
+                                      User? user = UserController()
                                           .getUser(Boxes.boxToken.keys.first);
                                       user?.setPass(passController.value.text);
-                                      AuthController().changeUserInfo(user??User());
+                                      UserController()
+                                          .changeUserInfo(user ?? User());
                                       Navigator.pop(context);
                                     },
-                                    child: Text("ok"))
+                                    child: Text("ok".tr()))
                               ]);
                         });
                   }),
@@ -268,14 +273,14 @@ class _SettingPageState extends State<SettingPage> {
               CustomButton(
                 backgroundColor: primarycolor,
                 borderColor: Colors.white,
-                buttonText: "Log out",
-                onTap: () => AuthController().logout(context),
+                buttonText: "Log out".tr(),
+                onTap: () => UserController().logout(context),
               ),
               SizedBox(height: secreenheight * 0.25),
               CustomButton(
-                buttonText: "Delete Account",
+                buttonText: "Delete Account".tr(),
                 onTap: () {
-                  AuthController().deleteAccount(context);
+                  UserController().deleteAccount(context);
                 },
               )
             ],
@@ -303,6 +308,8 @@ class _SettingPageState extends State<SettingPage> {
                 onTap: () {
                   setState(() {
                     selectedLanguage = 'English';
+                    context.setLocale(Locale('En'));
+                    utilsREstart.reDraw(context);
                   });
                   Navigator.pop(context);
                 },
@@ -316,6 +323,8 @@ class _SettingPageState extends State<SettingPage> {
                 onTap: () {
                   setState(() {
                     selectedLanguage = 'العربية';
+                    context.setLocale(Locale('Ar'));
+                    utilsREstart.reDraw(context);
                   });
                   Navigator.pop(context);
                 },

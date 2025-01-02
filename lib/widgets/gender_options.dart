@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class GenderDropdown extends StatefulWidget {
@@ -27,12 +28,12 @@ class GenderDropdownState extends State<GenderDropdown> {
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           value: widget.controller.text.isNotEmpty ? widget.controller.text : null,
-          hint: const Text(
-            "Gender",
+          hint:  Text(
+            "Gender".tr(),
             style: TextStyle(color: Colors.white), // لون النص داخل المربع
           ),
           dropdownColor: Colors.black, // لون القائمة عند الضغط
-          items: ["Male", "Female"].map((String value) {
+          items: ["MALE", "FEMALE"].map((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(

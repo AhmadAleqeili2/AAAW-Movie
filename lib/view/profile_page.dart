@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/function/navigate.dart';
@@ -24,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void fetchUser() {
-    final fetchedUser = AuthController().getUser(Boxes.boxToken.keys.first);
+    final fetchedUser = UserController ().getUser(Boxes.boxToken.keys.first);
 
     setState(() {
       if (fetchedUser == "" || fetchedUser == null) {
@@ -153,7 +154,7 @@ int count=0;
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Your reviews',
+                'Your reviews'.tr(),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,
@@ -171,7 +172,7 @@ int count=0;
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: CustomTile(
                     image: "assets/image/movie_logo.png",
-                    title: "Film name",
+                    title: "Film name".tr(),
                     description:
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                     pagenum: index + 1,

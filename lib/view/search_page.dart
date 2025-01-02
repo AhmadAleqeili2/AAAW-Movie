@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -171,9 +172,9 @@ class _SearchWidgetState extends State<SearchWidget> {
                       onSubmitted: (value) => _search(),
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        labelText: 'search...',
+                        labelText: 'search...'.tr(),
                         labelStyle: TextStyle(color: Colors.white),
-                        hintText: 'enter text search',
+                        hintText: 'enter text search'.tr(),
                         hintStyle: TextStyle(color: Colors.white70),
                         prefixIcon: Icon(Icons.search, color: Colors.white),
                         focusedBorder: OutlineInputBorder(
@@ -310,7 +311,7 @@ class _SearchWidgetState extends State<SearchWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 DropdownButton<String>(
-                  hint: Text("Genre"),
+                  hint: Text("Genre".tr()),
                   value: filterOptions.contains(selectedFilter)
                       ? selectedFilter
                       : filterOptions.first, // Ensure valid default
@@ -338,7 +339,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                 ),
                 SizedBox(width: 10), // Add spacing for better UI
                 DropdownButton<String>(
-                  hint: Text("Age"),
+                  hint: Text("Age".tr()),
 
                   value: filterOptions2.contains(selectedFilter2)
                       ? selectedFilter2

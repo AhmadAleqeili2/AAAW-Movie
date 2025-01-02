@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/constant/media_data.dart';
 import 'package:just_movie/widgets/Buttons/scrolled_button_list.dart';
@@ -24,12 +25,12 @@ class _MyListPageState extends State<MyListPage> {
         children: [
           ScrolledButtonList(
             Bnames: [
-              "All",
-              "Series",
-              "Movies",
-              "My Favorite",
-              "Recent",
-              "Watch Later",
+              "All".tr(),
+              "Series".tr(),
+              "Movies".tr(),
+              "My Favorite".tr(),
+              "Recent".tr(),
+              "Watch Later".tr(),
             ],
             BPress: List.generate(
               6,
@@ -37,12 +38,12 @@ class _MyListPageState extends State<MyListPage> {
                 setState(() {
                   isSelected = index;
                   WatsSelected = [
-                    "All",
-                    "Series",
-                    "Film",
-                    "My Favorite",
-                    "Recent",
-                    "Watch Later"
+                    "All".tr(),
+                    "Series".tr(),
+                    "Film".tr(),
+                    "My Favorite".tr(),
+                    "Recent".tr(),
+                    "Watch Later".tr()
                   ][index];
                 });
               },

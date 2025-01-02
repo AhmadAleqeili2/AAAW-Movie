@@ -45,7 +45,6 @@ class User {
       'password': _password,
       'age': _age,
       'gender': _gender,
-      'image': _image,
     };
   }
 
@@ -57,7 +56,6 @@ class User {
       ..setLastName(json['lastName'])
       ..setPass(json['password'])
       ..setAge(json['age'])
-      ..setGender(json['gender'])
-      ..setImage(json['image']);
+      ..setGender(json['gender']);
   }
 }

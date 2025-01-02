@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/constant/media_data.dart';
@@ -75,7 +76,7 @@ Widget build(BuildContext context) {
               ),
               ScrolledListWidget(
                 items: MovieController.media,
-                title: "Recommended to you",
+                title: "Recommended to you".tr(),
                 arrowPage: MovieListView(
                   mediaData: MovieController.media,
                 ),
@@ -83,7 +84,7 @@ Widget build(BuildContext context) {
               ),
               ScrolledListWidget(
                 items: MovieController.media.reversed.toList(),
-                title: "The Most Viewed",
+                title: "The Most Viewed".tr(),
                 arrowPage: MovieListView(
                   mediaData: MovieController.media.reversed.toList(),
                 ),

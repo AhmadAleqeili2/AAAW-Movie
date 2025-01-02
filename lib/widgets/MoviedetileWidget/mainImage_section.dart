@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/widgets/main_imag_widget.dart';
 
@@ -27,12 +28,12 @@ class _MainImageSectionState extends State<MainImageSection> {
         });
       } else {
         setState(() {
-          _videoId = "Invalid URL";
+          _videoId = "Invalid URL".tr();
         });
       }
     } catch (e) {
       setState(() {
-        _videoId = "Error parsing URL";
+        _videoId = "Error parsing URL".tr();
       });
     }
   }
