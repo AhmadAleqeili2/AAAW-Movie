@@ -5,11 +5,11 @@ import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/view/forget_password.dart';
 import 'package:just_movie/view/signup_page.dart';
-import 'package:just_movie/widgets/Buttons/custom_text_button.dart';
-import 'package:just_movie/widgets/Buttons/custom_button.dart';
-import 'package:just_movie/widgets/custom_text_fields.dart';
-import 'package:just_movie/widgets/or_devider.dart';
-import 'package:just_movie/widgets/social_media_buttons.dart';
+import 'package:just_movie/widgets/LoginPage/custom_text_button.dart';
+import 'package:just_movie/widgets/Core/custom_button.dart';
+import 'package:just_movie/widgets/Core/custom_text_fields.dart';
+import 'package:just_movie/widgets/LoginPage/or_devider.dart';
+import 'package:just_movie/widgets/LoginPage/social_media_buttons.dart';
 
 import 'slide_transition.dart';
 

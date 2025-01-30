@@ -6,7 +6,7 @@ import 'package:just_movie/view/home_page1.dart';
 import 'package:just_movie/view/my_list.dart';
 import 'package:just_movie/view/profile_page.dart';
 import 'package:just_movie/view/search_page.dart';
-import 'package:just_movie/widgets/Buttons/bottom_navigation_bar.dart';
+import 'package:just_movie/widgets/MoveBetween/bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
 

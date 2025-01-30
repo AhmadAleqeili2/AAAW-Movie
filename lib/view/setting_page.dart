@@ -5,12 +5,12 @@ import 'package:just_movie/colors.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/controller/setting_controller.dart';
-import 'package:just_movie/widgets/Buttons/custom_button.dart';
+import 'package:just_movie/widgets/Core/custom_button.dart';
 import 'package:provider/provider.dart';
 
 import '../model/boxes.dart';
 import '../model/user.dart';
-import '../widgets/custom_text_fields.dart';
+import '../widgets/Core/custom_text_fields.dart';
 
 class SettingPage extends StatefulWidget {
   @override

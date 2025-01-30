@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/constant/names.dart';
-import 'package:just_movie/widgets/Buttons/build_option.dart';
+import 'package:just_movie/widgets/Core/build_option.dart';
 
 class ScrolledButtonList extends StatefulWidget {
   final bool withlogo;

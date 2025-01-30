@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/view/your_reviews_page.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/epsoid_tile.dart';
-import 'package:just_movie/widgets/Buttons/more_button.dart';
+import 'package:just_movie/widgets/Core/more_button.dart';
 
 class Epsoid extends StatelessWidget {
   final int Number_Of_Eps;

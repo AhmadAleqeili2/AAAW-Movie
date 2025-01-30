@@ -5,8 +5,8 @@ import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/services/navigate.dart';
 import 'package:just_movie/view/setting_page.dart';
 import 'package:just_movie/view/your_reviews_page.dart';
-import 'package:just_movie/widgets/custom_list_tile.dart';
-import 'package:just_movie/widgets/Buttons/more_button.dart';
+import 'package:just_movie/widgets/Core/custom_list_tile.dart';
+import 'package:just_movie/widgets/Core/more_button.dart';
 
 import '../model/boxes.dart';
 import '../model/user.dart';

@@ -8,7 +8,7 @@ import 'package:just_movie/controller/movie_controller.dart';
 import 'package:just_movie/model/media.dart';
 import 'package:just_movie/view/movie_list.dart';
 import 'package:just_movie/widgets/HomePageWidgets/main_image.dart';
-import 'package:just_movie/widgets/scrolled_list_widget.dart';
+import 'package:just_movie/widgets/Core/scrolled_list_widget.dart';
 
 List<Media> Alldata = MovieController.media;
 String WatsSelected = ConstantNames.all.tr();

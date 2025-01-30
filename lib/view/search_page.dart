@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import '../controller/search_controller.dart';
-import '../widgets/movie.dart';
+import '../widgets/Core/movie.dart';
 
 List<String> pastsearchs = [
   "One Piece",

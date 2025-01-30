@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:just_movie/widgets/custom_list_tile.dart';
+import 'package:just_movie/widgets/Core/custom_list_tile.dart';
 
 class YourReviewsPage extends StatefulWidget {
   

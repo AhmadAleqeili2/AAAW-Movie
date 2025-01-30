@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/view/initial_page.dart';
-import 'package:just_movie/widgets/error_message.dart';
+import 'package:just_movie/widgets/TestNetworkUtils/error_message.dart';
 import 'dart:developer' as developer;
 class UtilsTestNetwok extends StatefulWidget {
   const UtilsTestNetwok({super.key});

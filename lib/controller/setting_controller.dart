@@ -8,7 +8,7 @@ import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/model/boxes.dart';
 import 'package:just_movie/model/user.dart';
 import 'package:just_movie/utils/restart.dart';
-import 'package:just_movie/widgets/custom_text_fields.dart';
+import 'package:just_movie/widgets/Core/custom_text_fields.dart';
 import 'package:path_provider/path_provider.dart';
 
 class SettingController extends ChangeNotifier {

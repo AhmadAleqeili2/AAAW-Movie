@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:just_movie/widgets/custom_list_tile.dart';
+import 'package:just_movie/widgets/Core/custom_list_tile.dart';
 
 class PeopleReviews extends StatelessWidget {
   final int count;

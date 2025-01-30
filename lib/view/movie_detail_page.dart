@@ -11,8 +11,8 @@ import 'package:just_movie/widgets/MoviedetileWidget/ReviewSection.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/episode_details.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/mainImage_section.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/actors.dart';
-import 'package:just_movie/widgets/Buttons/scrolled_button_list.dart';
-import 'package:just_movie/widgets/scrolled_list_widget.dart';
+import 'package:just_movie/widgets/Core/scrolled_button_list.dart';
+import 'package:just_movie/widgets/Core/scrolled_list_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../controller/movie_controller.dart';

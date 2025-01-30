@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:just_movie/controller/movie_controller.dart';
-import 'package:just_movie/widgets/Buttons/scrolled_button_list.dart';
+import 'package:just_movie/widgets/Core/scrolled_button_list.dart';
 import 'package:just_movie/widgets/HomePageWidgets/git_image.dart';
-
+//ss
 class imageandbutton extends StatefulWidget {
   final int currentIndex;
   final int selectedButtonTop;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
-import 'package:just_movie/widgets/movie.dart';
+import 'package:just_movie/widgets/Core/movie.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 

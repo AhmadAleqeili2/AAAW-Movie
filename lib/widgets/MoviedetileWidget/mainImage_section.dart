@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:just_movie/widgets/main_imag_widget.dart';
+import 'package:just_movie/widgets/MoviedetileWidget/main_imag_widget.dart';
 
 import '../../constant/names.dart';
 
