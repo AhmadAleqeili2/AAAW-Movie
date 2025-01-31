@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
+import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/view/login_page.dart';
 
@@ -32,11 +33,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     if (_validateAndSave()) {
       if (UserController().checkAccountValidation(emailController.value.text)) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("We sent message to your email".tr())),
+          SnackBar(content: Text(ConstantNames.sentEmailMessage.tr())),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("This user does not exist".tr())),
+          SnackBar(content: Text(ConstantNames.userNotExist.tr())),
         );
       }
     }
@@ -47,7 +48,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title:  Text('Forgot Password'.tr()),
+        title: Text(ConstantNames.forgetPassword.tr()),
       ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
@@ -62,7 +63,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 decoration: const InputDecoration(labelText: 'Email'),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter your email';
+                    return ConstantNames.enterYourEmail.tr();
                   }
                   return null;
                 },
@@ -73,19 +74,19 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 onPressed: _validateAndSubmit,
                 style: ButtonStyle(
                     foregroundColor: WidgetStatePropertyAll(Colors.red)),
-                child: const Text('Submit'),
+                child:  Text(ConstantNames.submit.tr()),
               ),
               const SizedBox(height: 16.0),
               Center(
                 child: GestureDetector(
                   onTap: _navigateToSignIn,
                   child: RichText(
-                    text:  TextSpan(
-                      text: 'Have an account? '.tr(),
+                    text: TextSpan(
+                      text: ConstantNames.haveAccount.tr(),
                       style: TextStyle(color: Colors.white),
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'Sign In'.tr(),
+                          text: ConstantNames.signIn.tr(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 255, 17, 0),

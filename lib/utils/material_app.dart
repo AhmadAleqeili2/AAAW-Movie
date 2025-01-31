@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/names.dart';
 
 import '../view/splash_secreen.dart';
 
@@ -11,7 +12,7 @@ class MaterialAppUtills extends StatelessWidget {
     ThemeMode themeMode = ThemeMode.dark;
 
     return MaterialApp(
-      title: 'Movie',
+      title: ConstantNames.title.tr(),
       home: MyCustomSplashScreen(),
       debugShowCheckedModeBanner: false,
       //new for Asem And Walid

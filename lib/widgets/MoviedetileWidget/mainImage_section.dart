@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/widgets/main_imag_widget.dart';
 
+import '../../constant/names.dart';
+
 class MainImageSection extends StatefulWidget {
   final String Image;
   final String youtubeVideoId;
@@ -28,12 +30,12 @@ class _MainImageSectionState extends State<MainImageSection> {
         });
       } else {
         setState(() {
-          _videoId = "Invalid URL".tr();
+          _videoId = ConstantNames.invalidUrl.tr();
         });
       }
     } catch (e) {
       setState(() {
-        _videoId = "Error parsing URL".tr();
+        _videoId =ConstantNames.errorParsing.tr();
       });
     }
   }

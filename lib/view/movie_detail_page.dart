@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/constant/media_data.dart';
+import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/favourit_media.dart';
 import 'package:just_movie/model/media.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/Epsoid.dart';
@@ -110,10 +111,10 @@ class _MovieDetileState extends State<MovieDetile> {
                 selectedButtonTop: isSelected,
                 width: 75,
                 Bnames: [
-                  "Episodes".tr(),
-                  "Actors".tr(),
-                  "Seasons".tr(),
-                  "Explore".tr()
+                  ConstantNames.episodes.tr(),
+                  ConstantNames.actors.tr(),
+                  ConstantNames.seasons.tr(),
+                  ConstantNames.explore.tr()
                 ],
                 BPress: [
                   () {

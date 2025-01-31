@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/names.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   final int selectedIndex;
@@ -27,19 +28,19 @@ class BottomNavigationBarWidget extends StatelessWidget {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Home'.tr(),
+              label: ConstantNames.home.tr(),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.search),
-              label: 'Search'.tr(),
+              label:ConstantNames.search.tr(),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.star_border_outlined),
-              label: 'My List'.tr(),
+              label: ConstantNames.myList.tr(),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_2_outlined),
-              label: 'Profile'.tr(),
+              label: ConstantNames.profile.tr(),
             ),
           ],
         ),

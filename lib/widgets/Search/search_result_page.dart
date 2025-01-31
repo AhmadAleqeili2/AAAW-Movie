@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/names.dart';
 
 class SearchResultsPage extends StatefulWidget {
   final String query;
@@ -59,9 +61,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                     },
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      labelText: 'search...',
+                      labelText: ConstantNames.searchLabel.tr(),
                       labelStyle: TextStyle(color: Colors.white),
-                      hintText: 'enter text search',
+                      hintText: ConstantNames.searchHint.tr(),
                       hintStyle: TextStyle(color: Colors.white70),
                       prefixIcon: Icon(Icons.search, color: Colors.white),
                       focusedBorder: OutlineInputBorder(

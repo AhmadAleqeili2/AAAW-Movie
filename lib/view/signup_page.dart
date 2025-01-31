@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
+import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/model/user.dart';
 import 'package:just_movie/widgets/Buttons/custom_button.dart';
@@ -51,7 +53,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   CustomTextField(
-                    hintText: 'First Name',
+                    hintText: ConstantNames.firstName.tr(),
                     width: screenWidth * 0.4,
                     height: 50,
                     fillColor: const Color(0xff222222),
@@ -59,7 +61,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     controller: firstNAmeController,
                   ),
                   CustomTextField(
-                    hintText: 'Last Name',
+                    hintText: ConstantNames.lastName.tr(),
                     width: screenWidth * 0.4,
                     height: 50,
                     fillColor: const Color(0xff222222),
@@ -75,7 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   CustomTextField(
-                    hintText: 'Age',
+                    hintText: ConstantNames.age,
                     width: screenWidth * 0.4,
                     height: 50,
                     fillColor: const Color(0xff222222),
@@ -91,7 +93,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
               // E-mail and Password Fields
               CustomTextField(
-                hintText: 'E-Mail',
+                hintText: ConstantNames.email.tr(),
                 fillColor: const Color(0xff222222),
                 hintTextColor: const Color(0XFFFFFFFF),
                 width: screenWidth * 0.85,
@@ -99,7 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 controller: emailController,
               ),
               CustomTextField(
-                hintText: 'Password',
+                hintText: ConstantNames.password.tr(),
                 obscureText: true,
                 fillColor: const Color(0xff222222),
                 hintTextColor: const Color(0XFFFFFFFF),
@@ -108,7 +110,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 controller: passController,
               ),
               CustomTextField(
-                hintText: 'Confirm Password',
+                hintText: ConstantNames.confirmPassword.tr(),
                 obscureText: true,
                 fillColor: const Color(0xff222222),
                 hintTextColor: const Color(0XFFFFFFFF),
@@ -142,12 +144,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       style: const TextStyle(
                           color: Colors.white, fontSize: 10), // النص الافتراضي
                       children: <TextSpan>[
-                        const TextSpan(
-                          text:
-                              'I have read and agree to the ', // جزء من النص العادي
-                        ),
                         TextSpan(
-                          text: 'Privacy Policy', // جزء من النص الذي سيكون زر
+                            text: ConstantNames.aggrement
+                                .tr() // جزء من النص العادي
+                            ),
+                        TextSpan(
+                          text: ConstantNames.privacy
+                              .tr(), // جزء من النص الذي سيكون زر
                           style: const TextStyle(
                             color: Color(0XFFFF0000),
                             fontWeight: FontWeight.bold, // تخصيص مظهر الزر
@@ -157,12 +160,12 @@ class _SignUpPageState extends State<SignUpPage> {
                               // يمكنك إضافة هنا حدث عند الضغط على الزر
                             },
                         ),
-                        const TextSpan(
-                          text: ' and ', // جزء من النص العادي
+                        TextSpan(
+                          text: ConstantNames.and.tr(), // جزء من النص العادي
                         ),
                         TextSpan(
-                          text:
-                              'Terms & Conditions', // جزء من النص الذي سيكون زر
+                          text: ConstantNames.terms
+                              .tr(), // جزء من النص الذي سيكون زر
                           style: const TextStyle(
                             color: Color(0XFFFF0000),
                             fontWeight: FontWeight.bold, // تخصيص مظهر الزر
@@ -180,7 +183,7 @@ class _SignUpPageState extends State<SignUpPage> {
               const SizedBox(height: 20),
               // Create Account Button
               CustomButton(
-                  buttonText: 'Create Account',
+                  buttonText: ConstantNames.createAccount.tr(),
                   backgroundColor: const Color(0XFFCC2A1B),
                   height: 50,
                   borderColor: const Color(0XFFCC2A1B),
@@ -201,46 +204,46 @@ class _SignUpPageState extends State<SignUpPage> {
                       return regex.hasMatch(password);
                     }
 
-                    if ((user.age()??0) < 0) {
+                    if ((user.age() ?? 0) < 0) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("invalid age")),
+                        SnackBar(content: Text(ConstantNames.invalidAgeMessage.tr())),
                       );
                     } else if (!user.email().toString().contains('@') &&
                         !user.email().toString().contains('.')) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("invalid email")),
+                        SnackBar(content: Text(ConstantNames.invalidEmailMessage.tr())),
                       );
                     } else if (user.firstName().toString().length < 2) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("invalid email")),
+                        SnackBar(content: Text(ConstantNames.invalidEmailMessage.tr())),
                       );
                     } else if (user.lastName().toString().length < 2) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("invalid email")),
+                        SnackBar(content: Text(ConstantNames.invalidEmailMessage.tr())),
                       );
                     } else if (user.gender().toString().length < 2) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("invalid email")),
+                        SnackBar(content: Text(ConstantNames.invalidEmailMessage.tr())),
                       );
                     } else if (!isValidPassword(user.password() ?? '')) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
+                        SnackBar(
                             content: Text(
-                                "password must contain at least 8 character and captal letter at least and small letter and special character")),
+                                ConstantNames.invalidPasswordMessage.tr())),
                       );
                     } else if (user.password() !=
                         conPassController.value.text) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
+                        SnackBar(
                             content:
-                                Text("confirm password not equal password")),
+                                Text(ConstantNames.confirmPasswordMessage.tr())),
                       );
                     } else if (isChecked == false) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("forget checking")),
+                        SnackBar(content: Text(ConstantNames.checkBoxMessage.tr())),
                       );
                     } else {
-                      UserController ().signUp(user, context);
+                      UserController().signUp(user, context);
                     }
                   }),
             ],

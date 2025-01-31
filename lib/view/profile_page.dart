@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/function/navigate.dart';
 import 'package:just_movie/view/setting_page.dart';
@@ -91,7 +92,7 @@ int count=0;
             ),
             SizedBox(height: 10),
             Text(
-              "${user?.firstName() ?? 'Guest'} ${user?.lastName() ?? ''}",
+              "${user?.firstName() } ${user?.lastName() ?? ''}",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -99,7 +100,7 @@ int count=0;
               ),
             ),
             Text(
-              user?.gender() ?? "Not specified",
+              user?.gender()??'',
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
@@ -112,7 +113,7 @@ int count=0;
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Last watched',
+                    ConstantNames.lastWatched.tr(),
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -154,7 +155,7 @@ int count=0;
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Your reviews'.tr(),
+                ConstantNames.yourReview.tr(),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,

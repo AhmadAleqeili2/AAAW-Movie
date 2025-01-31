@@ -10,7 +10,7 @@ import 'package:just_movie/view/move_between.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/user.dart';
-import '../services/api.dart';
+import "dart:developer" as developer;
 
 class UserController {
   /// [signUp] giving a user data and put it in user box and generate objective id then navigate to login page
@@ -22,36 +22,37 @@ class UserController {
   ///[login] check if user is exist and  password does match with your account
   ///if  is exist will generate a token for login
   ///if not exist will return snack bar
-  Future<void> login(
-      String email, String password, BuildContext context) async {
-    bool isExist = Boxes.boxUser.containsKey(email);
-    print(isExist);
-    Iterable p1 = Boxes.boxUser.keys;
-    for (var item in p1) {
-      print(item);
-    }
-    // print(p1?.email());
-    if (isExist) {
-      User user = Boxes.boxUser.get(email);
-      if (user.password() == password) {
-        Boxes.boxToken.put(
-            "$email",
-            LoginToken(
-                token: Random.secure().toString(),
-                expiryDate: DateTime.now().add(const Duration(days: 3))));
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomePage(),
-            ));
+    Future<void> login(
+        String email, String password, BuildContext context) async {
+      bool isExist = Boxes.boxUser.containsKey(email);
+
+      print(isExist);
+      Iterable p1 = Boxes.boxUser.keys;
+      for (var item in p1) {
+        developer.log(item);
+      }
+      // print(p1?.email());
+      if (isExist) {
+        User user = Boxes.boxUser.get(email);
+        if (user.password() == password) {
+          Boxes.boxToken.put(
+              "$email",
+              LoginToken(
+                  token: Random.secure().toString(),
+                  expiryDate: DateTime.now().add(const Duration(days: 3))));
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage(),
+              ));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Wrong password")),
+          );
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Wrong password")),
-        );
-      }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("This user does not exist")),
+          const SnackBar(content: Text("This user does not exist")),
       );
     }
   }
@@ -87,6 +88,7 @@ class UserController {
     Boxes.boxUser.put(user.email(), user);
   }
 }
+
 class AuthController extends ChangeNotifier {
   /// Registers a new user through the API and navigates to the login page if successful.
   Future<void> registerUser(User user, BuildContext context) async {
@@ -101,7 +103,8 @@ class AuthController extends ChangeNotifier {
   }
 
   /// Logs in a user and navigates to the home page if successful.
-  Future<void> loginUser(String email, String password, BuildContext context) async {
+  Future<void> loginUser(
+      String email, String password, BuildContext context) async {
     try {
       bool isAccepted = await UserApi().Login(email, password, context);
       if (isAccepted) {

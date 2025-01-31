@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/constant/media_data.dart';
+import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/movie_controller.dart';
 import 'package:just_movie/model/media.dart';
 import 'package:just_movie/view/movie_list.dart';
@@ -10,7 +11,7 @@ import 'package:just_movie/widgets/HomePageWidgets/main_image.dart';
 import 'package:just_movie/widgets/scrolled_list_widget.dart';
 
 List<Media> Alldata = MovieController.media;
-String WatsSelected = "All";
+String WatsSelected = ConstantNames.all.tr();
 int selectedButtonButtom = 0; // متابعة حالة الزر النشط
 int selectedButtonTop = 0;
 
@@ -50,7 +51,7 @@ class _HomePageBodyState extends State<HomePageBody> {
   @override
   Widget build(BuildContext context) {
     List<Media> getDataWhere(String type, List<Media> AllData) {
-      if (type != "All") {
+      if (type != ConstantNames.all.tr()) {
         List<Media> media = [];
         for (int i = 0; i < AllData.length; i++) {
           if (AllData[i].type == type) {
@@ -90,10 +91,10 @@ class _HomePageBodyState extends State<HomePageBody> {
                           setState(() {
                             selectedButtonTop = index;
                             WatsSelected = [
-                              "All",
-                              "Film",
-                              "Tv show",
-                              "Series",
+                              ConstantNames.all.tr(),
+                              ConstantNames.film.tr(),
+                              ConstantNames.tvShow.tr(),
+                              ConstantNames.series.tr(),
                             ][index];
                           });
                         },
@@ -103,7 +104,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                 ),
                 ScrolledListWidget(
                   items: fetchdata,
-                  title: "Recommended to you".tr(),
+                  title: ConstantNames.goodToSeeYou.tr(),
                   arrowPage: MovieListView(
                     mediaData: fetchdata,
                   ),
@@ -111,7 +112,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                 ),
                 ScrolledListWidget(
                   items: fetchdata.reversed.toList(),
-                  title: "The Most Viewed".tr(),
+                  title: ConstantNames.mostViewed.tr(),
                   arrowPage: MovieListView(
                     mediaData: fetchdata.reversed.toList(),
                   ),

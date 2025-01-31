@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/names.dart';
 
 Widget ordevider() {
   Color a = Color(0xFF1877F2).withValues(
@@ -17,7 +18,7 @@ Widget ordevider() {
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         child: Text(
-          'OR'.tr(),
+          ConstantNames.or.tr(),
           style: TextStyle(color: a),
         ),
       ),

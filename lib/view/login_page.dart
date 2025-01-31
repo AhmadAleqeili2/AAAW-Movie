@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart'; // تأكد من إضافة هذه المكتبة لاستخدام TapGestureRecognizer
+import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/view/forget_password.dart';
 import 'package:just_movie/view/signup_page.dart';
@@ -20,7 +21,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
-    UserController  auth = UserController ();
+    UserController auth = UserController();
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -39,22 +40,22 @@ class LoginPage extends StatelessWidget {
 
               CustomTextField(
                 fillColor: Color(0xff222222),
-                hintText: 'E-mail'.tr(),
+                hintText: ConstantNames.email.tr(),
                 width: screenWidth * 0.85,
                 controller: emailController,
               ),
               CustomTextField(
                 fillColor: const Color(0xff222222),
-                hintText: 'Password'.tr(),
+                hintText: ConstantNames.password.tr(),
                 width: screenWidth * 0.85,
                 isPass: true,
                 obscureText: true,
                 controller: passController,
               ),
               CustomTextButton(
-                buttonText: 'Forget Your password ?'.tr(),
+                buttonText: ConstantNames.forgetYourPassword.tr(),
                 onPressed: () {
-                      Navigator.push(context, ScaleTransition1(ForgotPassword()));
+                  Navigator.push(context, ScaleTransition1(ForgotPassword()));
                 },
               ),
 
@@ -62,7 +63,7 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   CustomButton(
-                      buttonText: "Login".tr(),
+                      buttonText: ConstantNames.login.tr(),
                       width: screenWidth * 0.4,
                       height: 54,
                       onTap: () async {
@@ -70,7 +71,7 @@ class LoginPage extends StatelessWidget {
                             passController.value.text, context);
                       }),
                   CustomButton(
-                    buttonText: "Sign up".tr(),
+                    buttonText: ConstantNames.signUp.tr(),
                     width: screenWidth * 0.4,
                     height: 54,
                     backgroundColor: const Color(0XFF000000),
@@ -95,12 +96,10 @@ class LoginPage extends StatelessWidget {
                       style: const TextStyle(
                           color: Colors.white, fontSize: 10), // النص الافتراضي
                       children: <TextSpan>[
-                         TextSpan(
-                          text:
-                              'Note: This account is governed by our '.tr(), // جزء من النص العادي
-                        ),
+                        TextSpan(text: ConstantNames.governedAccount.tr()),
                         TextSpan(
-                          text: 'Privacy Policy'.tr(), // جزء من النص الذي سيكون زر
+                          text: ConstantNames.privacy
+                              .tr(), // جزء من النص الذي سيكون زر
                           style: const TextStyle(
                             color: Color(0XFFFF0000),
                             fontWeight: FontWeight.bold, // تخصيص مظهر الزر
@@ -110,12 +109,12 @@ class LoginPage extends StatelessWidget {
                               // يمكنك إضافة هنا حدث عند الضغط على الزر
                             },
                         ),
-                         TextSpan(
-                          text: ' and '.tr(), // جزء من النص العادي
+                        TextSpan(
+                          text: ConstantNames.and.tr(), // جزء من النص العادي
                         ),
                         TextSpan(
-                          text:
-                              'Terms & Conditions'.tr(), // جزء من النص الذي سيكون زر
+                          text: ConstantNames.terms
+                              .tr(), // جزء من النص الذي سيكون زر
                           style: const TextStyle(
                             color: Color(0XFFFF0000),
                             fontWeight: FontWeight.bold, // تخصيص مظهر الزر
@@ -125,9 +124,8 @@ class LoginPage extends StatelessWidget {
                               // يمكنك إضافة هنا حدث عند الضغط على الزر
                             },
                         ),
-                         TextSpan(
-                          text:
-                              '. By using this app, you agree to comply with these policies.'.tr(),
+                        TextSpan(
+                          text: ConstantNames.usingThisApp.tr(),
                           style: TextStyle(color: Colors.white),
                         ),
                       ],

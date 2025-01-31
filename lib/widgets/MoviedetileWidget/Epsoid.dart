@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/view/your_reviews_page.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/epsoid_tile.dart';
 import 'package:just_movie/widgets/Buttons/more_button.dart';
@@ -17,7 +19,7 @@ class Epsoid extends StatelessWidget {
           children: List.generate(Number_Of_Eps, (i) {
             return EpisodeTile(
               image: Eps_data[i]["image"]!,
-              title: "Epsoid ${i + 1}",
+              title: "${ConstantNames.epsoid.tr()} ${i + 1}",
               DownloadButton: () {},
               WatchButton: () {},
             );

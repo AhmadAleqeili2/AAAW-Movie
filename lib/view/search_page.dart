@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:just_movie/colors.dart';
+import 'package:just_movie/constant/ages.dart';
+import 'package:just_movie/constant/genre.dart';
+import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/movie_controller.dart';
 import 'package:just_movie/model/media.dart';
+import 'package:just_movie/widgets/Search/filter.dart';
 import 'package:just_movie/widgets/Search/search_result_page.dart';
+import 'package:just_movie/widgets/Search/past_search.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import '../widgets/movie.dart';
@@ -41,18 +46,10 @@ class _SearchWidgetState extends State<SearchWidget> {
   FocusNode _focusNode = FocusNode();
   late stt.SpeechToText _speech;
   bool isListening = false;
-  String selectedFilter = 'Genre';
-  String selectedFilter2 = 'Age';
+  String selectedFilter = Genres.Genre;
+  String selectedFilter2 = Ages.Age;
 
-  List<String> filterOptions = ['Genre', 'Action', 'Drama', 'Comedy', 'Horror'];
-  List<String> filterOptions2 = [
-    "Age",
-    "PG-13",
-    "TV-MA",
-    "R",
-    "TV-14",
-    "TV-PG"
-  ];
+
 
   List<Media> filteredMedia = [];
   bool isFilter = false;
@@ -82,12 +79,12 @@ class _SearchWidgetState extends State<SearchWidget> {
             item.title.toLowerCase().contains(_controller.text.toLowerCase());
 
         // Check genre filter (ignore if 'Genre' is selected)
-        bool matchesGenre =
-            selectedFilter == 'Genre' || item.genre.contains(selectedFilter);
+        bool matchesGenre = selectedFilter == Genres.Genre ||
+            item.genre.contains(selectedFilter);
 
         // Check age rating filter (ignore if 'Age' is selected)
         bool matchesAgeRating =
-            selectedFilter2 == 'Age' || item.ageRating == selectedFilter2;
+            selectedFilter2 == Ages.Age || item.ageRating == selectedFilter2;
 
         // Return true only if all conditions are met
         return matchesTitle && matchesGenre && matchesAgeRating;
@@ -172,9 +169,9 @@ class _SearchWidgetState extends State<SearchWidget> {
                       onSubmitted: (value) => _search(),
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        labelText: 'search...'.tr(),
+                        labelText: ConstantNames.searchLabel.tr(),
                         labelStyle: TextStyle(color: Colors.white),
-                        hintText: 'enter text search'.tr(),
+                        hintText: ConstantNames.searchHint.tr(),
                         hintStyle: TextStyle(color: Colors.white70),
                         prefixIcon: Icon(Icons.search, color: Colors.white),
                         focusedBorder: OutlineInputBorder(
@@ -186,9 +183,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                           borderSide: BorderSide(color: Colors.white, width: 2),
                         ),
                       ),
-                      
                       onChanged: (value) {
-                        
                         applyFilter();
                       },
                     ),
@@ -216,7 +211,7 @@ class _SearchWidgetState extends State<SearchWidget> {
           ),
           Visibility(
             visible: isFilter,
-            child: filter(context),
+            child: Filter(),
           ),
           Visibility(
             visible: isKeyboardVisible,
@@ -225,24 +220,22 @@ class _SearchWidgetState extends State<SearchWidget> {
               child: ListView.builder(
                 shrinkWrap: true, // إذا كنت تستخدمه داخل ScrollView آخر
                 itemCount: 3,
-                
+
                 padding: EdgeInsets.symmetric(vertical: 10),
                 itemBuilder: (context, index) {
-                  return pastSeache(pastsearchs[index]) ;
+                  return pastSeache(title: pastsearchs[index]);
                 },
               ),
             ),
           ),
-          
           Padding(
             padding: const EdgeInsets.all(18.0),
             child: SizedBox(
-              height: screenHeight ,
+              height: screenHeight,
               child: GridView.count(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                
                 physics: NeverScrollableScrollPhysics(),
                 children: List.generate(filteredMedia.length, (index) {
                   return MoviewWidget(
@@ -257,128 +250,6 @@ class _SearchWidgetState extends State<SearchWidget> {
       ),
     );
   }
+  // Debounce method to reduce frequent `applyFilter` calls
 
-  Widget pastSeache(title) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            // وضع وظيفتك هنا
-          },
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: primarycolor, // لون النص
-          ),
-          child: Row(
-            spacing: 7,
-            children: [
-              Icon(
-                Icons.search,
-                size: screenHeight * 0.03,
-                color: Colors.white,
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                width: screenWidth * 0.63,
-                child: Text(title),
-              ),
-            ],
-          ),
-        ),
-        IconButton(
-          alignment: Alignment.bottomLeft,
-          icon: Image.asset(
-            "assets/image/arrow_icon_leftUp.png",
-            height: screenHeight * 0.02,
-          ),
-          onPressed: () {},
-        ),
-      ],
-    );
-  }
-
-  Widget filter(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DropdownButton<String>(
-                  hint: Text("Genre".tr()),
-                  value: filterOptions.contains(selectedFilter)
-                      ? selectedFilter
-                      : filterOptions.first, // Ensure valid default
-                  items: filterOptions.map((String filter) {
-                    return DropdownMenuItem<String>(
-                      value: filter,
-                      child: Text(
-                        filter,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedFilter = value!;
-                      _debouncedApplyFilter();
-                    });
-                  },
-                  dropdownColor: primarycolor,
-                  style: TextStyle(color: Colors.white),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(width: 10), // Add spacing for better UI
-                DropdownButton<String>(
-                  hint: Text("Age".tr()),
-
-                  value: filterOptions2.contains(selectedFilter2)
-                      ? selectedFilter2
-                      : filterOptions2.first, // Ensure valid default
-                  items: filterOptions2.map((String filter) {
-                    return DropdownMenuItem<String>(
-                      value: filter,
-                      child: Text(
-                        filter,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedFilter2 = value!;
-                      _debouncedApplyFilter();
-                    });
-                  },
-                  dropdownColor: primarycolor,
-                  style: TextStyle(color: Colors.white),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-// Debounce method to reduce frequent `applyFilter` calls
-  void _debouncedApplyFilter() {
-    if (mounted) {
-      applyFilter();
-      setState(() {});
-    }
-  }
 }

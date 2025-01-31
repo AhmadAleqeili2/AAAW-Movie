@@ -2,8 +2,10 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/view/initial_page.dart';
 import 'package:just_movie/widgets/error_message.dart';
 import 'dart:developer' as developer;
@@ -67,7 +69,7 @@ class _VTestNetwokState extends State<UtilsTestNetwok> {
   Widget view() {
     if (_connectionStatus[0] == ConnectivityResult.none) {
       return WErrorMassage(
-        massage:"error no network",
+        massage:ConstantNames.noNetworkMessage.tr(),
         callback: () {
           setState(() {});
         },

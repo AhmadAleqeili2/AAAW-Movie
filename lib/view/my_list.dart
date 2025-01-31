@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/constant/media_data.dart';
 import 'package:just_movie/widgets/Buttons/scrolled_button_list.dart';
+import 'package:just_movie/widgets/call_data.dart';
 import 'package:provider/provider.dart';
 
+import '../constant/names.dart';
 import '../controller/favourit_media.dart';
 import '../model/media.dart';
 
@@ -17,10 +19,10 @@ class _MyListPageState extends State<MyListPage> {
   int isSelected = 0;
   String WatsSelected = "All";
   @override
-  void initState()  {
+  void initState() {
     FavouritMediaController controller =
         Provider.of<FavouritMediaController>(context, listen: false);
-     controller.fetchFavoriteMedia(context);
+    controller.fetchFavoriteMedia(context);
     super.initState();
   }
 
@@ -36,12 +38,12 @@ class _MyListPageState extends State<MyListPage> {
         children: [
           ScrolledButtonList(
             Bnames: [
-              "All".tr(),
-              "Series".tr(),
-              "Movies".tr(),
-              "My Favorite".tr(),
-              "Recent".tr(),
-              "Watch Later".tr(),
+              ConstantNames.all.tr(),
+              ConstantNames.series.tr(),
+              ConstantNames.title.tr(),
+              ConstantNames.favorite.tr(),
+              ConstantNames.recent.tr(),
+              ConstantNames.watchLater.tr(),
             ],
             BPress: List.generate(
               6,
@@ -49,12 +51,12 @@ class _MyListPageState extends State<MyListPage> {
                 setState(() {
                   isSelected = index;
                   WatsSelected = [
-                    "All".tr(),
-                    "Series".tr(),
-                    "Film".tr(),
-                    "My Favorite".tr(),
-                    "Recent".tr(),
-                    "Watch Later".tr()
+                    ConstantNames.all.tr(),
+                    ConstantNames.series.tr(),
+                    ConstantNames.film.tr(),
+                    ConstantNames.favorite.tr(),
+                    ConstantNames.recent.tr(),
+                    ConstantNames.watchLater.tr()
                   ][index];
                 });
               },
@@ -66,7 +68,7 @@ class _MyListPageState extends State<MyListPage> {
             child: mediaData.isEmpty
                 ? Center(
                     child: Text(
-                      'No Data Available'.tr(),
+                      ConstantNames.noData.tr(),
                       style: TextStyle(color: Colors.white),
                     ),
                   )
@@ -75,7 +77,9 @@ class _MyListPageState extends State<MyListPage> {
                     itemBuilder: (context, index) {
                       if (WatsSelected == "All" ||
                           mediaData[index]["type"] == WatsSelected) {
-                        return CallData(index, context);
+                        return CallData(
+                          index: index,
+                        );
                       }
                       return SizedBox();
                     },
@@ -86,29 +90,4 @@ class _MyListPageState extends State<MyListPage> {
       backgroundColor: Colors.black,
     );
   }
-}
-
-Widget CallData(int index, BuildContext context) {
-  final data = mediaData[index];
-  return ListTile(
-    leading: Image.network(
-      data["image"] ?? "https://static.thenounproject.com/png/504708-200.png",
-      fit: BoxFit.cover,
-      errorBuilder: (context, error, stackTrace) {
-        return Image.network(
-            "https://static.thenounproject.com/png/504708-200.png");
-      },
-      height: MediaQuery.of(context).size.height * 0.1,
-      width: MediaQuery.of(context).size.height * 0.1,
-    ),
-    title: Text(
-      data["title"] ?? "Unknown Title",
-      style: TextStyle(color: Colors.white),
-    ),
-    subtitle: Text(
-      data["type"] ?? "Unknown Type",
-      style: TextStyle(color: Colors.grey),
-    ),
-    trailing: Icon(Icons.play_arrow, color: Colors.white),
-  );
 }

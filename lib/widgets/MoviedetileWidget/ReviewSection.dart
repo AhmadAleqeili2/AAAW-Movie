@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/names.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class ReviewSection extends StatelessWidget {
@@ -21,7 +22,7 @@ class ReviewSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Review',
+            ConstantNames.review,
             style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 20),
@@ -29,7 +30,7 @@ class ReviewSection extends StatelessWidget {
             controller: reviewController,
             style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
-              hintText: 'Write your review'.tr(),
+              hintText: ConstantNames.writeYourReview.tr(),
               hintStyle: TextStyle(color: Colors.white60),
               filled: true,
               fillColor: Colors.grey[800],

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/model/user.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -22,15 +23,14 @@ class SocialMediaButtons extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Text("Feature Coming Soon"),
-                  content:
-                      Text("This feature will be available in the future."),
+                  title: Text(ConstantNames.comingSoonTitle.tr()),
+                  content: Text(ConstantNames.comingSoonMessage.tr()),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pop(); // Close the dialog
                       },
-                      child: Text('OK'),
+                      child: Text(ConstantNames.ok.tr()),
                     ),
                   ],
                 );
@@ -38,7 +38,7 @@ class SocialMediaButtons extends StatelessWidget {
             );
           },
           icon: const Icon(Icons.facebook, color: Colors.white),
-          label:  Text('Sign In with Facebook'.tr(),
+          label: Text(ConstantNames.facebookSignInText.tr(),
               style: TextStyle(color: Colors.white)),
           style: ElevatedButton.styleFrom(
             backgroundColor: Color(0XFF1877F2),
@@ -65,9 +65,7 @@ class SocialMediaButtons extends StatelessWidget {
             UserController().signUp(user, context);
           },
           icon: Image.asset("assets/image/GoogleLogo.png", height: 20),
-          label: Text(
-            'Sign In with Google'.tr(),
-          ),
+          label: Text(ConstantNames.googleSignInText.tr()),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
@@ -107,8 +105,8 @@ class SocialMediaButtons extends StatelessWidget {
             }
           },
           icon: const Icon(Icons.apple, color: Colors.white),
-          label:  Text(
-            'Sign In with Apple'.tr(),
+          label: Text(
+            ConstantNames.appleSignInText.tr(),
             style: TextStyle(color: Colors.white),
           ),
           style: ElevatedButton.styleFrom(

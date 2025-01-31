@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/names.dart';
 final List<Map<String, String>> ActorsImage = [
   {
     "image":
@@ -34,7 +36,7 @@ Widget actors (List<String> ActorsData,int NumOfActors){
           Container(
             alignment: Alignment(-0.9, 0),
             child: Text(
-              "Actors", // النص المطلوب
+             ConstantNames.actors.tr(), // النص المطلوب
               style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
             ),),
           

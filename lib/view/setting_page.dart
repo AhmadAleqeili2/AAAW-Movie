@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:just_movie/colors.dart';
+import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/utils/restart.dart';
 import 'package:just_movie/widgets/Buttons/custom_button.dart';
@@ -63,7 +64,7 @@ class _SettingPageState extends State<SettingPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Choose an option".tr(),
+               ConstantNames.chooseOption.tr(),
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
@@ -76,7 +77,7 @@ class _SettingPageState extends State<SettingPage> {
                       _pickImage(ImageSource.camera);
                     },
                     icon: Icon(Icons.camera),
-                    label: Text("Camera".tr()),
+                    label: Text(ConstantNames.camera.tr()),
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
@@ -84,7 +85,7 @@ class _SettingPageState extends State<SettingPage> {
                       _pickImage(ImageSource.gallery);
                     },
                     icon: Icon(Icons.photo),
-                    label: Text("Gallery".tr()),
+                    label: Text(ConstantNames.gallery.tr()),
                   ),
                 ],
               ),
@@ -154,7 +155,7 @@ class _SettingPageState extends State<SettingPage> {
                     isNameEDiting
                         ? CustomTextField(
                             fillColor: const Color(0xff222222),
-                            hintText: 'username'.tr(),
+                            hintText: ConstantNames.username.tr(),
                             width: secreenWidth * 0.85,
                             onSubmitted: (p0) {
                               user?.setFirstName(p0 ?? '');
@@ -164,7 +165,7 @@ class _SettingPageState extends State<SettingPage> {
                             },
                           )
                         : Text(
-                            user?.firstName() ?? 'Guest',
+                            user?.firstName()??'',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -172,7 +173,7 @@ class _SettingPageState extends State<SettingPage> {
                             ),
                           ),
                     Text(
-                      user?.email() ?? 'guest@example.com',
+                      user?.email() ?? '',
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
@@ -230,17 +231,17 @@ class _SettingPageState extends State<SettingPage> {
               CustomButton(
                   backgroundColor: primarycolor,
                   borderColor: Colors.white,
-                  buttonText: "Reset Password".tr(),
+                  buttonText: ConstantNames.resetPassword.tr(),
                   onTap: () {
                     // Show a dialog when the button is pressed
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                              title: Text("Reset Password"),
+                              title: Text(ConstantNames.resetPassword),
                               content: CustomTextField(
                                 fillColor: const Color(0xff222222),
-                                hintText: 'Password',
+                                hintText: ConstantNames.password,
                                 width: secreenWidth * 0.85,
                                 isPass: true,
                                 obscureText: true,
@@ -252,7 +253,7 @@ class _SettingPageState extends State<SettingPage> {
                                     Navigator.of(context)
                                         .pop(); // Close the dialog
                                   },
-                                  child: Text('cancel'.tr()),
+                                  child: Text(ConstantNames.cancel.tr()),
                                 ),
                                 TextButton(
                                     onPressed: () {
@@ -263,7 +264,7 @@ class _SettingPageState extends State<SettingPage> {
                                           .changeUserInfo(user ?? User());
                                       Navigator.pop(context);
                                     },
-                                    child: Text("ok".tr()))
+                                    child: Text(ConstantNames.ok.tr()))
                               ]);
                         });
                   }),
@@ -271,12 +272,12 @@ class _SettingPageState extends State<SettingPage> {
               CustomButton(
                 backgroundColor: primarycolor,
                 borderColor: Colors.white,
-                buttonText: "Log out".tr(),
+                buttonText: ConstantNames.logOut.tr(),
                 onTap: () => UserController().logout(context),
               ),
               SizedBox(height: secreenheight * 0.25),
               CustomButton(
-                buttonText: "Delete Account".tr(),
+                buttonText: ConstantNames.deleteAccount.tr(),
                 onTap: () {
                   UserController().deleteAccount(context);
                 },
