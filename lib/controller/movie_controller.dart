@@ -12,6 +12,7 @@ class MovieController {
       media.add(Media.fromJson(element));
     }
   }
+  
 }
 
 class MediaController extends ChangeNotifier {
@@ -24,4 +25,5 @@ class MediaController extends ChangeNotifier {
     }
     notifyListeners();
   }
+  
 }

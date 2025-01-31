@@ -18,24 +18,7 @@ class SocialMediaButtons extends StatelessWidget {
       children: [
         ElevatedButton.icon(
           onPressed: () {
-            // Show a dialog when the button is pressed
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text(ConstantNames.comingSoonTitle.tr()),
-                  content: Text(ConstantNames.comingSoonMessage.tr()),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(); // Close the dialog
-                      },
-                      child: Text(ConstantNames.ok.tr()),
-                    ),
-                  ],
-                );
-              },
-            );
+           UserController().facebookSignIn(context);
           },
           icon: const Icon(Icons.facebook, color: Colors.white),
           label: Text(ConstantNames.facebookSignInText.tr(),
@@ -52,17 +35,7 @@ class SocialMediaButtons extends StatelessWidget {
         const SizedBox(height: 10),
         ElevatedButton.icon(
           onPressed: () async {
-            User user = User();
-            // حدث تسجيل الدخول عبر Google
-            final GoogleSignIn googleSignIn = GoogleSignIn();
-            final GoogleSignInAccount? googleSignInAccount =
-                await googleSignIn.signIn();
-            final GoogleSignInAuthentication googleSignInAuthentication =
-                await googleSignInAccount!.authentication;
-            print(googleSignInAuthentication);
-            user.setEmail(googleSignInAccount.email);
-            user.setFirstName(googleSignInAccount.displayName ?? '');
-            UserController().signUp(user, context);
+          UserController().googleSignIn(context);
           },
           icon: Image.asset("assets/image/GoogleLogo.png", height: 20),
           label: Text(ConstantNames.googleSignInText.tr()),
@@ -79,30 +52,7 @@ class SocialMediaButtons extends StatelessWidget {
         const SizedBox(height: 10),
         ElevatedButton.icon(
           onPressed: () async {
-            // حدث تسجيل الدخول عبر Apple
-            try {
-              final credential = await SignInWithApple.getAppleIDCredential(
-                scopes: [
-                  AppleIDAuthorizationScopes.email,
-                  AppleIDAuthorizationScopes.fullName,
-                ],
-                webAuthenticationOptions: WebAuthenticationOptions(
-                  clientId: 'com.example.yourapp.web', // Your Service ID
-                  redirectUri: Uri.parse(
-                    'https://yourapp.com/auth/callback', // Your redirect URI
-                  ),
-                ),
-              );
-
-              // Handle successful login
-              print('User ID: ${credential.userIdentifier}');
-              print('Email: ${credential.email}');
-              print(
-                  'Full Name: ${credential.givenName} ${credential.familyName}');
-            } catch (error) {
-              // Handle error
-              print('Sign in with Apple failed: $error');
-            }
+          UserController().appleSignIn();
           },
           icon: const Icon(Icons.apple, color: Colors.white),
           label: Text(

@@ -1,13 +1,17 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:just_movie/function/navigate.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:just_movie/constant/names.dart';
+import 'package:just_movie/services/navigate.dart';
 import 'package:just_movie/model/boxes.dart';
 import 'package:just_movie/model/login_token.dart';
 import 'package:just_movie/services/user/user_api.dart';
 import 'package:just_movie/view/login_page.dart';
 import 'package:just_movie/view/move_between.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../model/user.dart';
 import "dart:developer" as developer;
@@ -19,40 +23,130 @@ class UserController {
     navigateTo(context, LoginPage());
   }
 
+  void appleSignIn() async {
+    // حدث تسجيل الدخول عبر Apple
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        webAuthenticationOptions: WebAuthenticationOptions(
+          clientId: 'com.example.yourapp.web', // Your Service ID
+          redirectUri: Uri.parse(
+            'https://yourapp.com/auth/callback', // Your redirect URI
+          ),
+        ),
+      );
+
+      // Handle successful login
+      print('User ID: ${credential.userIdentifier}');
+      print('Email: ${credential.email}');
+      print('Full Name: ${credential.givenName} ${credential.familyName}');
+    } catch (error) {
+      // Handle error
+      print('Sign in with Apple failed: $error');
+    }
+  }
+void googleSignIn(BuildContext context)async{
+    User user = User();
+            // حدث تسجيل الدخول عبر Google
+            final GoogleSignIn googleSignIn = GoogleSignIn();
+            final GoogleSignInAccount? googleSignInAccount =
+                await googleSignIn.signIn();
+            final GoogleSignInAuthentication googleSignInAuthentication =
+                await googleSignInAccount!.authentication;
+            print(googleSignInAuthentication);
+            user.setEmail(googleSignInAccount.email);
+            user.setFirstName(googleSignInAccount.displayName ?? '');
+            UserController().signUp(user, context);
+}
+void facebookSignIn(BuildContext context){
+   // Show a dialog when the button is pressed
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text(ConstantNames.comingSoonTitle.tr()),
+                  content: Text(ConstantNames.comingSoonMessage.tr()),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Close the dialog
+                      },
+                      child: Text(ConstantNames.ok.tr()),
+                    ),
+                  ],
+                );
+              },
+            );
+}
+  // Goto SignUp Page
+  void navigateToSignIn(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+    );
+  }
+
+  bool validateAndSave(GlobalKey<FormState> key) {
+    final form = key;
+    if (form.currentState!.validate()) {
+      form.currentState!.save();
+      return true;
+    }
+    return false;
+  }
+
+  void validateAndSubmit(
+      String email, BuildContext context, GlobalKey<FormState> key) {
+    if (validateAndSave(key)) {
+      if (UserController().checkAccountValidation(email)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(ConstantNames.sentEmailMessage.tr())),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(ConstantNames.userNotExist.tr())),
+        );
+      }
+    }
+  }
+
   ///[login] check if user is exist and  password does match with your account
   ///if  is exist will generate a token for login
   ///if not exist will return snack bar
-    Future<void> login(
-        String email, String password, BuildContext context) async {
-      bool isExist = Boxes.boxUser.containsKey(email);
+  Future<void> login(
+      String email, String password, BuildContext context) async {
+    bool isExist = Boxes.boxUser.containsKey(email);
 
-      print(isExist);
-      Iterable p1 = Boxes.boxUser.keys;
-      for (var item in p1) {
-        developer.log(item);
-      }
-      // print(p1?.email());
-      if (isExist) {
-        User user = Boxes.boxUser.get(email);
-        if (user.password() == password) {
-          Boxes.boxToken.put(
-              "$email",
-              LoginToken(
-                  token: Random.secure().toString(),
-                  expiryDate: DateTime.now().add(const Duration(days: 3))));
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomePage(),
-              ));
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Wrong password")),
-          );
-        }
+    print(isExist);
+    Iterable p1 = Boxes.boxUser.keys;
+    for (var item in p1) {
+      developer.log(item);
+    }
+    // print(p1?.email());
+    if (isExist) {
+      User user = Boxes.boxUser.get(email);
+      if (user.password() == password) {
+        Boxes.boxToken.put(
+            "$email",
+            LoginToken(
+                token: Random.secure().toString(),
+                expiryDate: DateTime.now().add(const Duration(days: 3))));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("This user does not exist")),
+          const SnackBar(content: Text("Wrong password")),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("This user does not exist")),
       );
     }
   }

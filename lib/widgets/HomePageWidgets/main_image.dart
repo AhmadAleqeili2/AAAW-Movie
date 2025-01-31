@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/controller/movie_controller.dart';
 import 'package:just_movie/widgets/Buttons/scrolled_button_list.dart';
+import 'package:just_movie/widgets/HomePageWidgets/git_image.dart';
 
 class imageandbutton extends StatefulWidget {
   final int currentIndex;
@@ -27,7 +27,7 @@ class _imageandbuttonState extends State<imageandbutton> {
 
     return Stack(
       children: [
-        GitImage(MovieController.media[widget.currentIndex].image),
+        GitImage(image:MovieController.media[widget.currentIndex].image),
         ColorFiltered(
           colorFilter: ColorFilter.mode(
             const Color.fromARGB(40, 0, 0, 0),
@@ -58,18 +58,5 @@ class _imageandbuttonState extends State<imageandbutton> {
   }
 }
 
-Widget GitImage(image) {
-  return Container(
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: CachedNetworkImageProvider(image),
-        fit: BoxFit.cover,
-        alignment: Alignment.topCenter,
-      ),
-      borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(90),
-        bottomRight: Radius.circular(90),
-      ),
-    ),
-  );
-}
+
+

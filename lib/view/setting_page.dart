@@ -1,15 +1,12 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:just_movie/colors.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
-import 'package:just_movie/utils/restart.dart';
+import 'package:just_movie/controller/setting_controller.dart';
 import 'package:just_movie/widgets/Buttons/custom_button.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../model/boxes.dart';
 import '../model/user.dart';
@@ -21,83 +18,10 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  String selectedLanguage = "English";
-  bool isNameEDiting = false;
-  File? _imageFile;
-  User? user = UserController().getUser(Boxes.boxToken.keys.first);
-
-  // Method to handle image selection
-  Future<void> _pickImage(ImageSource source) async {
-    try {
-      final picker = ImagePicker();
-      final pickedFile = await picker.pickImage(source: source);
-
-      if (pickedFile != null) {
-        final appDir = await getApplicationDocumentsDirectory();
-        final fileName = pickedFile.name;
-
-        // Save the file in the assets folder within the app directory
-        final savedImage =
-            await File(pickedFile.path).copy('${appDir.path}/$fileName');
-        user?.setImage('${appDir.path}/$fileName');
-        setState(() {
-          _imageFile = savedImage;
-        });
-        print("Image saved at: ${savedImage.path}");
-      }
-    } catch (e) {
-      print("Error picking image: $e");
-    }
-  }
-
-  // Show BottomSheet for image selection
-  void _showImagePickerOptions(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (BuildContext ctx) {
-        return Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-               ConstantNames.chooseOption.tr(),
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.pop(ctx);
-                      _pickImage(ImageSource.camera);
-                    },
-                    icon: Icon(Icons.camera),
-                    label: Text(ConstantNames.camera.tr()),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.pop(ctx);
-                      _pickImage(ImageSource.gallery);
-                    },
-                    icon: Icon(Icons.photo),
-                    label: Text(ConstantNames.gallery.tr()),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    SettingController controller = Provider.of<SettingController>(context);
+
     double secreenheight = MediaQuery.of(context).size.height;
     double secreenWidth = MediaQuery.of(context).size.width;
     final TextEditingController passController = TextEditingController();
@@ -129,12 +53,12 @@ class _SettingPageState extends State<SettingPage> {
                 child: Stack(
                   children: [
                     InkWell(
-                        onTap: () => _showImagePickerOptions(context),
-                        child:  Icon(
-                                Icons.person,
-                                size: secreenheight * 0.15,
-                                color: const Color(0xFF6F6F6F),
-                              )),
+                        onTap: () => controller.showImagePickerOptions(context),
+                        child: Icon(
+                          Icons.person,
+                          size: secreenheight * 0.15,
+                          color: const Color(0xFF6F6F6F),
+                        )),
                     PositionedDirectional(
                       bottom: 0,
                       end: 5,
@@ -152,20 +76,21 @@ class _SettingPageState extends State<SettingPage> {
                 ),
                 Column(
                   children: [
-                    isNameEDiting
+                    controller.isNameEDiting
                         ? CustomTextField(
                             fillColor: const Color(0xff222222),
                             hintText: ConstantNames.username.tr(),
                             width: secreenWidth * 0.85,
                             onSubmitted: (p0) {
-                              user?.setFirstName(p0 ?? '');
-                              UserController().changeUserInfo(user ?? User());
-                              isNameEDiting = false;
+                              controller.user?.setFirstName(p0 ?? '');
+                              UserController()
+                                  .changeUserInfo(controller.user ?? User());
+                              controller.isNameEDiting = false;
                               setState(() {});
                             },
                           )
                         : Text(
-                            user?.firstName()??'',
+                            controller.user?.firstName() ?? '',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -173,7 +98,7 @@ class _SettingPageState extends State<SettingPage> {
                             ),
                           ),
                     Text(
-                      user?.email() ?? '',
+                      controller.user?.email() ?? '',
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
@@ -183,7 +108,7 @@ class _SettingPageState extends State<SettingPage> {
                 ),
                 IconButton(
                   onPressed: () {
-                    isNameEDiting = !isNameEDiting;
+                    controller.isNameEDiting = !controller.isNameEDiting;
                     setState(() {});
                   },
                   icon: Icon(Icons.edit),
@@ -193,7 +118,7 @@ class _SettingPageState extends State<SettingPage> {
               SizedBox(height: secreenheight * 0.04),
               GestureDetector(
                 onTap: () {
-                  _showLanguageMenu(context);
+                  controller.showLanguageMenu(context);
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -212,7 +137,7 @@ class _SettingPageState extends State<SettingPage> {
                           width:
                               secreenWidth * 0.03), // مسافة بين الأيقونة والنص
                       Text(
-                        selectedLanguage,
+                        controller.selectedLanguage,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: secreenWidth * 0.06,
@@ -232,42 +157,8 @@ class _SettingPageState extends State<SettingPage> {
                   backgroundColor: primarycolor,
                   borderColor: Colors.white,
                   buttonText: ConstantNames.resetPassword.tr(),
-                  onTap: () {
-                    // Show a dialog when the button is pressed
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                              title: Text(ConstantNames.resetPassword),
-                              content: CustomTextField(
-                                fillColor: const Color(0xff222222),
-                                hintText: ConstantNames.password,
-                                width: secreenWidth * 0.85,
-                                isPass: true,
-                                obscureText: true,
-                                controller: passController,
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pop(); // Close the dialog
-                                  },
-                                  child: Text(ConstantNames.cancel.tr()),
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      User? user = UserController()
-                                          .getUser(Boxes.boxToken.keys.first);
-                                      user?.setPass(passController.value.text);
-                                      UserController()
-                                          .changeUserInfo(user ?? User());
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text(ConstantNames.ok.tr()))
-                              ]);
-                        });
-                  }),
+                  onTap: () =>
+                      controller.resetPassword(context, passController)),
               SizedBox(height: secreenheight * 0.04),
               CustomButton(
                 backgroundColor: primarycolor,
@@ -286,52 +177,6 @@ class _SettingPageState extends State<SettingPage> {
           ),
         ),
       ),
-    );
-  }
-
-  void _showLanguageMenu(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          color: Colors.black, // لون خلفية القائمة
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                leading: Icon(Icons.language, color: Colors.white),
-                title: Text(
-                  'English',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onTap: () {
-                  setState(() {
-                    selectedLanguage = 'English';
-                    context.setLocale(Locale('en'));
-                    utilsREstart.reDraw(context);
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.language, color: Colors.white),
-                title: Text(
-                  'العربية',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onTap: () {
-                  setState(() {
-                    selectedLanguage = 'العربية';
-                    context.setLocale(Locale('ar'));
-                    utilsREstart.reDraw(context);
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

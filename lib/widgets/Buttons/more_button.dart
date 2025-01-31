@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:just_movie/function/navigate.dart';
+import 'package:just_movie/services/navigate.dart';
 
 Widget moreButton(context, Page) {
   return Stack(

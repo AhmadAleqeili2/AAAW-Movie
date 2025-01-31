@@ -2,17 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:just_movie/colors.dart';
-import 'package:just_movie/constant/ages.dart';
-import 'package:just_movie/constant/genre.dart';
+
 import 'package:just_movie/constant/names.dart';
-import 'package:just_movie/controller/movie_controller.dart';
-import 'package:just_movie/model/media.dart';
 import 'package:just_movie/widgets/Search/filter.dart';
-import 'package:just_movie/widgets/Search/search_result_page.dart';
 import 'package:just_movie/widgets/Search/past_search.dart';
+import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
+import '../controller/search_controller.dart';
 import '../widgets/movie.dart';
 
 List<String> pastsearchs = [
@@ -42,94 +39,27 @@ class SearchWidget extends StatefulWidget {
 }
 
 class _SearchWidgetState extends State<SearchWidget> {
-  TextEditingController _controller = TextEditingController();
   FocusNode _focusNode = FocusNode();
-  late stt.SpeechToText _speech;
-  bool isListening = false;
-  String selectedFilter = Genres.Genre;
-  String selectedFilter2 = Ages.Age;
-
-
-
-  List<Media> filteredMedia = [];
-  bool isFilter = false;
-  void _search() {
-    if (_controller.text.trim().isEmpty) {
-      // Show an error message or simply return
-      return;
-    }
-    setState(() {
-      String query = _controller.text.trim();
-      pastsearchs.insert(0, query);
-    });
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SearchResultsPage(query: _controller.text),
-      ),
-    );
-  }
-
-  void applyFilter() {
-    setState(() {
-      filteredMedia = MovieController.media.where((item) {
-        // Check title
-        bool matchesTitle =
-            item.title.toLowerCase().contains(_controller.text.toLowerCase());
-
-        // Check genre filter (ignore if 'Genre' is selected)
-        bool matchesGenre = selectedFilter == Genres.Genre ||
-            item.genre.contains(selectedFilter);
-
-        // Check age rating filter (ignore if 'Age' is selected)
-        bool matchesAgeRating =
-            selectedFilter2 == Ages.Age || item.ageRating == selectedFilter2;
-
-        // Return true only if all conditions are met
-        return matchesTitle && matchesGenre && matchesAgeRating;
-      }).toList();
-    });
-  }
 
   @override
   void initState() {
+    SearchsController controller =
+        Provider.of<SearchsController>(context, listen: false);
+
     super.initState();
-    _speech = stt.SpeechToText();
+    controller.speech = stt.SpeechToText();
 
     _focusNode.addListener(() {
       setState(() {});
     });
   }
 
-  void _startListening() async {
-    bool available = await _speech.initialize(
-      onStatus: (val) => print('onStatus: $val'),
-      onError: (val) => print('onError: $val'),
-    );
-    if (available) {
-      setState(() => isListening = true);
-      _speech.listen(
-        onResult: (val) {
-          setState(() {
-            _controller.text = val.recognizedWords;
-            if (!val.hasConfidenceRating && val.recognizedWords.isNotEmpty) {
-              _search();
-            }
-          });
-        },
-      );
-    }
-  }
-
-  void _stopListening() {
-    _speech.stop();
-    setState(() => isListening = false);
-  }
-
   @override
   void dispose() {
-    _speech.stop(); // Stop listening on dispose
+    SearchsController controller =
+        Provider.of<SearchsController>(context, listen: false);
+
+    controller.speech.stop(); // Stop listening on dispose
     _focusNode.dispose();
     super.dispose();
   }
@@ -140,6 +70,8 @@ class _SearchWidgetState extends State<SearchWidget> {
     double screenHeight = MediaQuery.of(context).size.height;
     final bool isKeyboardVisible =
         KeyboardVisibilityProvider.isKeyboardVisible(context);
+    SearchsController controller = Provider.of<SearchsController>(context);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -155,8 +87,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                       //!  Navigator.pop(
                       //!   context); // العودة إلى الصفحة السابقة عند الضغط على السهم
                       //! wrong navigator this will make crash for the app
-                      applyFilter();
-                      isFilter = !isFilter;
+                      controller.applyFilter();
+                      controller.isFilter = !controller.isFilter;
                       setState(() {});
                     },
                   ),
@@ -164,9 +96,9 @@ class _SearchWidgetState extends State<SearchWidget> {
                     width: screenWidth * 0.674,
                     height: screenHeight * 0.04,
                     child: TextField(
-                      controller: _controller,
+                      controller: controller.controller,
                       focusNode: _focusNode,
-                      onSubmitted: (value) => _search(),
+                      onSubmitted: (value) => controller.search(context),
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         labelText: ConstantNames.searchLabel.tr(),
@@ -184,23 +116,23 @@ class _SearchWidgetState extends State<SearchWidget> {
                         ),
                       ),
                       onChanged: (value) {
-                        applyFilter();
+                        controller.applyFilter();
                       },
                     ),
                   ),
                   IconButton(
                     icon: Icon(
-                      isListening ? Icons.mic : Icons.mic_none,
-                      color: isListening
+                      controller.isListening ? Icons.mic : Icons.mic_none,
+                      color: controller.isListening
                           ? const Color.fromARGB(255, 255, 17, 0)
                           : Colors.white,
-                      weight: isListening ? 20 : 10,
+                      weight: controller.isListening ? 20 : 10,
                     ),
                     onPressed: () {
-                      if (isListening) {
-                        _stopListening();
+                      if (controller.isListening) {
+                        controller.stopListening();
                       } else {
-                        _startListening();
+                        controller.startListening(context);
                       }
                       print("تم الضغط على أيقونة البحث الصوتي");
                     },
@@ -210,7 +142,7 @@ class _SearchWidgetState extends State<SearchWidget> {
             ),
           ),
           Visibility(
-            visible: isFilter,
+            visible: controller.isFilter,
             child: Filter(),
           ),
           Visibility(
@@ -237,10 +169,11 @@ class _SearchWidgetState extends State<SearchWidget> {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 physics: NeverScrollableScrollPhysics(),
-                children: List.generate(filteredMedia.length, (index) {
+                children:
+                    List.generate(controller.filteredMedia.length, (index) {
                   return MoviewWidget(
-                      url: filteredMedia[index].image,
-                      data: filteredMedia[index].title,
+                      url: controller.filteredMedia[index].image,
+                      data: controller.filteredMedia[index].title,
                       index: index);
                 }),
               ),
@@ -251,5 +184,4 @@ class _SearchWidgetState extends State<SearchWidget> {
     );
   }
   // Debounce method to reduce frequent `applyFilter` calls
-
 }

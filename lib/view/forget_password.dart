@@ -18,33 +18,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   // TextForm Controller
   TextEditingController emailController = TextEditingController();
-
+  UserController controller = UserController();
   // Form Validation
-  bool _validateAndSave() {
-    final form = _formKey.currentState;
-    if (form!.validate()) {
-      form.save();
-      return true;
-    }
-    return false;
-  }
-
-  void _validateAndSubmit() {
-    if (_validateAndSave()) {
-      if (UserController().checkAccountValidation(emailController.value.text)) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(ConstantNames.sentEmailMessage.tr())),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(ConstantNames.userNotExist.tr())),
-        );
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -60,7 +39,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             children: <Widget>[
               TextFormField(
                 controller: emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration:
+                    InputDecoration(labelText: ConstantNames.email.tr()),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return ConstantNames.enterYourEmail.tr();
@@ -71,15 +51,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: _validateAndSubmit,
+                onPressed: () => controller.validateAndSubmit(
+                    emailController.value.text, context, _formKey),
                 style: ButtonStyle(
                     foregroundColor: WidgetStatePropertyAll(Colors.red)),
-                child:  Text(ConstantNames.submit.tr()),
+                child: Text(ConstantNames.submit.tr()),
               ),
               const SizedBox(height: 16.0),
               Center(
                 child: GestureDetector(
-                  onTap: _navigateToSignIn,
+                  onTap: () => controller.navigateToSignIn(context),
                   child: RichText(
                     text: TextSpan(
                       text: ConstantNames.haveAccount.tr(),
@@ -101,14 +82,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           ),
         ),
       ),
-    );
-  }
-
-  // Goto SignUp Page
-  void _navigateToSignIn() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
     );
   }
 }

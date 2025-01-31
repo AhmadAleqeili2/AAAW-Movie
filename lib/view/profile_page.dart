@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
-import 'package:just_movie/function/navigate.dart';
+import 'package:just_movie/services/navigate.dart';
 import 'package:just_movie/view/setting_page.dart';
 import 'package:just_movie/view/your_reviews_page.dart';
 import 'package:just_movie/widgets/custom_list_tile.dart';

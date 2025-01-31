@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/colors.dart';
-import 'package:just_movie/function/navigate.dart';
+import 'package:just_movie/services/navigate.dart';
 import 'package:just_movie/view/movie_detail_page.dart';
 
 import '../model/media.dart';

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/constant/names.dart';
+import 'package:just_movie/widgets/Buttons/build_option.dart';
 
 class ScrolledButtonList extends StatefulWidget {
   final bool withlogo;
@@ -68,45 +69,19 @@ class _ScrolledButtonListState extends State<ScrolledButtonList> {
               Row(
                 children: List.generate(
                   widget.BPress.length,
-                  (index) => _buildOption(
-                    widget.Bnames[index],
-                    widget.selectedButtonTop == index,
-                    index,
-                    widget.BPress[index],
+                  (index) => BuildOption(
+                    text: widget.Bnames[index],
+                    isSelected: widget.selectedButtonTop == index,
+                    index: index,
+                    onPressed: widget.BPress[index],
+                    width: widget.width,
+                    height: widget.height,
+                    notSelectedColor: widget.notSelectedColor,
+                    isSelectedColor: widget.isSelectedColor,
                   ),
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildOption(
-      String text, bool isSelected, int index, VoidCallback onPressed) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Container(
-        width: widget.width,
-        height: widget.height,
-        child: TextButton(
-          onPressed: onPressed,
-          style: TextButton.styleFrom(
-            backgroundColor:
-                isSelected ? widget.isSelectedColor : widget.notSelectedColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-          child: Text(
-            text,
-            softWrap: false,
-            style: TextStyle(
-              color: isSelected ? Colors.black : Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 11,
-            ),
           ),
         ),
       ),
