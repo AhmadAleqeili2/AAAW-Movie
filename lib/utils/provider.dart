@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/controller/movie_controller.dart';
+import 'package:just_movie/controller/setting_controller.dart';
 import 'package:just_movie/utils/material_app.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,7 @@ class ProviderUtils extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AuthController()),
         ChangeNotifierProvider(create: (context) => MediaController()),
         ChangeNotifierProvider(create: (context) => FavouritMediaController()),
+        ChangeNotifierProvider(create: (context) => SettingController()),
         ChangeNotifierProvider(create: (context) => SearchsController())
       ],
       child: MaterialAppUtills(),

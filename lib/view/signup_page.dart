@@ -77,7 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   CustomTextField(
-                    hintText: ConstantNames.age,
+                    hintText: ConstantNames.age.tr(),
                     width: screenWidth * 0.4,
                     height: 50,
                     fillColor: const Color(0xff222222),
