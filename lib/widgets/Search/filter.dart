@@ -42,12 +42,12 @@ class _FilterState extends State<Filter> {
               children: [
                 DropdownButton<String>(
                   hint: Text(ConstantNames.genre.tr()),
-                  value: FilterOptions.filterOptions
+                  value: FilterOptions.genreFilterOption
                           .contains(widget.selectedFilter)
                       ? widget.selectedFilter
                       : FilterOptions
-                          .filterOptions.first, // Ensure valid default
-                  items: FilterOptions.filterOptions.map((String filter) {
+                          .genreFilterOption.first, // Ensure valid default
+                  items: FilterOptions.genreFilterOption.map((String filter) {
                     return DropdownMenuItem<String>(
                       value: filter,
                       child: Text(
@@ -73,12 +73,12 @@ class _FilterState extends State<Filter> {
                 DropdownButton<String>(
                   hint: Text(ConstantNames.age.tr()),
 
-                  value: FilterOptions.filterOptions2
+                  value: FilterOptions.AgeFilterOption
                           .contains(widget.selectedFilter2)
                       ? widget.selectedFilter2
                       : FilterOptions
-                          .filterOptions2.first, // Ensure valid default
-                  items: FilterOptions.filterOptions2.map((String filter) {
+                          .AgeFilterOption.first, // Ensure valid default
+                  items: FilterOptions.AgeFilterOption.map((String filter) {
                     return DropdownMenuItem<String>(
                       value: filter,
                       child: Text(

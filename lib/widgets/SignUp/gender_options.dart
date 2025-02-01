@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/constant/names.dart';
+import 'package:just_movie/enum/gender.dart';
 
 class GenderDropdown extends StatefulWidget {
   final TextEditingController controller;
@@ -34,7 +35,7 @@ class GenderDropdownState extends State<GenderDropdown> {
             style: TextStyle(color: Colors.white), // لون النص داخل المربع
           ),
           dropdownColor: Colors.black, // لون القائمة عند الضغط
-          items: [ConstantNames.male.tr(), ConstantNames.female.tr()].map((String value) {
+          items:Gender.gender.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(

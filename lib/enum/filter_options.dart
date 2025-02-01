@@ -2,14 +2,14 @@ import 'package:just_movie/constant/ages.dart';
 import 'package:just_movie/constant/genre.dart';
 
 class FilterOptions {
-  static final List<String> filterOptions = [
+  static final List<String> genreFilterOption = [
     Genres.Genre,
     Genres.Action,
     Genres.Drama,
     Genres.Comedy,
     Genres.Horror
   ];
-  static final List<String> filterOptions2 = [
+  static final List<String> AgeFilterOption = [
     Ages.Age,
     Ages.PG13,
     Ages.TVMA,
