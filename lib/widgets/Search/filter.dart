@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:just_movie/colors.dart';
+import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/constant/ages.dart';
 import 'package:just_movie/enum/filter_options.dart';
 import 'package:just_movie/constant/genre.dart';

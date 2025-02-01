@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/constant/names.dart';
 
 final List<Map<String, String>> ActorsImage = [
@@ -54,7 +55,7 @@ Widget actors(List<String> ActorsData, int NumOfActors) {
                     height: 120,
                     width: 80,
                     decoration: BoxDecoration(
-                      color: Color(0XFF414141),
+                      color: Color(charcoal),
                       borderRadius: BorderRadius.all(Radius.circular(25)),
                     ),
                     child: Column(

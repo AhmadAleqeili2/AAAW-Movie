@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/colors.dart';
 
 class CustomTile extends StatelessWidget {
   final String image;
@@ -23,7 +24,7 @@ class CustomTile extends StatelessWidget {
       alignment: Alignment.center,
       padding: EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: Color(0XFF252525),
+        color: Color(veryDarkGrey),
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(radius),
       ),

@@ -1,6 +1,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/constant/names.dart';
 
 class MyListButton extends StatelessWidget {
@@ -14,7 +15,7 @@ class MyListButton extends StatelessWidget {
       height: secreenHeight * 0.07,
       width: secreenWidth * 0.15,
       decoration: BoxDecoration(
-        color: Color(0XFF252525),
+        color: Color(veryDarkGrey),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Stack(
@@ -28,13 +29,13 @@ class MyListButton extends StatelessWidget {
                     ? IconButton(
                         icon: Icon(Icons.delete_rounded),
                         iconSize: 30,
-                        color: Color(0XFFB3B3B3),
+                        color: Color(paleGray),
                         onPressed: () {},
                       )
                     : IconButton(
                         icon: Icon(Icons.add),
                         iconSize: 30,
-                        color: Color(0XFFB3B3B3),
+                        color: Color(paleGray),
                         onPressed: () {},
                       )),
           ),

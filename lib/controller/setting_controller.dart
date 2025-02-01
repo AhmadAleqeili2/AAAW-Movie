@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/model/boxes.dart';
@@ -97,7 +98,7 @@ class SettingController extends ChangeNotifier {
           return AlertDialog(
               title: Text(ConstantNames.resetPassword),
               content: CustomTextField(
-                fillColor: const Color(0xff222222),
+                fillColor: const Color(darkGrey),
                 hintText: ConstantNames.password,
                 width: secreenWidth * 0.85,
                 isPass: true,

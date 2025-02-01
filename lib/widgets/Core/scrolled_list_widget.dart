@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:just_movie/colors.dart';
+import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/services/navigate.dart';
 import 'package:just_movie/view/movie_detail_page.dart';
 
@@ -96,7 +96,7 @@ class ScrolledListWidget extends StatelessWidget {
                                 item.title,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Color(0XFFFFFFFF),
+                                  color: Color(white),
                                   fontSize: 12,
                                 ),
                               ),

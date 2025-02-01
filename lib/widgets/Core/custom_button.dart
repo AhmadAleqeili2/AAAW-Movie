@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/colors.dart';
 
 class CustomButton extends StatelessWidget {
   final Color backgroundColor;
@@ -11,7 +12,7 @@ class CustomButton extends StatelessWidget {
 
   const CustomButton({
     super.key,
-    this.backgroundColor = const Color(0XFFCC2A1B),
+    this.backgroundColor = const Color(rustRed),
     this.buttonText = '',
     this.width = double.infinity,
     this.height = 50.0,

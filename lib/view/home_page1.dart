@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:just_movie/colors.dart';
+import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/constant/media_data.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/movie_controller.dart';

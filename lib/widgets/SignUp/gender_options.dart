@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/enum/gender.dart';
 
@@ -23,9 +24,9 @@ class GenderDropdownState extends State<GenderDropdown> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: screenWidth*0.102),
       decoration: BoxDecoration(
-        color: Color(0xff222222), // لون خلفية المربع
+        color: Color(darkGrey), // لون خلفية المربع
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xffC3C3C3)), // إطار خفيف
+        border: Border.all(color: const Color(silver)), // إطار خفيف
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(

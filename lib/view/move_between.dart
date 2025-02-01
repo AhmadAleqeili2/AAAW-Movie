@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:just_movie/colors.dart';
+import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/controller/movie_controller.dart';
 import 'package:just_movie/view/home_page1.dart';
 import 'package:just_movie/view/my_list.dart';

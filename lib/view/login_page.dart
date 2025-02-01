@@ -11,6 +11,7 @@ import 'package:just_movie/widgets/Core/custom_text_fields.dart';
 import 'package:just_movie/widgets/LoginPage/or_devider.dart';
 import 'package:just_movie/widgets/LoginPage/social_media_buttons.dart';
 
+import '../constant/colors.dart';
 import 'slide_transition.dart';
 
 class LoginPage extends StatelessWidget {
@@ -39,13 +40,13 @@ class LoginPage extends StatelessWidget {
               ),
 
               CustomTextField(
-                fillColor: Color(0xff222222),
+                fillColor: Color(darkGrey),
                 hintText: ConstantNames.email.tr(),
                 width: screenWidth * 0.85,
                 controller: emailController,
               ),
               CustomTextField(
-                fillColor: const Color(0xff222222),
+                fillColor: const Color(darkGrey),
                 hintText: ConstantNames.password.tr(),
                 width: screenWidth * 0.85,
                 isPass: true,
@@ -74,8 +75,8 @@ class LoginPage extends StatelessWidget {
                     buttonText: ConstantNames.signUp.tr(),
                     width: screenWidth * 0.4,
                     height: 54,
-                    backgroundColor: const Color(0XFF000000),
-                    borderColor: const Color(0XFFCC2A1B),
+                    backgroundColor: const Color(black),
+                    borderColor: const Color(rustRed),
                     onTap: () {
                       Navigator.push(context, ScaleTransition1(SignUpPage()));
                     },
@@ -101,7 +102,7 @@ class LoginPage extends StatelessWidget {
                           text: ConstantNames.privacy
                               .tr(), // جزء من النص الذي سيكون زر
                           style: const TextStyle(
-                            color: Color(0XFFFF0000),
+                            color: Color(red),
                             fontWeight: FontWeight.bold, // تخصيص مظهر الزر
                           ),
                           recognizer: TapGestureRecognizer()
@@ -116,7 +117,7 @@ class LoginPage extends StatelessWidget {
                           text: ConstantNames.terms
                               .tr(), // جزء من النص الذي سيكون زر
                           style: const TextStyle(
-                            color: Color(0XFFFF0000),
+                            color: Color(red),
                             fontWeight: FontWeight.bold, // تخصيص مظهر الزر
                           ),
                           recognizer: TapGestureRecognizer()

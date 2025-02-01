@@ -2,6 +2,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/colors.dart';
 
 class CustomTextButton extends StatelessWidget {
   final String buttonText;
@@ -14,7 +15,7 @@ class CustomTextButton extends StatelessWidget {
     super.key,
     required this.buttonText,
     required this.onPressed,
-    this.textColor = const Color(0XFFFFFFFF), // اللون الافتراضي للنص
+    this.textColor = const Color(white), // اللون الافتراضي للنص
     this.fontSize = 14, // الحجم الافتراضي للنص
     this.fontWeight = FontWeight.normal, // الوزن الافتراضي للنص
   });

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/colors.dart';
 
 class RatingColumn extends StatelessWidget {
   final String star;
@@ -14,7 +15,7 @@ class RatingColumn extends StatelessWidget {
         Icon(
           Icons.star_border_outlined,
           size: 35,
-          color: Color(0XFFB3B3B3),
+          color: Color(paleGray),
         ),
         Text(
           star,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/colors.dart';
 
 class EpisodeTile extends StatelessWidget {
   final String image;
@@ -18,7 +19,7 @@ class EpisodeTile extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height * 0.12,
       decoration: BoxDecoration(
-        color: const Color(0xFF252525),
+        color: const Color(veryDarkGrey),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Colors.grey),
       ),

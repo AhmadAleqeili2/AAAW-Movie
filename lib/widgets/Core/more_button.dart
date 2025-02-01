@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/services/navigate.dart';
 
 Widget moreButton(context, Page) {
@@ -9,7 +10,7 @@ Widget moreButton(context, Page) {
         width: MediaQuery.of(context).size.width * 0.3,
         height: MediaQuery.of(context).size.height * 0.04,
         decoration: BoxDecoration(
-            color: Color(0xFF252525),
+            color: Color(veryDarkGrey),
             borderRadius: BorderRadius.all(Radius.circular(50))),
       ),
       Positioned(

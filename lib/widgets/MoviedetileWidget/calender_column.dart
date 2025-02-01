@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/colors.dart';
 
 class CalendarColumn extends StatelessWidget {
   final String day;
@@ -14,7 +15,7 @@ class CalendarColumn extends StatelessWidget {
         Icon(
           Icons.calendar_today_outlined,
           size: 35,
-          color: Color(0XFFB3B3B3),
+          color: Color(paleGray),
         ),
         Text(
           day,

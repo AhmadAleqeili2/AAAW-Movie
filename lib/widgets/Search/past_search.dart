@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:just_movie/colors.dart';
+import 'package:just_movie/constant/colors.dart';
 
 class pastSeache extends StatelessWidget {
   const pastSeache({super.key, required this.title});

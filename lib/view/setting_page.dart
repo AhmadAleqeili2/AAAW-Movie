@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:just_movie/colors.dart';
+import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/controller/setting_controller.dart';
@@ -49,7 +49,7 @@ class _SettingPageState extends State<SettingPage> {
               SizedBox(height: secreenheight * 0.02),
               CircleAvatar(
                 radius: secreenheight * 0.095,
-                backgroundColor: Color(0XFFD9D9D9),
+                backgroundColor: Color(lightGrey),
                 child: Stack(
                   children: [
                     InkWell(
@@ -57,7 +57,7 @@ class _SettingPageState extends State<SettingPage> {
                         child: Icon(
                           Icons.person,
                           size: secreenheight * 0.15,
-                          color: const Color(0xFF6F6F6F),
+                          color: const Color(meduimGrey),
                         )),
                     PositionedDirectional(
                       bottom: 0,
@@ -78,7 +78,7 @@ class _SettingPageState extends State<SettingPage> {
                   children: [
                     controller.isNameEDiting
                         ? CustomTextField(
-                            fillColor: const Color(0xff222222),
+                            fillColor: const Color(darkGrey),
                             hintText: ConstantNames.username.tr(),
                             width: secreenWidth * 0.85,
                             onSubmitted: (p0) {

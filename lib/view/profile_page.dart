@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/services/navigate.dart';
@@ -74,7 +75,7 @@ int count=0;
             SizedBox(height: 20),
             CircleAvatar(
               radius: 80,
-              backgroundColor: const Color(0XFFD9D9D9),
+              backgroundColor: const Color(lightGrey),
               child: user?.image() != null
                   ? ClipOval(
                       child: Image.asset(
@@ -87,7 +88,7 @@ int count=0;
                   : Icon(
                       Icons.person,
                       size: 130,
-                      color: const Color(0xFF6F6F6F),
+                      color: const Color(meduimGrey),
                     ),
             ),
             SizedBox(height: 10),
@@ -123,7 +124,7 @@ int count=0;
                   Text(
                     'Vikings Season 5 | Episode 7 | 00:25:23',
                     style: TextStyle(
-                      color: Color(0XFFB4B4B4),
+                      color: Color(lightGreyShade),
                       fontSize: 14,
                     ),
                   ),

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/constant/names.dart';
 
@@ -12,7 +13,7 @@ Widget facebookLogIn(BuildContext context,double screenWidth) {
           label: Text(ConstantNames.facebookSignInText.tr(),
               style: TextStyle(color: Colors.white)),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0XFF1877F2),
+            backgroundColor: Color(blue),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),

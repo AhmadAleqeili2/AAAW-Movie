@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:just_movie/constant/colors.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hintText;
@@ -28,9 +29,9 @@ class CustomTextField extends StatefulWidget {
       this.fillColor = Colors.white,
       this.fontSize = 16.0,
       this.textAlign = TextAlign.start,
-      this.bordercolor = const Color(0xffC3C3C3),
+      this.bordercolor = const Color(silver),
       this.hintTextColor =
-          const Color(0XFFFFFFFF), // القيمة الافتراضية للون النص
+          const Color(white), // القيمة الافتراضية للون النص
       this.isPass = false,
       this.controller,
       this.validator,

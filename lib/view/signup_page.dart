@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:just_movie/colors.dart';
+import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/model/user.dart';
@@ -56,16 +56,16 @@ class _SignUpPageState extends State<SignUpPage> {
                     hintText: ConstantNames.firstName.tr(),
                     width: screenWidth * 0.4,
                     height: 50,
-                    fillColor: const Color(0xff222222),
-                    hintTextColor: const Color(0XFFFFFFFF),
+                    fillColor: const Color(darkGrey),
+                    hintTextColor: const Color(white),
                     controller: firstNAmeController,
                   ),
                   CustomTextField(
                     hintText: ConstantNames.lastName.tr(),
                     width: screenWidth * 0.4,
                     height: 50,
-                    fillColor: const Color(0xff222222),
-                    hintTextColor: const Color(0XFFFFFFFF),
+                    fillColor: const Color(darkGrey),
+                    hintTextColor: const Color(white),
                     controller: lassNameController,
                   ),
                 ],
@@ -80,8 +80,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     hintText: ConstantNames.age.tr(),
                     width: screenWidth * 0.4,
                     height: 50,
-                    fillColor: const Color(0xff222222),
-                    hintTextColor: const Color(0XFFFFFFFF),
+                    fillColor: const Color(darkGrey),
+                    hintTextColor: const Color(white),
                     keyboard: TextInputType.numberWithOptions(),
                     controller: ageController,
                   ),
@@ -94,8 +94,8 @@ class _SignUpPageState extends State<SignUpPage> {
               // E-mail and Password Fields
               CustomTextField(
                 hintText: ConstantNames.email.tr(),
-                fillColor: const Color(0xff222222),
-                hintTextColor: const Color(0XFFFFFFFF),
+                fillColor: const Color(darkGrey),
+                hintTextColor: const Color(white),
                 width: screenWidth * 0.85,
                 keyboard: TextInputType.emailAddress,
                 controller: emailController,
@@ -103,8 +103,8 @@ class _SignUpPageState extends State<SignUpPage> {
               CustomTextField(
                 hintText: ConstantNames.password.tr(),
                 obscureText: true,
-                fillColor: const Color(0xff222222),
-                hintTextColor: const Color(0XFFFFFFFF),
+                fillColor: const Color(darkGrey),
+                hintTextColor: const Color(white),
                 isPass: true,
                 width: screenWidth * 0.85,
                 controller: passController,
@@ -112,8 +112,8 @@ class _SignUpPageState extends State<SignUpPage> {
               CustomTextField(
                 hintText: ConstantNames.confirmPassword.tr(),
                 obscureText: true,
-                fillColor: const Color(0xff222222),
-                hintTextColor: const Color(0XFFFFFFFF),
+                fillColor: const Color(darkGrey),
+                hintTextColor: const Color(white),
                 isPass: true,
                 width: screenWidth * 0.85,
                 controller: conPassController,
@@ -152,7 +152,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           text: ConstantNames.privacy
                               .tr(), // جزء من النص الذي سيكون زر
                           style: const TextStyle(
-                            color: Color(0XFFFF0000),
+                            color: Color(red),
                             fontWeight: FontWeight.bold, // تخصيص مظهر الزر
                           ),
                           recognizer: TapGestureRecognizer()
@@ -167,7 +167,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           text: ConstantNames.terms
                               .tr(), // جزء من النص الذي سيكون زر
                           style: const TextStyle(
-                            color: Color(0XFFFF0000),
+                            color: Color(red),
                             fontWeight: FontWeight.bold, // تخصيص مظهر الزر
                           ),
                           recognizer: TapGestureRecognizer()
@@ -184,9 +184,9 @@ class _SignUpPageState extends State<SignUpPage> {
               // Create Account Button
               CustomButton(
                   buttonText: ConstantNames.createAccount.tr(),
-                  backgroundColor: const Color(0XFFCC2A1B),
+                  backgroundColor: const Color(rustRed),
                   height: 50,
-                  borderColor: const Color(0XFFCC2A1B),
+                  borderColor: const Color(rustRed),
                   borderWidth: 2,
                   onTap: () {
                     user.setAge(int.parse(ageController.value.text));
