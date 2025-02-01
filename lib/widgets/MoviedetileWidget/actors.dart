@@ -46,6 +46,7 @@ Widget actors(List<String> ActorsData, int NumOfActors) {
         scrollDirection: Axis.horizontal, // تفعيل التمرير الأفقي
         child: Row(
           children: List.generate(NumOfActors, (index) {
+            if (index >= ActorsData.length) return Container(); // Prevent RangeError
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Stack(
@@ -75,7 +76,7 @@ Widget actors(List<String> ActorsData, int NumOfActors) {
                       width: 80,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: NetworkImage(ActorsImage[index % 4]["image"]!),
+                          image: NetworkImage(ActorsImage[index % ActorsImage.length]["image"]!),
                           fit: BoxFit.fill,
                         ),
                         borderRadius: BorderRadius.only(

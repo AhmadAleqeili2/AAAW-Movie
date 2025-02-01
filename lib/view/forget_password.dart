@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
-import 'package:just_movie/view/login_page.dart';
-
+import 'package:just_movie/widgets/ForgotPassword/email_input_field.dart';
+import 'package:just_movie/widgets/ForgotPassword/signIn_redirect.dart';
+import 'package:just_movie/widgets/ForgotPassword/submit_button.dart';
+/// [ForgotPassword] 
+/// Password recovery page
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
 
@@ -13,17 +16,12 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  // Form Key
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  // TextForm Controller
-  TextEditingController emailController = TextEditingController();
-  UserController controller = UserController();
-  // Form Validation
+  final TextEditingController emailController = TextEditingController();
+  final UserController controller = UserController();
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -37,47 +35,19 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              TextFormField(
-                controller: emailController,
-                decoration:
-                    InputDecoration(labelText: ConstantNames.email.tr()),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return ConstantNames.enterYourEmail.tr();
-                  }
-                  return null;
-                },
-                onSaved: (value) => emailController.text = value!,
+              //Widget for entering email
+              EmailInputField(controller: emailController),
+              const SizedBox(height: 16.0),
+              //Button to submit email for password recovery
+              SubmitButton(
+                controller: controller,
+                emailController: emailController,
+                formKey: _formKey,
               ),
               const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () => controller.validateAndSubmit(
-                    emailController.value.text, context, _formKey),
-                style: ButtonStyle(
-                    foregroundColor: WidgetStatePropertyAll(Colors.red)),
-                child: Text(ConstantNames.submit.tr()),
-              ),
-              const SizedBox(height: 16.0),
-              Center(
-                child: GestureDetector(
-                  onTap: () => controller.navigateToSignIn(context),
-                  child: RichText(
-                    text: TextSpan(
-                      text: ConstantNames.haveAccount.tr(),
-                      style: TextStyle(color: Colors.white),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: ConstantNames.signIn.tr(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 255, 17, 0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              //Redirects user to sign-in page
+              SignInRedirect(controller: controller),
+           
             ],
           ),
         ),
@@ -85,3 +55,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     );
   }
 }
+
+
+

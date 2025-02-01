@@ -5,6 +5,9 @@ import 'package:just_movie/model/boxes.dart';
 import 'package:just_movie/model/login_token.dart';
 import 'package:just_movie/view/login_page.dart';
 import 'package:just_movie/view/move_between.dart';
+
+/// [InitialPage]
+/// Determines the initial page based on login token status.
 class InitialPage extends StatelessWidget {
   const InitialPage({super.key});
 
@@ -21,9 +24,12 @@ class InitialPage extends StatelessWidget {
 
     final currentDate = DateTime.now();
 
+    // If no token exists, navigate to LoginPage
     if (Boxes.boxToken.isEmpty) {
       return LoginPage();
-    } else if (token != null && currentDate.isAfter(token.expiryDate)) {
+    } 
+    // If token exists but expired, show session expiration dialog
+    else if (token != null && currentDate.isAfter(token.expiryDate)) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         showDialog(
           context: context,
@@ -47,8 +53,10 @@ class InitialPage extends StatelessWidget {
         );
       });
       return Container(); // Return an empty container while the dialog is shown
-    } else {
-      return HomePage();
+    } 
+    // If token is valid, navigate to HomePage
+    else {
+      return MoveBetween();
     }
   }
 }

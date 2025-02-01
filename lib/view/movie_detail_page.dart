@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/constant/colors.dart';
-import 'package:just_movie/constant/media_data.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/favourit_media.dart';
 import 'package:just_movie/model/media.dart';
@@ -59,6 +58,7 @@ final List<Map<String, String>> items = [
   {"image": "assets/image/movie_logo.png", "title": "Selahaddin"},
 ];
 
+///[MovieDetile] show the details of the movie
 class MovieDetile extends StatefulWidget {
   const MovieDetile({Key? key, required this.movie}) : super(key: key);
   final Media movie;
@@ -67,6 +67,7 @@ class MovieDetile extends StatefulWidget {
   _MovieDetileState createState() => _MovieDetileState();
 }
 
+// [MovieDetileState]
 class _MovieDetileState extends State<MovieDetile> {
   Widget conWidget = Epsoid(
     Number_Of_Eps: 4,
@@ -81,9 +82,10 @@ class _MovieDetileState extends State<MovieDetile> {
   double value = 0;
   TextEditingController _reviewController = TextEditingController();
   bool isFavourit = false;
+
   @override
-  void initState()  {
-    FavouritMediaController controller=Provider.of<FavouritMediaController>(context,listen: false);
+  void initState() {
+    Provider.of<FavouritMediaController>(context, listen: false);
     super.initState();
   }
 
@@ -97,14 +99,17 @@ class _MovieDetileState extends State<MovieDetile> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              // MainImageSection widget
               MainImageSection(
                 Image: widget.movie.image,
                 youtubeVideoId: widget.movie.video,
                 isClicked: false,
               ),
               SizedBox(height: 20),
+              // EpisodeDetails widget
               EpisodeDetails(Data: widget.movie, isSelected: isFavourit),
               SizedBox(height: 20),
+              // ScrolledButtonList widget
               ScrolledButtonList(
                 notSelectedColor: Color.fromARGB(100, 217, 217, 217),
                 isSelectedColor: Color.fromARGB(200, 255, 255, 255),
@@ -146,7 +151,9 @@ class _MovieDetileState extends State<MovieDetile> {
                 ],
               ),
               SizedBox(height: 20),
+              // conWidget
               conWidget,
+              // ReviewSection widget
               ReviewSection(
                 reviewController: _reviewController,
                 ratingValue: value,
@@ -156,6 +163,7 @@ class _MovieDetileState extends State<MovieDetile> {
                   });
                 },
               ),
+              // PeopleReviews widget
               PeopleReviews(count: count),
               SizedBox(height: 100),
             ],

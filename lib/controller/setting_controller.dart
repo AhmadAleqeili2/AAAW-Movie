@@ -13,7 +13,6 @@ import 'package:just_movie/widgets/Core/custom_text_fields.dart';
 import 'package:path_provider/path_provider.dart';
 
 class SettingController extends ChangeNotifier {
-  File? _imageFile;
   User? user = UserController().getUser(Boxes.boxToken.keys.first);
   String selectedLanguage = "English";
   bool isNameEDiting = false;
@@ -32,7 +31,6 @@ class SettingController extends ChangeNotifier {
         final savedImage =
             await File(pickedFile.path).copy('${appDir.path}/$fileName');
         user?.setImage('${appDir.path}/$fileName');
-        _imageFile = savedImage;
         print("Image saved at: ${savedImage.path}");
         notifyListeners();
       }
@@ -90,7 +88,6 @@ class SettingController extends ChangeNotifier {
   void resetPassword(BuildContext context,TextEditingController passController) {
     // Show a dialog when the button is pressed
     
-    double secreenheight = MediaQuery.of(context).size.height;
     double secreenWidth = MediaQuery.of(context).size.width;
     showDialog(
         context: context,

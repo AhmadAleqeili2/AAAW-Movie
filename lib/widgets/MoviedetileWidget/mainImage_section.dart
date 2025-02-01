@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:just_movie/widgets/MoviedetileWidget/main_imag_widget.dart';
 
 import '../../constant/names.dart';
-
+bool isClicked = false;
 class MainImageSection extends StatefulWidget {
   final String Image;
   final String youtubeVideoId;
-  bool isClicked;
+   
   MainImageSection(
       {super.key,
       required this.Image,
       required this.youtubeVideoId,
-      required this.isClicked});
+      required isClicked});
 
   @override
   State<MainImageSection> createState() => _MainImageSectionState();
@@ -59,16 +59,16 @@ class _MainImageSectionState extends State<MainImageSection> {
           MainImageWidget(
             imagePath: widget.Image,
             youtubeVideoId: _videoId??"",
-            isClicked: widget.isClicked,
+            isClicked: isClicked,
           ),
-          if (!widget.isClicked) ...{
+          if (!isClicked) ...{
             Positioned(
               top: 90,
               left: 90,
               child: IconButton(
                 onPressed: () {
                   setState(() {
-                    widget.isClicked = true;
+                    isClicked = true;
                   });
                 },
                 icon: Icon(

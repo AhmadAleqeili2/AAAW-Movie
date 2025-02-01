@@ -1,17 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/constant/colors.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
 import 'package:just_movie/model/user.dart';
 import 'package:just_movie/widgets/Core/custom_button.dart';
-import 'package:just_movie/widgets/Core/custom_text_fields.dart';
-import 'package:just_movie/widgets/SignUp/gender_options.dart';
+import 'package:just_movie/widgets/SignUp/logo.dart';
+import 'package:just_movie/widgets/SignUp/name_fields.dart';
+import 'package:just_movie/widgets/SignUp/age_gender_fields.dart';
+import 'package:just_movie/widgets/SignUp/email_password_fields.dart';
+import 'package:just_movie/widgets/SignUp/agreement_checkbox.dart';
 
 TextEditingController genderController = TextEditingController();
 bool isChecked = false;
 
+/// [SignUpPage] Main sign-up page
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -38,150 +41,34 @@ class _SignUpPageState extends State<SignUpPage> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 15,
             children: [
               const SizedBox(height: 80),
-              // Logo (أو أي شيء تود إضافته أعلى الصفحة)
-              Image.asset(
-                'assets/image/Logo.png',
-                height: 200,
-              ),
+              Logo(), // Logo widget
               const SizedBox(height: 20),
-
-              // First Name and Last Name Fields
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CustomTextField(
-                    hintText: ConstantNames.firstName.tr(),
-                    width: screenWidth * 0.4,
-                    height: 50,
-                    fillColor: const Color(darkGrey),
-                    hintTextColor: const Color(white),
-                    controller: firstNAmeController,
-                  ),
-                  CustomTextField(
-                    hintText: ConstantNames.lastName.tr(),
-                    width: screenWidth * 0.4,
-                    height: 50,
-                    fillColor: const Color(darkGrey),
-                    hintTextColor: const Color(white),
-                    controller: lassNameController,
-                  ),
-                ],
-              ),
-
-              // Age and Gender Fields
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CustomTextField(
-                    hintText: ConstantNames.age.tr(),
-                    width: screenWidth * 0.4,
-                    height: 50,
-                    fillColor: const Color(darkGrey),
-                    hintTextColor: const Color(white),
-                    keyboard: TextInputType.numberWithOptions(),
-                    controller: ageController,
-                  ),
-                  GenderDropdown(
-                    controller: genderController,
-                  ),
-                ],
-              ),
-
-              // E-mail and Password Fields
-              CustomTextField(
-                hintText: ConstantNames.email.tr(),
-                fillColor: const Color(darkGrey),
-                hintTextColor: const Color(white),
-                width: screenWidth * 0.85,
-                keyboard: TextInputType.emailAddress,
-                controller: emailController,
-              ),
-              CustomTextField(
-                hintText: ConstantNames.password.tr(),
-                obscureText: true,
-                fillColor: const Color(darkGrey),
-                hintTextColor: const Color(white),
-                isPass: true,
-                width: screenWidth * 0.85,
-                controller: passController,
-              ),
-              CustomTextField(
-                hintText: ConstantNames.confirmPassword.tr(),
-                obscureText: true,
-                fillColor: const Color(darkGrey),
-                hintTextColor: const Color(white),
-                isPass: true,
-                width: screenWidth * 0.85,
-                controller: conPassController,
-              ),
-
-              Row(
-                children: [
-                  Checkbox(
-                    fillColor: WidgetStateProperty.resolveWith<Color>(
-                        (Set<WidgetState> states) {
-                      if (!isChecked) {
-                        return primarycolor;
-                      } else {
-                        return const Color.fromARGB(
-                            255, 48, 47, 47); // اللون عند عدم التحديد
-                      }
-                    }),
-                    checkColor: Colors.red,
-                    value: isChecked,
-                    onChanged: (value) {
-                      isChecked = value ?? false;
-                      setState(() {});
-                    },
-                  ),
-                  RichText(
-                    textAlign: TextAlign.center, // توسيط النص داخل RichText
-                    text: TextSpan(
-                      style: const TextStyle(
-                          color: Colors.white, fontSize: 10), // النص الافتراضي
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: ConstantNames.aggrement
-                                .tr() // جزء من النص العادي
-                            ),
-                        TextSpan(
-                          text: ConstantNames.privacy
-                              .tr(), // جزء من النص الذي سيكون زر
-                          style: const TextStyle(
-                            color: Color(red),
-                            fontWeight: FontWeight.bold, // تخصيص مظهر الزر
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              // يمكنك إضافة هنا حدث عند الضغط على الزر
-                            },
-                        ),
-                        TextSpan(
-                          text: ConstantNames.and.tr(), // جزء من النص العادي
-                        ),
-                        TextSpan(
-                          text: ConstantNames.terms
-                              .tr(), // جزء من النص الذي سيكون زر
-                          style: const TextStyle(
-                            color: Color(red),
-                            fontWeight: FontWeight.bold, // تخصيص مظهر الزر
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              // يمكنك إضافة هنا حدث عند الضغط على الزر
-                            },
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+              NameFields(
+                firstNAmeController: firstNAmeController,
+                lassNameController: lassNameController,
+                screenWidth: screenWidth,
+              ), // NameFields widget
+              AgeGenderFields(
+                ageController: ageController,
+                genderController: genderController,
+                screenWidth: screenWidth,
+              ), // AgeGenderFields widget
+              EmailPasswordFields(
+                emailController: emailController,
+                passController: passController,
+                conPassController: conPassController,
+                screenWidth: screenWidth,
+              ), // EmailPasswordFields widget
+              AgreementCheckbox(
+                isChecked: isChecked,
+                onChanged: (value) {
+                  isChecked = value ?? false;
+                  setState(() {});
+                },
+              ), // AgreementCheckbox widget
               const SizedBox(height: 20),
-              // Create Account Button
               CustomButton(
                   buttonText: ConstantNames.createAccount.tr(),
                   backgroundColor: const Color(rustRed),

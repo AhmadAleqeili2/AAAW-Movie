@@ -19,7 +19,7 @@ import "dart:developer" as developer;
 class UserController {
   /// [signUp] giving a user data and put it in user box and generate objective id then navigate to login page
   void signUp(User user, BuildContext context) {
-    Boxes.boxUser.put(user.email(), user);
+    Boxes.boxUser.put(user.email().toString(), user); // Ensure key is a string
     navigateTo(context, LoginPage());
   }
 
@@ -123,21 +123,21 @@ void facebookSignIn(BuildContext context){
     print(isExist);
     Iterable p1 = Boxes.boxUser.keys;
     for (var item in p1) {
-      developer.log(item);
+      developer.log(item.toString()); // Ensure item is logged as a string
     }
     // print(p1?.email());
     if (isExist) {
       User user = Boxes.boxUser.get(email);
       if (user.password() == password) {
         Boxes.boxToken.put(
-            "$email",
+            email, // Ensure key is a string
             LoginToken(
                 token: Random.secure().toString(),
                 expiryDate: DateTime.now().add(const Duration(days: 3))));
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => HomePage(),
+              builder: (context) => MoveBetween(),
             ));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -168,7 +168,7 @@ void facebookSignIn(BuildContext context){
   }
 
   void deleteAccount(BuildContext context) {
-    Boxes.boxUser.delete(Boxes.boxToken.keys.first);
+    Boxes.boxUser.delete(Boxes.boxToken.keys.first.toString()); // Ensure key is a string
     Boxes.boxToken.clear();
     navigateTo(context, LoginPage());
   }
@@ -179,7 +179,7 @@ void facebookSignIn(BuildContext context){
   }
 
   void changeUserInfo(User user) {
-    Boxes.boxUser.put(user.email(), user);
+    Boxes.boxUser.put(user.email().toString(), user); // Ensure key is a string
   }
 }
 
@@ -202,7 +202,7 @@ class AuthController extends ChangeNotifier {
     try {
       bool isAccepted = await UserApi().Login(email, password, context);
       if (isAccepted) {
-        navigateTo(context, HomePage());
+        navigateTo(context, MoveBetween());
       }
     } catch (e) {
       _showSnackBar(context, 'Login failed: $e');

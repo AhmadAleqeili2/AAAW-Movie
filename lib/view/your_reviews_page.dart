@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_movie/widgets/Core/custom_list_tile.dart';
-
+///[YourReviewsPage] The page that shows the reviews of the user.
 class YourReviewsPage extends StatefulWidget {
   
   @override

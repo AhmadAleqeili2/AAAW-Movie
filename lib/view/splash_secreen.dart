@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:just_movie/utils/test-network.dart';
+import 'package:just_movie/widgets/Splash/AnimatedLogo.dart';
+import 'package:just_movie/widgets/Splash/AnimatedText.dart';
 
+/// [MyCustomSplashScreen] The main splash screen widget
 class MyCustomSplashScreen extends StatefulWidget {
   @override
   _MyCustomSplashScreenState createState() => _MyCustomSplashScreenState();
@@ -10,7 +13,6 @@ class MyCustomSplashScreen extends StatefulWidget {
 class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
     with TickerProviderStateMixin {
   double _fontSize = 2;
-  double _containerSize = 1.5;
   double _textOpacity = 0.0;
   double _containerOpacity = 0.0;
 
@@ -42,7 +44,6 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
 
     Timer(Duration(seconds: 3), () {
       setState(() {
-        _containerSize = 2;
         _containerOpacity = 1;
       });
     });
@@ -64,47 +65,23 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
-    double _height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       body: Stack(
         children: [
           Column(
             children: [
-              AnimatedContainer(
-                  duration: Duration(milliseconds: 3000),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  height: _height / _fontSize),
-              AnimatedOpacity(
-                duration: Duration(milliseconds: 2000),
-                opacity: _textOpacity,
-                child: Text(
-                  'Movie Hub',
-                  style: TextStyle(
-                    color: const Color.fromARGB(255, 250, 22, 6),
-                    fontWeight: FontWeight.bold,
-                    fontSize: animation1.value,
-                  ),
-                ),
+              AnimatedText(
+                fontSize: _fontSize,
+                textOpacity: _textOpacity,
+                animationValue: animation1.value,
               ),
             ],
           ),
           Center(
-            child: AnimatedOpacity(
-              duration: Duration(milliseconds: 2000),
-              curve: Curves.fastLinearToSlowEaseIn,
-              opacity: _containerOpacity,
-              child: AnimatedContainer(
-                  duration: Duration(milliseconds: 2000),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  height: _width,
-                  width: _width,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Image.asset('assets/image/Logo.png')),
+            child: AnimatedLogo(
+              containerOpacity: _containerOpacity,
+              width: _width,
             ),
           ),
         ],

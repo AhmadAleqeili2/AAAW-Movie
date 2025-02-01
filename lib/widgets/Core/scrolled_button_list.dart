@@ -9,7 +9,7 @@ class ScrolledButtonList extends StatefulWidget {
   final Color notSelectedColor;
   final double width;
   final double height;
-  late List<String> Bnames;
+  late final List<String> Bnames;
   final List<VoidCallback> BPress;
   final int selectedButtonButtom;
   final int selectedButtonTop;

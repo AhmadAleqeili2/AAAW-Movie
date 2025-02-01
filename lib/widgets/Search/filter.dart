@@ -7,12 +7,13 @@ import 'package:just_movie/constant/genre.dart';
 import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/search_controller.dart';
 import 'package:provider/provider.dart';
-
+   String? selectedFilter = Genres.Genre;
+   String? selectedFilter2 = Ages.Age;
 class Filter extends StatefulWidget {
-  Filter({super.key, this.selectedFilter, this.selectedFilter2});
+  final String? selectedFilter;
+  final String? selectedFilter2;
 
-  String? selectedFilter;
-  String? selectedFilter2;
+  Filter({super.key, this.selectedFilter, this.selectedFilter2});
 
   @override
   State<Filter> createState() => _FilterState();
@@ -43,8 +44,8 @@ class _FilterState extends State<Filter> {
                 DropdownButton<String>(
                   hint: Text(ConstantNames.genre.tr()),
                   value: FilterOptions.genreFilterOption
-                          .contains(widget.selectedFilter)
-                      ? widget.selectedFilter
+                          .contains(selectedFilter)
+                      ? selectedFilter
                       : FilterOptions
                           .genreFilterOption.first, // Ensure valid default
                   items: FilterOptions.genreFilterOption.map((String filter) {
@@ -58,7 +59,7 @@ class _FilterState extends State<Filter> {
                   }).toList(),
                   onChanged: (value) {
                     setState(() {
-                      widget.selectedFilter = value!;
+                      selectedFilter = value!;
                       controller.applyFilter();
                     });
                   },
@@ -74,8 +75,8 @@ class _FilterState extends State<Filter> {
                   hint: Text(ConstantNames.age.tr()),
 
                   value: FilterOptions.AgeFilterOption
-                          .contains(widget.selectedFilter2)
-                      ? widget.selectedFilter2
+                          .contains(selectedFilter2)
+                      ? selectedFilter2
                       : FilterOptions
                           .AgeFilterOption.first, // Ensure valid default
                   items: FilterOptions.AgeFilterOption.map((String filter) {
@@ -89,7 +90,7 @@ class _FilterState extends State<Filter> {
                   }).toList(),
                   onChanged: (value) {
                     setState(() {
-                      widget.selectedFilter2 = value!;
+                      selectedFilter2 = value!;
                       controller.applyFilter();
                     });
                   },

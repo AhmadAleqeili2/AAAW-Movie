@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_movie/model/media.dart';
-import 'package:just_movie/services/favoutrit-media/favourit_media_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/favoutrit-media/favorit_media_api.dart';

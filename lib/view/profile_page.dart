@@ -1,16 +1,16 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:just_movie/constant/colors.dart';
-import 'package:just_movie/constant/names.dart';
 import 'package:just_movie/controller/auth_controller.dart';
-import 'package:just_movie/services/navigate.dart';
-import 'package:just_movie/view/setting_page.dart';
 import 'package:just_movie/view/your_reviews_page.dart';
-import 'package:just_movie/widgets/Core/custom_list_tile.dart';
 import 'package:just_movie/widgets/Core/more_button.dart';
+import 'package:just_movie/widgets/ProfilePage/profile_avatar.dart';
+import 'package:just_movie/widgets/ProfilePage/profile_header.dart';
+import 'package:just_movie/widgets/ProfilePage/profile_last_watched.dart';
+import 'package:just_movie/widgets/ProfilePage/profile_reviews.dart';
 
 import '../model/boxes.dart';
 import '../model/user.dart';
+
+/// [ProfilePage]
 class ProfilePage extends StatefulWidget {
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -27,10 +27,10 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void fetchUser() {
-    final fetchedUser = UserController ().getUser(Boxes.boxToken.keys.first);
+    final fetchedUser = UserController().getUser(Boxes.boxToken.keys.first);
 
     setState(() {
-      if (fetchedUser == "" || fetchedUser == null) {
+      if (fetchedUser == null) {
         user = User(); // Default user object
       } else {
         user = fetchedUser;
@@ -38,7 +38,9 @@ class _ProfilePageState extends State<ProfilePage> {
       isUserFetched = true;
     });
   }
-int count=0;
+
+  int count = 10;
+
   @override
   Widget build(BuildContext context) {
     if (!isUserFetched) {
@@ -52,48 +54,12 @@ int count=0;
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Transform(
-                  alignment: Alignment.center,
-                  transform: Matrix4.rotationY(3.14159), // Flip horizontally
-                  child: Image.asset(
-                    'assets/image/Logo.png',
-                    width: 50,
-                    height: 50,
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.settings, color: Colors.white, size: 28),
-                  onPressed: () {
-                    navigateTo(context, SettingPage());
-                  },
-                ),
-              ],
-            ),
+            ProfileHeader(), // ProfileHeader widget
             SizedBox(height: 20),
-            CircleAvatar(
-              radius: 80,
-              backgroundColor: const Color(lightGrey),
-              child: user?.image() != null
-                  ? ClipOval(
-                      child: Image.asset(
-                        user!.image()!,
-                        fit: BoxFit.cover,
-                        width: 160,
-                        height: 160,
-                      ),
-                    )
-                  : Icon(
-                      Icons.person,
-                      size: 130,
-                      color: const Color(meduimGrey),
-                    ),
-            ),
+            ProfileAvatar(user: user), // ProfileAvatar widget
             SizedBox(height: 10),
             Text(
-              "${user?.firstName() } ${user?.lastName() ?? ''}",
+              "${user?.firstName() ?? ''} ${user?.lastName() ?? ''}",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -101,36 +67,14 @@ int count=0;
               ),
             ),
             Text(
-              user?.gender()??'',
+              user?.gender() ?? '',
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
               ),
             ),
             SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    ConstantNames.lastWatched.tr(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Vikings Season 5 | Episode 7 | 00:25:23',
-                    style: TextStyle(
-                      color: Color(lightGreyShade),
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            ProfileLastWatched(), // ProfileLastWatched widget
             SizedBox(height: 5),
             Container(
               decoration: BoxDecoration(
@@ -153,38 +97,9 @@ int count=0;
               ),
             ),
             SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                ConstantNames.yourReview.tr(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: count,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: CustomTile(
-                    image: "assets/image/movie_logo.png",
-                    title: "Film name".tr(),
-                    description:
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                    pagenum: index + 1,
-                    numOfPage: count,
-                  ),
-                );
-              },
-            ),
+            ProfileReviews(count: count), // ProfileReviews widget
             SizedBox(height: 20),
-            moreButton(context, YourReviewsPage()),
+            moreButton(context, YourReviewsPage()), // moreButton widget
             SizedBox(height: 50),
           ],
         ),

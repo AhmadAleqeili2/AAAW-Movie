@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:just_movie/services/api.dart';
 import 'package:just_movie/services/media/media_repo.dart';
 
-import '../../model/media.dart';
 
 class MediaApi implements MediaRepo {
   @override

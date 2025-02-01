@@ -5,7 +5,10 @@ import 'package:just_movie/widgets/Core/custom_list_tile.dart';
 class PeopleReviews extends StatelessWidget {
   final int count;
 
-  PeopleReviews({required this.count});
+  const PeopleReviews({
+    Key? key,
+    required this.count,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

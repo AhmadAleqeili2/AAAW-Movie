@@ -7,26 +7,25 @@ import 'package:just_movie/view/my_list.dart';
 import 'package:just_movie/view/profile_page.dart';
 import 'package:just_movie/view/search_page.dart';
 import 'package:just_movie/widgets/MoveBetween/bottom_navigation_bar.dart';
-import 'package:provider/provider.dart';
 
-
-
-class HomePage extends StatefulWidget {
+///[MoveBetween] move between pages in button navigation barr
+class MoveBetween extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomePage> {
+class _HomeScreenState extends State<MoveBetween> {
   int _selectedIndex = 0;
   List<Widget> _pages = [
-    HomePageBody(), 
-    SearchPage(),  
-    MyListPage(),   
-    ProfilePage(),    
+    HomePageBody(),
+    SearchPage(),
+    MyListPage(),
+    ProfilePage(),
   ];
+
   @override
   void initState() {
-    MovieController movieController =MovieController();
+    MovieController movieController = MovieController();
     movieController.getAllMedia();
     super.initState();
   }
@@ -43,12 +42,12 @@ class _HomeScreenState extends State<HomePage> {
       canPop: false,
       child: KeyboardDismissOnTap(
         child: Scaffold(
-            resizeToAvoidBottomInset: true,
-        
+          resizeToAvoidBottomInset: true,
           backgroundColor: primarycolor,
-          body:_selectedIndex==1? SingleChildScrollView(child: _pages[_selectedIndex]): _pages[_selectedIndex], // عرض الصفحة حسب الـ selectedIndex
+          body: _selectedIndex == 1
+              ? SingleChildScrollView(child: _pages[_selectedIndex])
+              : _pages[_selectedIndex], // عرض الصفحة حسب الـ selectedIndex
           bottomNavigationBar: SafeArea(
-            
             child: BottomNavigationBarWidget(
               selectedIndex: _selectedIndex,
               onItemTapped: _onItemTapped,

@@ -1,14 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:just_movie/constant/media_data.dart';
-import 'package:just_movie/widgets/Core/scrolled_button_list.dart';
-import 'package:just_movie/widgets/Core/call_data.dart';
 import 'package:provider/provider.dart';
-
-import '../constant/names.dart';
 import '../controller/favourit_media.dart';
-import '../model/media.dart';
+import '../widgets/MyList/my_list_app_bar.dart';
+import '../widgets/MyList/my_list_button_list.dart';
+import '../widgets/MyList/my_list_media_list.dart';
 
+/// [MyListPage] The main page for displaying the user's list of media.
 class MyListPage extends StatefulWidget {
   @override
   _MyListPageState createState() => _MyListPageState();
@@ -18,6 +15,7 @@ class _MyListPageState extends State<MyListPage> {
   String filter = "All";
   int isSelected = 0;
   String WatsSelected = "All";
+
   @override
   void initState() {
     FavouritMediaController controller =
@@ -29,61 +27,20 @@ class _MyListPageState extends State<MyListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('My List'),
-        centerTitle: true,
-        backgroundColor: Colors.black,
-      ),
+      appBar: MyListAppBar(), // AppBar widget
       body: Column(
         children: [
-          ScrolledButtonList(
-            Bnames: [
-              ConstantNames.all.tr(),
-              ConstantNames.series.tr(),
-              ConstantNames.title.tr(),
-              ConstantNames.favorite.tr(),
-              ConstantNames.recent.tr(),
-              ConstantNames.watchLater.tr(),
-            ],
-            BPress: List.generate(
-              6,
-              (index) => () {
-                setState(() {
-                  isSelected = index;
-                  WatsSelected = [
-                    ConstantNames.all.tr(),
-                    ConstantNames.series.tr(),
-                    ConstantNames.film.tr(),
-                    ConstantNames.favorite.tr(),
-                    ConstantNames.recent.tr(),
-                    ConstantNames.watchLater.tr()
-                  ][index];
-                });
-              },
-            ),
-            width: MediaQuery.of(context).size.width * 0.3,
-            selectedButtonTop: isSelected,
-          ),
+          MyListButtonList(
+            isSelected: isSelected,
+            onButtonPressed: (index, selected) {
+              setState(() {
+                isSelected = index;
+                WatsSelected = selected;
+              });
+            },
+          ), // Button list widget
           Expanded(
-            child: mediaData.isEmpty
-                ? Center(
-                    child: Text(
-                      ConstantNames.noData.tr(),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
-                : ListView.builder(
-                    itemCount: mediaData.length,
-                    itemBuilder: (context, index) {
-                      if (WatsSelected == "All" ||
-                          mediaData[index]["type"] == WatsSelected) {
-                        return CallData(
-                          index: index,
-                        );
-                      }
-                      return SizedBox();
-                    },
-                  ),
+            child: MyListMediaList(WatsSelected: WatsSelected), // Media list widget
           ),
         ],
       ),

@@ -48,7 +48,7 @@ class _imageandbuttonState extends State<imageandbutton> {
             widget.UperrButton.length,
             (index) => () {
               setState(() {
-                widget.UperrButton[index]!();
+                widget.UperrButton[index]();
               });
             },
           ),
